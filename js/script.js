@@ -4,21 +4,34 @@ require([
   "esri/widgets/Print",
   "esri/layers/VectorTileLayer", 
   "esri/layers/FeatureLayer",
+  "esri/layers/TileLayer",
   "esri/widgets/Expand",
   "esri/widgets/Search",
   "esri/widgets/LayerList",
   "esri/tasks/support/PrintTemplate", 
   "dojo/domReady!"
-], function(Map, MapView, Print, VectorTileLayer, FeatureLayer, Expand, Search, LayerList, PrintTemplate) {
+], function(Map, MapView, Print, VectorTileLayer, FeatureLayer, TileLayer, Expand, Search, LayerList, PrintTemplate) {
+
+	//SPM tiles (for testing)
+	var tiled = new TileLayer({
+		url: "http://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Statewide_Planning_Map/MapServer" 
+	});
+
+	var map = new Map({
+		layers: [tiled]
+	});
+	  
 
 	// Vector basemap service
-  	var CountyVectorLayer = new VectorTileLayer({		
-		url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer"
-	}); 
+ //  	var CountyVectorLayer = new VectorTileLayer({	
+ //  		//County map book vector tiles	
+	// 	url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer"		
+ 
+	// }); 
 
-  	var map = new Map({
-  		layers: [CountyVectorLayer]
-  	});
+  	// var map = new Map({
+  	// 	layers: [CountyVectorLayer]
+  	// });
   
 
   	var view = new MapView({
@@ -33,8 +46,7 @@ require([
 
 	view.when(function(){
   		var print = new Print({
-			view: view, 
-			container: "print-container", 			
+			view: view, 						
 			printServiceUrl: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export Web Map Task"
 		});
 
