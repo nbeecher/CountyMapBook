@@ -3,35 +3,26 @@ require([
   "esri/views/MapView",   
   "esri/widgets/Print",
   "esri/layers/VectorTileLayer", 
-  "esri/layers/FeatureLayer",
-  "esri/layers/TileLayer",
+  "esri/layers/FeatureLayer",  
   "esri/widgets/Expand",
   "esri/widgets/Search",
   "esri/widgets/LayerList",
   "esri/tasks/support/PrintTemplate", 
+  "esri/widgets/ScaleBar",  
   "dojo/domReady!"
-], function(Map, MapView, Print, VectorTileLayer, FeatureLayer, TileLayer, Expand, Search, LayerList, PrintTemplate) {
+], function(Map, MapView, Print, VectorTileLayer, FeatureLayer, Expand, Search, LayerList, PrintTemplate, ScaleBar) {
 
-	//SPM tiles (for testing)
-	var tiled = new TileLayer({
-		url: "http://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Statewide_Planning_Map/MapServer" 
-	});
 
-	var map = new Map({
-		layers: [tiled]
-	});
-	  
-
-	// Vector basemap service
- //  	var CountyVectorLayer = new VectorTileLayer({	
- //  		//County map book vector tiles	
-	// 	url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer"		
+	//Vector basemap service
+  	var CountyVectorLayer = new VectorTileLayer({	
+  		//County map book vector tiles	
+		url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer"		
  
-	// }); 
+	}); 
 
-  	// var map = new Map({
-  	// 	layers: [CountyVectorLayer]
-  	// });
+  	var map = new Map({
+  		layers: [CountyVectorLayer]
+  	});
   
 
   	var view = new MapView({
@@ -41,13 +32,13 @@ require([
     	zoom: 5,
     	spatialReference: {wkid:102100}
   	});
-
+	
 
 
 	view.when(function(){
   		var print = new Print({
 			view: view, 						
-			printServiceUrl: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export Web Map Task"
+			printServiceUrl: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
 		});
 
 		var printExpander = new Expand({
@@ -62,41 +53,88 @@ require([
  		console.log("Error displaying print widget");
 	});
 
-	// var lyrlist = new LayerList({
-	// 	view: view
-	// });
+	var lyrlist = new LayerList({
+		view: view
+	});
 
 		
-	// view.ui.add(lyrlist, "top-left");
+	view.ui.add(lyrlist, "top-left");
 
-	var searchW = new Search({
-		view:view,
-		allPlaceholder: "County"
-	});
-			
-	searchW.sources.push({
-		featureLayer: new FeatureLayer({
-			url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Counties_Detailed/FeatureServer/0",
-			outFields: ["*"]
-		}),	            
+
+
+//Search widget allows user to search by district or county
+//when user hits enter the map zooms to user selection
+	var searchWidget = new Search({
+        view: view,
+        allPlaceholder: "District or County",
+        sources: [{
+          featureLayer: new FeatureLayer({
+            url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Districts/FeatureServer/0",         
+          }),
+          	searchFields: ["DIST_NM"],
+            displayField: "DIST_NM",
+            exactMatch: false,
+            autoSelect: true,
+            name: "District",
+            outFields: ["*"],
+            placeholder: "ex. Austin",	            
+            maxResults: 6,
+            maxSuggestions: 6,             
+            enableSuggestions: true,
+            //zoomScale: 500000,
+            minCharacters: 0   
+        }, {
+          featureLayer: new FeatureLayer({
+            url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Counties_Detailed/FeatureServer/0",        
+          }),
             searchFields: ["CNTY_NM"],
             displayField: "CNTY_NM",
             exactMatch: false,
             autoSelect: true,
             name: "County",
             outFields: ["*"],
-            placeholder: "ex Travis",	            
+            placeholder: "ex. Travis",	            
             maxResults: 6,
             maxSuggestions: 6,             
             enableSuggestions: true,
             //zoomScale: 500000,
-            minCharacters: 0
-		});	
+            minCharacters: 0          
+        }]
+  });
 
-	view.ui.add(searchW, "top-right");	
+  searchWidget.startup();
+
+      // Add the search widget to the top left corner of the view
+  view.ui.add(searchWidget, {
+    position: "top-right"
+  });
 
 
+	//renderer/symbol for grid
+	var gridRenderer = {
+		type: "simple",
+		symbol:{
+		type: "simple-fill",
+		color: [0,0,0,0.0], //white and transparant fill
+		//color: "white",
+		outline: {
+			width: 0.5,
+			color: "black"
+			}
+		}
+	};
 
+
+  const grid_72 = new FeatureLayer({
+   	 	url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/POD_GRID72224/FeatureServer",
+    	//legendEnabled: false,    	
+
+    	renderer: gridRenderer
+  });
+
+  grid_72.minScale = 300000;
+  
+  map.add(grid_72);  // adds the layer to the map
 
 
 });
