@@ -9,8 +9,10 @@ require([
   "esri/widgets/LayerList",
   "esri/tasks/support/PrintTemplate", 
   "esri/widgets/ScaleBar",  
+  "esri/widgets/Home", 
   "dojo/domReady!"
-], function(Map, MapView, Print, VectorTileLayer, FeatureLayer, Expand, Search, LayerList, PrintTemplate, ScaleBar) {
+], function(Map, MapView, Print, VectorTileLayer, FeatureLayer, Expand, Search, 
+  LayerList, PrintTemplate, ScaleBar, Home) {
 
 
 	//Vector basemap service
@@ -32,9 +34,18 @@ require([
     	zoom: 5,
     	spatialReference: {wkid:102100}
   	});
-	
+
+    //widget to zoom back to full extent of map
+  var homeWidget = new Home({
+    view: view
+
+  });
+
+  view.ui.add(homeWidget, "top-left");
 
 
+    //Extender for print widget
+    //print widget
 	view.when(function(){
   		var print = new Print({
 			view: view, 						
@@ -53,12 +64,13 @@ require([
  		console.log("Error displaying print widget");
 	});
 
-	var lyrlist = new LayerList({
-		view: view
-	});
+  //Displays layers
+	// var lyrlist = new LayerList({
+	// 	view: view
+	// });
 
 		
-	view.ui.add(lyrlist, "top-left");
+	// view.ui.add(lyrlist, "top-left");
 
 
 
@@ -80,9 +92,14 @@ require([
             placeholder: "ex. Austin",	            
             maxResults: 6,
             maxSuggestions: 6,             
-            enableSuggestions: true,
-            //zoomScale: 500000,
-            minCharacters: 0   
+            enableSuggestions: true,            
+            minCharacters: 0, 
+            popupOpenOnSelect: false,  
+            resultSymbol:{
+              type: "simple-line",
+              color: "yellow",
+              width: "4px",
+            }
         }, {
           featureLayer: new FeatureLayer({
             url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Counties_Detailed/FeatureServer/0",        
@@ -96,9 +113,14 @@ require([
             placeholder: "ex. Travis",	            
             maxResults: 6,
             maxSuggestions: 6,             
-            enableSuggestions: true,
-            //zoomScale: 500000,
-            minCharacters: 0          
+            enableSuggestions: true,            
+            minCharacters: 0,
+            popupOpenOnSelect: false,
+            resultSymbol:{
+              type: "simple-line",
+              color: "yellow",
+              width: "4px",
+            }          
         }]
   });
 
