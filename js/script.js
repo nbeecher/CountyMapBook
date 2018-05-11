@@ -10,15 +10,17 @@ require([
   "esri/tasks/support/PrintTemplate", 
   "esri/widgets/ScaleBar",  
   "esri/widgets/Home", 
+  "esri/widgets/Print/TemplateOptions",
+  "dijit/TitlePane",
   "dojo/domReady!"
 ], function(Map, MapView, Print, VectorTileLayer, FeatureLayer, Expand, Search, 
-  LayerList, PrintTemplate, ScaleBar, Home) {
+  LayerList, PrintTemplate, ScaleBar, Home, TemplateOptions, TitlePane) {
 
 
 	//Vector basemap service
   	var CountyVectorLayer = new VectorTileLayer({	
-  		//County map book vector tiles	
-		url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer"		
+  	url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer",
+    listMode: "hide"		
  
 	}); 
 
@@ -38,10 +40,18 @@ require([
     //widget to zoom back to full extent of map
   var homeWidget = new Home({
     view: view
-
   });
 
   view.ui.add(homeWidget, "top-left");
+
+// 
+  //print template options
+  templateOptions = new TemplateOptions({
+      dpi: "300",
+      format: "pdf",
+      layout: "8.5x11_Landscape_Template"
+
+  });
 
 
     //Extender for print widget
@@ -49,7 +59,8 @@ require([
 	view.when(function(){
   		var print = new Print({
 			view: view, 						
-			printServiceUrl: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
+			printServiceUrl: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+      templateOptions: templateOptions  
 		});
 
 		var printExpander = new Expand({
@@ -70,8 +81,49 @@ require([
 	// });
 
 		
-	// view.ui.add(lyrlist, "top-left");
+	//view.ui.add(lyrlist, "bottom-left");
 
+
+  view.when(function(){
+    var lyrlist = new LayerList({
+    view: view 
+  });
+
+    var lyrExpander = new Expand({
+      view: view,
+      content: lyrlist,
+      expandTooltip: "List of layers",
+      expandIconClass: "esri-icon-layers"
+    });
+  
+    view.ui.add(lyrExpander, "top-left"); 
+  }, function(error){
+    console.log("Error displaying print widget");
+  });
+
+  // view.when(function() {
+  //   var tp = new TitlePane({
+  //   title: "Layers",
+  //   open: false
+  //   });
+  //   tp.startup();
+  //   view.ui.add(tp, "top-left");
+  //   var layerList = new LayerList({
+  //         view: view,
+  //         container: tp.containerNode.id
+  //   });
+  // });
+
+
+  //adds evacuation routes to map
+  const evacRoute = new FeatureLayer({
+        url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Evacuation_Routes/FeatureServer/0",
+        legendEnabled: true,
+        visible: false,
+        title: "Evacuation Routes"
+  });
+
+  map.add(evacRoute);  // adds the layer to the map
 
 
 //Search widget allows user to search by district or county
@@ -149,12 +201,12 @@ require([
 
   const grid_72 = new FeatureLayer({
    	 	url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/POD_GRID72224/FeatureServer",
-    	//legendEnabled: false,    	
+    	title: "Grid",    	
 
     	renderer: gridRenderer
   });
 
-  grid_72.minScale = 300000;
+  grid_72.minScale = 600000;
   
   map.add(grid_72);  // adds the layer to the map
 
