@@ -13,11 +13,11 @@ require([
   "esri/widgets/Print/TemplateOptions",
   "esri/tasks/PrintTask",
   "esri/tasks/support/PrintParameters",
-  "esri/request",   
+  "dijit/TitlePane",
   "dojo/domReady!"
 ], function(Map, MapView, Print, VectorTileLayer, FeatureLayer, Expand, Search, 
-  LayerList, PrintTemplate, ScaleBar, Home, TemplateOptions, PrintTask,
-  PrintParameters, esriRequest) {
+  LayerList, PrintTemplate, ScaleBar, Home, TemplateOptions, TitlePane, PrintTask,
+  PrintParameters) {
 
 
 	//Vector basemap service
@@ -47,52 +47,33 @@ require([
 
   view.ui.add(homeWidget, "top-left");
 
+  // document.getElementById("print").addEventListener("click", printMap);
 
-  //print task! with custom button
-  function printMap(){
-    var pt = new PrintTemplate({        
-      format: "pdf",
-      //legendEnabled: true,
-      layout: "8.5x11_Landscape_Template",
-      layoutOptions: {
-        customTextElements: [{
-          "District Name": "My description",
-          "County Name": "Hello"
-        }]
-      }
+//   function printMap(){
+//     var pt = new PrintTemplate({        
+//       format: "pdf",
+//       //legendEnabled: true,
+//       layout: "8.5x11_Landscape_Template",
+//       layoutOptions: {
+//         customTextElements: [{
+//           "District Name": "My description",
+//           "County Name": "My Location"
+//         }]
+//       }
 
-    });
+//     });
 
-    var params = new PrintParameters({
-      view: view,
-      template: pt
-    });
+//     var printTask = new PrintTask({
+//       url: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
+//     });
 
-    var printTask = new PrintTask({
-      url: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
-      mode: "async"
-    });
+//     var params = new PrintParameters({
+//       view: view,
+//       template: pt
+//     });
 
-    printTask.execute(params).then(printResult, printError);
-
-   //prints result of url
-    function printResult(result){
-        console.log(result.url);
-        window.open(result.url, "_blank");      
-    }
-    function printError(result){
-        console.log(result);
-    }
-};
-
-  document.getElementById("print").addEventListener("click", printMap);
-
-  var pe = new Expand({
-      view: view,
-      content: "Hi, I can have"
-  });
-
-  view.ui.add(pe, "bottom-left"); 
+//    printTask.execute(params).then(printResult, printError);
+// };
  
   //print template options
   var templateOptions = new TemplateOptions({

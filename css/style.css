@@ -5,3 +5,20 @@ html, body, #viewDiv {
 	width: 100%;
 }
 
+#print{
+  	height: 30px;
+  	width: 50px;
+  	position: absolute;
+  	top: 240px;
+  	left: 20px;
+  	z-index: 50;
+  	padding: 5px 6px 5px 6px;
+  	background-color: #f9f8f8;
+  	/*border-radius: 5px;*/
+
+}
+
+.button:hover {
+  background-color:#f0f0f0
+}
+
