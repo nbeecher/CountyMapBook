@@ -23,12 +23,11 @@ require([
 	//Vector basemap service
   	var CountyVectorLayer = new VectorTileLayer({	
   	url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer",
-    listMode: "hide"		
- 
+    listMode: "hide"	 
 	}); 
 
   	var map = new Map({
-  		layers: [CountyVectorLayer]
+  		layers: [CountyVectorLayer]   
   	});
   
 
@@ -85,14 +84,9 @@ require([
     }
 };
 
+  //print task is exectued by print button
   document.getElementById("print").addEventListener("click", printMap);
 
-  var pe = new Expand({
-      view: view,
-      content: "Hi, I can have"
-  });
-
-  view.ui.add(pe, "bottom-left"); 
  
   //print template options
   var templateOptions = new TemplateOptions({
@@ -101,30 +95,6 @@ require([
       legendEnabled: true,
       layout: "8.5x11_Landscape_Template"
   });
-
-  //Extender for print widget
-  //print widget
-	view.when(function(){
-  	var print = new Print({
-			view: view, 	     				
-			printServiceUrl: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
-      templateOptions: templateOptions
-
-		});
-
-		var printExpander = new Expand({
-			view: view,
-			content: print,
-			expandIconClass: "esri-icon-printer"
-		});
-	
-		view.ui.add(printExpander, "top-right"); 
-
-	}, function(error){
- 		console.log("Error displaying print widget");
-	});
-
-
 
 
   //Extender for layer list widget
