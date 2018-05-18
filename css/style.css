@@ -6,12 +6,12 @@ html, body, #viewDiv {
 }
 
 #print{
-    display: block !important; 
+    border-radius: 0 !important;
   	height: 30px;
   	width: 33px;
   	position: absolute;
-  	top: 240px;
-  	left: 20px;
+  	top: 70px;
+  	right: 15px;
   	z-index: 50;
   	padding: 5px 6px 5px 6px; 
     border: 1px solid transparent;
@@ -20,7 +20,8 @@ html, body, #viewDiv {
 }
 
 #print:hover{
-  background-color: #F5F5F5;    
+  background-color: #F5F5F5;  
+  border-radius: 0 !important;  
 }
 
 #print:hover .esri-icon-printer {
@@ -29,10 +30,36 @@ html, body, #viewDiv {
 
 .esri-icon-printer{
   color: #808080;
+ }
+
+#extent{
+    border-radius: 0 !important; 
+    height: 30px;
+    width: 33px;
+    position: absolute;
+    top: 80px;
+    left: 15px;
+    z-index: 50;
+    padding: 5px 6px 5px 6px; 
+    border: 1px solid transparent;    
+    background-image: url("https://maps.dot.state.tx.us/Images/TexasIcon.png") !important;
+    background-size: 24px 24px;   
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #808080;
+    box-shadow: 0.5px 0.5px 8px #888888; 
 }
 
-.esri-icon-home{
-  background-image: url("https://maps.dot.state.tx.us/Images/TexasIcon.png") !important;
+#extent:hover{
+  background-color: #C0C0C0;
+  border-radius: 0 !important;
 }
+
+#expandDiv{
+  position: absolute;
+  top: 112px;
+  left: 0px;
+}
+
 
 
