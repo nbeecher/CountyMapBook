@@ -1,6 +1,7 @@
 require([
   "esri/Map",
-  "esri/views/MapView",   
+  "esri/views/MapView",  
+  "esri/views/ui/DefaultUI", 
   "esri/widgets/Print",
   "esri/layers/VectorTileLayer", 
   "esri/layers/FeatureLayer",  
@@ -14,10 +15,11 @@ require([
   "esri/tasks/PrintTask",
   "esri/tasks/support/PrintParameters",
   "esri/request",   
+  "esri/geometry/Extent",
   "dojo/domReady!"
-], function(Map, MapView, Print, VectorTileLayer, FeatureLayer, Expand, Search, 
+], function(Map, MapView, DefaultUI, Print, VectorTileLayer, FeatureLayer, Expand, Search, 
   LayerList, PrintTemplate, ScaleBar, Home, TemplateOptions, PrintTask,
-  PrintParameters, esriRequest) {
+  PrintParameters, esriRequest, Extent) {
 
 
 	//Vector basemap service
@@ -39,25 +41,18 @@ require([
     	spatialReference: {wkid:102100}
   	});
 
-  //widget to zoom back to full extent of map
-  var homeWidget = new Home({
-    view: view
-  });
-
-  view.ui.add(homeWidget, "top-left");
-
-
-  //print task! with custom button
+   //print task! with custom button
   function printMap(){
+   
     var pt = new PrintTemplate({        
       format: "pdf",
       //legendEnabled: true,
       layout: "8.5x11_Landscape_Template",
       layoutOptions: {
-        customTextElements: [{
-          "District Name": "My description",
-          "County Name": "Hello"
-        }]
+        customTextElements: [
+        {"District Name": "My description" + " District"},
+        {"County Name": "Hello" + " County"}
+        ]
       }
 
     });
@@ -69,12 +64,14 @@ require([
 
     var printTask = new PrintTask({
       url: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
-      mode: "async"
+      mode: "sync"
     });
+
+    console.log(pt.layoutOptions);
 
     printTask.execute(params).then(printResult, printError);
 
-   //prints result of url
+   //opens new website window with map export
     function printResult(result){
         console.log(result.url);
         window.open(result.url, "_blank");      
@@ -82,19 +79,22 @@ require([
     function printError(result){
         console.log(result);
     }
+    
 };
 
   //print task is exectued by print button
   document.getElementById("print").addEventListener("click", printMap);
 
+  //sets view back to orginal extent (whole state of TX)
+  function getExtent(){
+    view.center = [-99.341389, 31.132222];
+    view.zoom = 5;
+    view.spatialReference = {wkid:102100};    
+  };
+
+  //get exten function is execute through extent button
+  document.getElementById("extent").addEventListener("click", getExtent);
  
-  //print template options
-  var templateOptions = new TemplateOptions({
-      dpi: "300",
-      format: "pdf",
-      legendEnabled: true,
-      layout: "8.5x11_Landscape_Template"
-  });
 
 
   //Extender for layer list widget
@@ -107,29 +107,15 @@ require([
     var lyrExpander = new Expand({
       view: view,
       content: lyrlist,
+      container: "expandDiv",
       expandTooltip: "List of layers",
       expandIconClass: "esri-icon-layers"
     });
   
-    view.ui.add(lyrExpander, "top-left"); 
-  }, function(error){
-    console.log("Error displaying print widget");
+    view.ui.add(lyrExpander, "top-left");
   });
 
-  // view.when(function() {
-  //   var tp = new TitlePane({
-  //   title: "Layers",
-  //   open: false
-  //   });
-  //   tp.startup();
-  //   view.ui.add(tp, "top-left");
-  //   var layerList = new LayerList({
-  //         view: view,
-  //         container: tp.containerNode.id
-  //   });
-  // });
-
-
+ 
   //adds evacuation routes to map
   const evacRoute = new FeatureLayer({
         url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Evacuation_Routes/FeatureServer/0",
