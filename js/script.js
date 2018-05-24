@@ -16,10 +16,12 @@ require([
   "esri/tasks/support/PrintParameters",
   "esri/request",   
   "esri/geometry/Extent",
+  "esri/Basemap",
+  "esri/widgets/BasemapToggle",
   "dojo/domReady!"
 ], function(Map, MapView, DefaultUI, Print, VectorTileLayer, FeatureLayer, Expand, Search, 
   LayerList, PrintTemplate, ScaleBar, Home, TemplateOptions, PrintTask,
-  PrintParameters, esriRequest, Extent) {
+  PrintParameters, esriRequest, Extent, Basemap, BasemapToggle) {
 
 
 	//Vector basemap service
@@ -28,8 +30,14 @@ require([
     listMode: "hide"	 
 	}); 
 
+    var myBasemap = new Basemap({  
+      baseLayers: CountyVectorLayer,  
+      thumbnailUrl: "/images/thumbnail.jpg"  
+    });  
+
   	var map = new Map({
-  		layers: [CountyVectorLayer]   
+  		//layers: [CountyVectorLayer] 
+      basemap: myBasemap  
   	});
   
 
@@ -202,7 +210,8 @@ require([
 
   const grid_72 = new FeatureLayer({
    	 	url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/POD_GRID72224/FeatureServer",
-    	title: "Grid",    	
+    	title: "Grid", 
+      visible: false,   	
 
     	renderer: gridRenderer
   });
@@ -210,6 +219,14 @@ require([
   grid_72.minScale = 600000;
   
   map.add(grid_72);  // adds the layer to the map
+
+  var toggle = new BasemapToggle({    
+    view: view, 
+    nextBasemap: "satellite" // allows for toggling to the 'satellite' basemap
+  });
+
+  // Add widget to the top right corner of the view
+  view.ui.add(toggle, "bottom-left");
 
 
 });

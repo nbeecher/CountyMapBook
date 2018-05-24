@@ -5,12 +5,32 @@ html, body, #viewDiv {
 	width: 100%;
 }
 
+#header-row{
+  background-color: #00008B;
+  background-size: auto; 
+  display: flex; 
+  background-image: url("https://www.txdot.gov/etc/designs/txdot/images/header_bg.jpg");
+  height: 75px;
+  width: 100%;  
+}
+
+#row{
+  background-image: url("https://www.txdot.gov/etc/designs/txdot/_jcr_content/global/header/logo.img.png/1496950554064.png"); 
+  overflow: hidden;
+  display: flex;   
+  padding: 0px;
+  height: 100px; 
+  background-repeat: no-repeat;  
+  background-size: auto; 
+     
+}
+
 #print{
     border-radius: 0 !important;
   	height: 30px;
   	width: 33px;
   	position: absolute;
-  	top: 70px;
+  	top: 135px;
   	right: 15px;
   	z-index: 50;
   	padding: 5px 6px 5px 6px; 
@@ -37,7 +57,7 @@ html, body, #viewDiv {
     height: 30px;
     width: 33px;
     position: absolute;
-    top: 80px;
+    top: 155px;
     left: 15px;
     z-index: 50;
     padding: 5px 6px 5px 6px; 
@@ -46,12 +66,14 @@ html, body, #viewDiv {
     background-size: 24px 24px;   
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #808080;
+    /*background-color: #808080;  dark grey*/    
+    background-color: #05407b;
     box-shadow: 0.5px 0.5px 8px #888888; 
 }
 
-#extent:hover{
-  background-color: #C0C0C0;
+#extent:hover{  
+  /*background-color: #C0C0C0;  light grey*/
+  background-color: #375c82;
   border-radius: 0 !important;
 }
 
