@@ -83,5 +83,11 @@ html, body, #viewDiv {
   left: 0px;
 }
 
+#loader{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
 
 

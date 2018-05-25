@@ -18,11 +18,14 @@ require([
   "esri/geometry/Extent",
   "esri/Basemap",
   "esri/widgets/BasemapToggle",
+  "esri/tasks/QueryTask",
+  "esri/tasks/support/Query",
   "dojo/domReady!"
 ], function(Map, MapView, DefaultUI, Print, VectorTileLayer, FeatureLayer, Expand, Search, 
   LayerList, PrintTemplate, ScaleBar, Home, TemplateOptions, PrintTask,
-  PrintParameters, esriRequest, Extent, Basemap, BasemapToggle) {
+  PrintParameters, esriRequest, Extent, Basemap, BasemapToggle, QueryTask, Query) {
 
+  $('#loader').hide();
 
 	//Vector basemap service
   	var CountyVectorLayer = new VectorTileLayer({	
@@ -49,45 +52,110 @@ require([
     	spatialReference: {wkid:102100}
   	});
 
+  //global varibale to update district name and county name custom text
+  DistName = "";
+  CountName = "";
+
    //print task! with custom button
-  function printMap(){
-   
-    var pt = new PrintTemplate({        
-      format: "pdf",
-      //legendEnabled: true,
-      layout: "8.5x11_Landscape_Template",
-      layoutOptions: {
-        customTextElements: [
-        {"District Name": "My description" + " District"},
-        {"County Name": "Hello" + " County"}
-        ]
+  function printMap(){   
+    $('#loader').show();
+
+    //get extent of map on the screen at time of print map click
+    var extentOfPrint = view.extent;
+    console.log(extentOfPrint);
+        
+    //call query function
+    qT();
+
+    //pause while the query function finishes then call print function
+    setTimeout(pT, 1000);
+
+
+    function qT(){ 
+
+      //query to find county within print view
+      //update with new grid with counties
+      var queryCountyTask = new QueryTask({
+          url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Counties_Detailed/FeatureServer/0",
+      });
+
+      //update with new grid with counties
+      var queryCounty = new Query({        
+        geometry: extentOfPrint,
+        outFields: ["CNTY_NM"]
+      }); 
+
+      var queryDistrictTask = new QueryTask({
+          url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/ArcGIS/rest/services/POD_Grid72224/FeatureServer/0",
+      });
+
+      var queryDistrict = new Query({
+        geometry: extentOfPrint,
+        outFields: ["DISTRICTS"]
+      });
+      
+
+      queryDistrictTask.execute(queryDistrict).then(result);
+      queryCountyTask.execute(queryCounty).then(resultC);
+
+      function result(r){
+       
+        DistName = r.features[0].attributes.DISTRICTS + " Districts";
+        console.log(DistName);
+        console.log(r.features[0].attributes);
+      };   
+
+      function resultC(r){
+        //update with counties from new grid
+        CountName = r.features[0].attributes.CNTY_NM + " Counties";
+        console.log(CountName);
+        console.log(r.features[0].attributes);
+      };       
+
+    };
+  
+
+    function pT(){
+      var pt = new PrintTemplate({        
+        format: "pdf",
+        //legendEnabled: true,
+        layout: "8.5x11_Landscape_Template",
+        layoutOptions: {
+          customTextElements: [
+          {"District Name": DistName},
+          {"County Name": CountName}
+          ]
+        }
+
+      });
+
+      var params = new PrintParameters({
+        view: view,
+        template: pt
+      });
+
+      var printTask = new PrintTask({
+        url: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+        mode: "sync"
+      });
+
+      console.log(pt.layoutOptions);
+
+      printTask.execute(params).then(printResult, printError);
+
+     //opens new website window with map export
+      function printResult(result){
+          console.log(result.url);
+          window.open(result.url, "_blank"); 
+          $('#loader').hide();     
+      }
+      function printError(result){
+          console.log(result);
       }
 
-    });
+    };
 
-    var params = new PrintParameters({
-      view: view,
-      template: pt
-    });
-
-    var printTask = new PrintTask({
-      url: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
-      mode: "sync"
-    });
-
-    console.log(pt.layoutOptions);
-
-    printTask.execute(params).then(printResult, printError);
-
-   //opens new website window with map export
-    function printResult(result){
-        console.log(result.url);
-        window.open(result.url, "_blank");      
-    }
-    function printError(result){
-        console.log(result);
-    }
-    
+       
 };
 
   //print task is exectued by print button
