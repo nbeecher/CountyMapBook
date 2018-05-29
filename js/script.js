@@ -20,10 +20,11 @@ require([
   "esri/widgets/BasemapToggle",
   "esri/tasks/QueryTask",
   "esri/tasks/support/Query",
+  "esri/tasks/support/FeatureSet",
   "dojo/domReady!"
 ], function(Map, MapView, DefaultUI, Print, VectorTileLayer, FeatureLayer, Expand, Search, 
   LayerList, PrintTemplate, ScaleBar, Home, TemplateOptions, PrintTask,
-  PrintParameters, esriRequest, Extent, Basemap, BasemapToggle, QueryTask, Query) {
+  PrintParameters, esriRequest, Extent, Basemap, BasemapToggle, QueryTask, Query, FeatureSet) {
 
   $('#loader').hide();
 
@@ -53,8 +54,9 @@ require([
   	});
 
   //global varibale to update district name and county name custom text
-  DistName = "";
+  DistName = [];
   CountName = "";
+  dName = "";
 
    //print task! with custom button
   function printMap(){   
@@ -62,67 +64,90 @@ require([
 
     //get extent of map on the screen at time of print map click
     var extentOfPrint = view.extent;
-    console.log(extentOfPrint);
+   
         
     //call query function
     qT();
 
-    //pause while the query function finishes then call print function
-    setTimeout(pT, 1000);
+    //query grid to find counties and districs the extent falls in
+    // function qT(){ 
 
+    //   var queryCustomTextTask = new QueryTask({
+    //       url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/ArcGIS/rest/services/POD_GRID/FeatureServer/0"
+    //   });
+
+    //   var queryCustomText = new Query({
+    //     geometry: extentOfPrint,
+    //     outFields: ["DISTRICT_NAME", "COUNTY_NAME"]
+    //   });      
+
+
+    //   queryCustomTextTask.execute(queryCustomText).then(result);      
+
+    //   function result(r){
+       
+    //     DistName = r.features[0].attributes.DISTRICT_NAME + " Districts";
+    //     CountName = r.features[1].attributes.COUNTY_NAME + " Counties";
+    //     console.log(DistName);
+    //     console.log(CountName);
+    //     console.log(r.features[0].attributes.DISTRICT_NAME);
+    //     console.log(r.features[1].attributes.COUNTY_NAME);
+    //     pT();
+    //   };          
+
+    // };
 
     function qT(){ 
 
-      //query to find county within print view
-      //update with new grid with counties
-      var queryCountyTask = new QueryTask({
-          url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Counties_Detailed/FeatureServer/0",
+      var queryCustomTextTask = new QueryTask({
+          url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Districts/FeatureServer/0"
       });
 
-      //update with new grid with counties
-      var queryCounty = new Query({        
+      var queryCustomText = new Query({
         geometry: extentOfPrint,
-        outFields: ["CNTY_NM"]
-      }); 
+        spatialRelationship: "intersects",
+        orderByFields: "DIST_NM ASC",        
+        outFields: ["DIST_NM"]
+      });      
 
-      var queryDistrictTask = new QueryTask({
-          url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/ArcGIS/rest/services/POD_Grid72224/FeatureServer/0",
-      });
 
-      var queryDistrict = new Query({
-        geometry: extentOfPrint,
-        outFields: ["DISTRICTS"]
-      });
-      
-
-      queryDistrictTask.execute(queryDistrict).then(result);
-      queryCountyTask.execute(queryCounty).then(resultC);
+      queryCustomTextTask.execute(queryCustomText).then(result);      
 
       function result(r){
        
-        DistName = r.features[0].attributes.DISTRICTS + " Districts";
-        console.log(DistName);
-        console.log(r.features[0].attributes);
-      };   
+        //DistName = r.features[0].attributes.DIST_NM + " Districts";
 
-      function resultC(r){
-        //update with counties from new grid
-        CountName = r.features[0].attributes.CNTY_NM + " Counties";
-        console.log(CountName);
-        console.log(r.features[0].attributes);
-      };       
+        for (var i=0; i < r.features.length; i++){
+          console.log(r.features[i].attributes.DIST_NM);
+          var dist = r.features[i].attributes.DIST_NM;
+          DistName.push(dist);
+        }
+
+
+        //CountName = r.features[1].attributes.COUNTY_NAME + " Counties";
+        console.log(DistName);
+        //console.log(CountName);
+        console.log(r.features[0].attributes.DIST_NM);
+        //console.log(r.features[1].attributes.COUNTY_NAME);
+
+        //dName = DistName.toString();
+        dName = DistName.join(', ') + " Districts";
+
+        pT();
+      };          
 
     };
   
 
     function pT(){
+
       var pt = new PrintTemplate({        
         format: "pdf",
         //legendEnabled: true,
         layout: "8.5x11_Landscape_Template",
         layoutOptions: {
           customTextElements: [
-          {"District Name": DistName},
+          {"District Name": dName},
           {"County Name": CountName}
           ]
         }
@@ -136,7 +161,7 @@ require([
 
       var printTask = new PrintTask({
         url: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
-        mode: "sync"
+        mode: "async"
       });
 
       console.log(pt.layoutOptions);
@@ -154,22 +179,23 @@ require([
       }
 
     };
-
-       
+      
+    DistName = [];
+    dName = "";
 };
 
   //print task is exectued by print button
   document.getElementById("print").addEventListener("click", printMap);
 
   //sets view back to orginal extent (whole state of TX)
-  function getExtent(){
+  function homeExtent(){
     view.center = [-99.341389, 31.132222];
     view.zoom = 5;
     view.spatialReference = {wkid:102100};    
   };
 
   //get exten function is execute through extent button
-  document.getElementById("extent").addEventListener("click", getExtent);
+  document.getElementById("extent").addEventListener("click", homeExtent);
  
 
 
