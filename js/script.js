@@ -49,8 +49,12 @@ require([
     	container: "viewDiv",  // Reference to the DOM node that will contain the view
     	map: map,               // References the map object created in step 3
     	center: [-99.341389, 31.132222],
-    	zoom: 5,
-    	spatialReference: {wkid:102100}
+    	zoom: 5,      
+    	spatialReference: {wkid:102100},
+      constraints: {
+        minZoom: 5,        
+        rotationEnabled: false
+      }
   	});
 
   //global varibales to update district name and county name custom text
@@ -101,8 +105,15 @@ require([
         console.log(CountName);        
 
         //This saves the array of county names into a string
-        //this will be used in the custom text section below               
-        cName = CountName.join(', ') + " Counties";
+        //this will be used in the custom text section below  
+        if(CountName.length > 4){
+          cName = "Multiple Counties";
+        }
+        else if (CountName.length == 1){
+          cName = CountName + " County";
+        }else{
+          cName = CountName.join(', ') + " Counties";
+        } 
 
         //after the countyQuery finishes then the district query is called
         districtQuery();
@@ -141,7 +152,14 @@ require([
 
         //This saves the array of district names into a string
         //this will be used in the custom text section below  
-        dName = DistName.join(', ') + " Districts";
+        if(DistName.length > 4){
+          dName = "Multiple Districts";
+        }
+        else if (DistName.length == 1){
+          dName = DistName + " District";
+        }else{
+          dName = DistName.join(', ') + " Districts";
+        }     
 
         //after the districtQuery finishes then the print task is called
         pT();
