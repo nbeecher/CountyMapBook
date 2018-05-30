@@ -53,86 +53,97 @@ require([
     	spatialReference: {wkid:102100}
   	});
 
-  //global varibale to update district name and county name custom text
+  //global varibales to update district name and county name custom text
   DistName = [];
-  CountName = "";
+  CountName = [];
   dName = "";
+  cName = "";
 
    //print task! with custom button
-  function printMap(){   
+  function printMap(){  
+    //the load spinner with show while this function is running 
     $('#loader').show();
 
-    //get extent of map on the screen at time of print map click
-    var extentOfPrint = view.extent;
-   
+    //get extent of the map on the view
+    var extentOfPrint = view.extent;  
         
-    //call query function
-    qT();
+    //call the query to get the county names in the extent    
+    countyQuery();
 
-    //query grid to find counties and districs the extent falls in
-    // function qT(){ 
+    //the function for getting the county names in the extent
+    function countyQuery(){
 
-    //   var queryCustomTextTask = new QueryTask({
-    //       url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/ArcGIS/rest/services/POD_GRID/FeatureServer/0"
-    //   });
+      var queryCountyTextTask = new QueryTask({
+          url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Counties_Detailed/FeatureServer/0"
+      });
 
-    //   var queryCustomText = new Query({
-    //     geometry: extentOfPrint,
-    //     outFields: ["DISTRICT_NAME", "COUNTY_NAME"]
-    //   });      
+      var queryCountyText = new Query({
+        geometry: extentOfPrint,
+        spatialRelationship: "intersects",
+        orderByFields: "CNTY_NM ASC",        
+        outFields: ["CNTY_NM"]
+      });      
 
+      //execute query THEN get the result and save the information to the global variables
+      queryCountyTextTask.execute(queryCountyText).then(countyResult);      
 
-    //   queryCustomTextTask.execute(queryCustomText).then(result);      
-
-    //   function result(r){
+      //result function
+      function countyResult(r){       
        
-    //     DistName = r.features[0].attributes.DISTRICT_NAME + " Districts";
-    //     CountName = r.features[1].attributes.COUNTY_NAME + " Counties";
-    //     console.log(DistName);
-    //     console.log(CountName);
-    //     console.log(r.features[0].attributes.DISTRICT_NAME);
-    //     console.log(r.features[1].attributes.COUNTY_NAME);
-    //     pT();
-    //   };          
+        //This loop will get all the county names in the extent
+        //and save them in an array (global variable)
+        for (var i=0; i < r.features.length; i++){
+          console.log(r.features[i].attributes.CNTY_NM);
+          var cnty = r.features[i].attributes.CNTY_NM;
+          CountName.push(cnty);
+        }
+        
+        console.log(CountName);        
 
-    // };
+        //This saves the array of county names into a string
+        //this will be used in the custom text section below               
+        cName = CountName.join(', ') + " Counties";
 
-    function qT(){ 
+        //after the countyQuery finishes then the district query is called
+        districtQuery();
+      };  
 
-      var queryCustomTextTask = new QueryTask({
+    };
+
+    //the function for getting the district names in the extent
+    function districtQuery(){  
+
+      var queryDistrictTextTask = new QueryTask({
           url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Districts/FeatureServer/0"
       });
 
-      var queryCustomText = new Query({
+      var queryDistrictText = new Query({
         geometry: extentOfPrint,
         spatialRelationship: "intersects",
         orderByFields: "DIST_NM ASC",        
         outFields: ["DIST_NM"]
       });      
 
+      //execute query THEN get the result and save the information to the global variables
+      queryDistrictTextTask.execute(queryDistrictText).then(result);      
 
-      queryCustomTextTask.execute(queryCustomText).then(result);      
-
-      function result(r){
-       
-        //DistName = r.features[0].attributes.DIST_NM + " Districts";
-
+      function result(r){       
+        
+        //This loop will get all the district names in the extent
+        //and save them in an array (global variable)
         for (var i=0; i < r.features.length; i++){
           console.log(r.features[i].attributes.DIST_NM);
           var dist = r.features[i].attributes.DIST_NM;
           DistName.push(dist);
         }
 
+        console.log(DistName);        
 
-        //CountName = r.features[1].attributes.COUNTY_NAME + " Counties";
-        console.log(DistName);
-        //console.log(CountName);
-        console.log(r.features[0].attributes.DIST_NM);
-        //console.log(r.features[1].attributes.COUNTY_NAME);
-
-        //dName = DistName.toString();
+        //This saves the array of district names into a string
+        //this will be used in the custom text section below  
         dName = DistName.join(', ') + " Districts";
 
+        //after the districtQuery finishes then the print task is called
         pT();
       };          
 
@@ -147,8 +158,8 @@ require([
         layout: "8.5x11_Landscape_Template",
         layoutOptions: {
           customTextElements: [
-          {"District Name": dName},
-          {"County Name": CountName}
+          {"District Name": dName}, //from the districtQuery above
+          {"County Name": cName}    //from the countyQuery above
           ]
         }
 
@@ -166,9 +177,11 @@ require([
 
       console.log(pt.layoutOptions);
 
+      //execute query THEN get the result or error
       printTask.execute(params).then(printResult, printError);
 
      //opens new website window with map export
+     //loaded is stopped and hidden from the view
       function printResult(result){
           console.log(result.url);
           window.open(result.url, "_blank"); 
@@ -179,9 +192,12 @@ require([
       }
 
     };
-      
+     
+    //resets arrays and strings for next print  
     DistName = [];
     dName = "";
+    CountName = [];
+    cName = "";
 };
 
   //print task is exectued by print button
