@@ -1,28 +1,171 @@
-html, body, #viewDiv {
-	padding: 0;
+/*html, body, */
+
+#viewDiv {
+/*	padding: 0;
 	margin: 0;
 	height: 100%;
-	width: 100%;
+	width: 100%;*/
+/*  border: 2px solid;
+  border-radius: 5px;
+  border-color: #00008B; */  
+  height:100%;
+  position: absolute;
+  left: 255px;
+  bottom: 2px;
+  right: 2px;
+  top: 2px;
+  overflow: hidden;
 }
 
-#header-row{
-  background-color: #00008B;
-  background-size: auto; 
-  display: flex; 
-  background-image: url("https://www.txdot.gov/etc/designs/txdot/images/header_bg.jpg");
-  height: 75px;
+.esri-zoom .esri-widget-button {
+  background-color: #143c5c !important;
+  color: white !important;  
+}
+
+.esri-zoom .esri-widget-button:last-child{
+    border-top: solid 1px white !important;
+  }
+
+.esri-zoom .esri-widget-button:hover {
+  background-color: #375c82 !important;
+}
+
+.esri-search{
+  /*border: solid 1px black !important;*/
+  background-color: #F0F0F0 !important;
+}
+
+
+#toc{
+    border: 2px solid;
+    /*border-radius: 5px;*/
+    border-color: white;
+    width:250px;
+    position: absolute;
+    left: 2px;
+    top: 2px; 
+    bottom: 2px;
+    overflow: auto;
+    background-color: white;
+}
+
+#logo{
+  background-color: #143c5c;    
+  width: 246px;  
+  border-bottom: 2px solid;  
+  border-color: white;  
+  /*border-radius: 5px;*/
+}
+
+#logo img{
+  width: 100%;
+  height: auto;
+}
+
+#logo h5{
+  text-align: center;
+  color: white;
+}
+
+#search{
+  width: 246px;
+  border-bottom: 2px solid white !important;  
+}
+
+#overlays{
+  width: 246px;
+}
+
+#tocData{  
+  text-align: center;
   width: 100%;  
 }
 
-#row{
-  background-image: url("https://www.txdot.gov/etc/designs/txdot/_jcr_content/global/header/logo.img.png/1496950554064.png"); 
-  overflow: hidden;
-  display: flex;   
-  padding: 0px;
-  height: 100px; 
-  background-repeat: no-repeat;  
-  background-size: auto; 
-     
+#tocData th{
+  background-color: #143c5c;
+  color: #FFFFFF;
+  cursor: default;
+  font-size: 15px;
+  /*border-radius: 5px;*/
+  width: 100%;  
+/*  left: 2px;
+  top: 2px; */
+  bottom: 2px;
+  border-bottom: 2px solid;
+  border-color: white;
+}
+
+#tocData td{
+  text-align: left;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 2px solid; 
+  border-color: white;  
+ }
+
+#tocData tr:nth-child(odd) {
+  color: #000000;
+  background-color: #F0F0F0;
+}
+
+#legend{
+  width: 246px;
+  border-top: 2px solid;  
+  border-color: white;
+}
+
+#tocLegend{
+  width: 246px;
+  text-align: center;
+}
+
+#tocLegend th{
+  background-color: #143c5c;
+  color: #FFFFFF;
+  cursor: default;
+  font-size: 15px;
+  /*border-radius: 5px;*/
+  width: 100%;  
+  left: 2px;
+  top: 2px; 
+  bottom: 2px;
+  border-bottom: 2px solid;
+  border-color: white; 
+
+}
+
+#Evacuation_Route:hover{
+  background-color: #FAFAD2;
+} 
+
+#FC_System:hover{
+  background-color: #FAFAD2;
+} 
+
+#Low_Water:hover{
+  background-color: #FAFAD2;
+} 
+
+#Construction:hover{
+  background-color: #FAFAD2;
+} 
+
+/*Removes headings from feature layers*/
+.esri-legend__layer-caption{
+  display: none !important;
+}
+
+#clear{
+  font-size: 13px;
+  color: white;
+  width: 100%;
+  cursor: pointer; 
+  background-color: red;
+  border: 1px dotted black; 
+}
+
+#clear:hover{
+  background-color: #e60000;
 }
 
 #print{
@@ -30,10 +173,37 @@ html, body, #viewDiv {
   	height: 30px;
   	width: 33px;
   	position: absolute;
-  	top: 135px;
-  	right: 15px;
+    top: 127px;
+    left: 15px;
   	z-index: 50;
   	padding: 5px 6px 5px 6px; 
+    border: 1px solid transparent;
+    background-color: #143c5c;    
+    box-shadow: 0.5px 0.5px 8px #888888;    
+}
+
+#print:hover{
+  background-color: #375c82;  
+  border-radius: 0 !important;  
+}
+
+#print:hover .esri-icon-printer {
+   color: white !important;
+}
+
+.esri-icon-printer{
+  color: white;
+ }
+
+/* #print{
+    border-radius: 0 !important;
+    height: 30px;
+    width: 33px;
+    position: absolute;
+    top: 127px;
+    left: 15px;
+    z-index: 50;
+    padding: 5px 6px 5px 6px; 
     border: 1px solid transparent;
     background-color: white;    
     box-shadow: 0.5px 0.5px 8px #888888;      
@@ -50,14 +220,14 @@ html, body, #viewDiv {
 
 .esri-icon-printer{
   color: #808080;
- }
+ }*/
 
 #extent{
     border-radius: 0 !important; 
     height: 30px;
     width: 33px;
     position: absolute;
-    top: 155px;
+    top: 80px;
     left: 15px;
     z-index: 50;
     padding: 5px 6px 5px 6px; 
@@ -65,9 +235,8 @@ html, body, #viewDiv {
     background-image: url("https://maps.dot.state.tx.us/Images/TexasIcon.png") !important;
     background-size: 24px 24px;   
     background-repeat: no-repeat;
-    background-position: center;
-    /*background-color: #808080;  dark grey*/    
-    background-color: #05407b;
+    background-position: center;       
+    background-color: #143c5c;
     box-shadow: 0.5px 0.5px 8px #888888; 
 }
 
@@ -86,7 +255,7 @@ html, body, #viewDiv {
 #loader{
   position: fixed;
   top: 50%;
-  left: 50%;
+  left: 55%;
 }
 
 

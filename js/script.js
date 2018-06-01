@@ -21,10 +21,13 @@ require([
   "esri/tasks/QueryTask",
   "esri/tasks/support/Query",
   "esri/tasks/support/FeatureSet",
+  "esri/widgets/Legend",
+  "esri/core/watchUtils",
   "dojo/domReady!"
 ], function(Map, MapView, DefaultUI, Print, VectorTileLayer, FeatureLayer, Expand, Search, 
   LayerList, PrintTemplate, ScaleBar, Home, TemplateOptions, PrintTask,
-  PrintParameters, esriRequest, Extent, Basemap, BasemapToggle, QueryTask, Query, FeatureSet) {
+  PrintParameters, esriRequest, Extent, Basemap, BasemapToggle, QueryTask, Query, FeatureSet, 
+  Legend, watchUtils) {
 
   $('#loader').hide();
 
@@ -229,29 +232,9 @@ require([
   };
 
   //get exten function is execute through extent button
-  document.getElementById("extent").addEventListener("click", homeExtent);
- 
+  document.getElementById("extent").addEventListener("click", homeExtent); 
 
 
-  //Extender for layer list widget
-  //layer list widget
-  view.when(function(){
-    var lyrlist = new LayerList({
-    view: view 
-  });
-
-    var lyrExpander = new Expand({
-      view: view,
-      content: lyrlist,
-      container: "expandDiv",
-      expandTooltip: "List of layers",
-      expandIconClass: "esri-icon-layers"
-    });
-  
-    view.ui.add(lyrExpander, "top-left");
-  });
-
- 
   //adds evacuation routes to map
   const evacRoute = new FeatureLayer({
         url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Evacuation_Routes/FeatureServer/0",
@@ -263,11 +246,129 @@ require([
   map.add(evacRoute);  // adds the layer to the map
 
 
+  function evacRouteDisplay(){
+    var object = document.getElementById("Evacuation_Route");
+    if(evacRoute.visible == false){
+      evacRoute.visible = true;
+      object.style.color="red";
+    }else{
+      evacRoute.visible = false;
+      object.style.color="black";
+    }
+
+ };
+
+  document.getElementById("Evacuation_Route").addEventListener("click", evacRouteDisplay);
+
+  const functionClass = new FeatureLayer({
+    url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Functional_Classification/FeatureServer/0",
+    legendEnabled: true,
+    visible: false,
+    title: "Functional Classification"
+  });
+  
+  map.add(functionClass);
+
+  function functionalSysDisplay(){
+    var object = document.getElementById("FC_System");
+    if(functionClass.visible == false){
+      functionClass.visible = true;
+      object.style.color="red";
+    }else{
+      functionClass.visible = false;
+      object.style.color="black";
+    }
+
+ };
+
+  document.getElementById("FC_System").addEventListener("click", functionalSysDisplay);
+
+  const construction = new FeatureLayer({
+    url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/ArcGIS/rest/services/DriveTexas_Lines/FeatureServer/0",
+    legendEnabled: true,
+    visible: false,
+    title: "Construction"
+  });
+  
+  map.add(construction);
+
+  function constructionDisplay(){
+    var object = document.getElementById("Construction");
+    if(construction.visible == false){
+      construction.visible = true;
+      object.style.color="red";
+    }else{
+      construction.visible = false;
+      object.style.color="black";      
+    }
+
+ };
+
+  document.getElementById("Construction").addEventListener("click", constructionDisplay);
+
+  const lowWater = new FeatureLayer({
+    url: "https://webservices.tnris.org/arcgis/rest/services/Low_Water_Crossings/Low_Water_Crossings/MapServer/0",
+    legendEnabled: true,
+    visible: false,
+    title: "Low Water Crossing"
+  });
+  
+  map.add(lowWater);
+
+  function lowWaterDisplay(){
+    var object = document.getElementById("Low_Water");
+    if(lowWater.visible == false){
+      lowWater.visible = true;
+      object.style.color="red";
+    }else{
+      lowWater.visible = false;
+      object.style.color="black";      
+    }
+
+ };
+
+  document.getElementById("Low_Water").addEventListener("click", lowWaterDisplay);
+
+  function clearAll(){
+    var evac = document.getElementById("Evacuation_Route");
+    var fc = document.getElementById("FC_System");
+    var con = document.getElementById("Construction");
+    var low = document.getElementById("Low_Water");
+
+    evacRoute.visible = false;
+    evac.style.color="black";
+    functionClass.visible = false;
+    fc.style.color="black";
+    construction.visible = false;
+    con.style.color="black";
+    lowWater.visible = false;
+    low.style.color="black";
+
+    //legend.container.style.display = 'none';
+  };
+
+  document.getElementById("clear").addEventListener("click", clearAll);
+    
+  var legend = new Legend({
+    view:view,
+    container: "legendDiv",    
+    layerInfos: [{
+      layer: evacRoute,      
+      },{
+      layer: functionClass 
+      },{
+      layer: construction  
+      },{
+      layer: lowWater         
+    }]
+  });   
+
 //Search widget allows user to search by district or county
 //when user hits enter the map zooms to user selection
 	var searchWidget = new Search({
         view: view,
-        allPlaceholder: "District or County",
+        allPlaceholder: "District or County",    
+        container: "search",   
         sources: [{
           featureLayer: new FeatureLayer({
             url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Districts/FeatureServer/0",         
@@ -316,10 +417,7 @@ require([
   searchWidget.startup();
 
       // Add the search widget to the top left corner of the view
-  view.ui.add(searchWidget, {
-    position: "top-right"
-  });
-
+  //view.ui.add(searchWidget, {position: "top-right"});
 
 	//renderer/symbol for grid
 	var gridRenderer = {
@@ -354,7 +452,7 @@ require([
   });
 
   // Add widget to the top right corner of the view
-  view.ui.add(toggle, "bottom-left");
+  view.ui.add(toggle, "bottom-right");
 
 
 });
