@@ -18,25 +18,16 @@
 	
 </head>
 <body class = "claro">
-
-	<!--header start 
-	<div class="header-row" id="header-row">
-  		<div class="container-fluid">
-    		<div class="row" id="row"> 
-    		</div>    
-    	</div>  
-	</div>	-->
 	<div id="viewDiv">
 		<button type="button" id="print" class="btn btn-default btn-block" data-toggle="tooltip" title="Print extent">
 			<span class="esri-icon-printer"></span>
 		</button>	
 		<button type="button" id="extent" class="btn btn-default btn-block" data-toggle="tooltip" title="Default map view">
-	</div>
-	
-	<div id="expandDiv"></div>
+	</div>		
+	<div id="loaderOverlay"></div>
 	<div id="loader">
 		<img src="/images/loader.gif"></img>
-	</div>
+	</div>	
 	<div id="toc">
 		<div id="logo">
 			<img src="/images/TxDOT_Logo.png"></img>
@@ -48,8 +39,7 @@
 		  		<tr><th>Overlays</th></tr>			  
 		  		<tr><td class="Overlay" id='Evacuation_Route'>Evacuation Route</td></tr>
 		  		<tr><td class="Overlay" id='FC_System'>Functional Classification</td></tr>
-		  		<tr><td class="Overlay" id='Low_Water'>Low Water Crossing</td></tr>
-		  		<tr><td class="Overlay" id='Construction'>Construction on Route</td></tr>
+		  		<tr><td class="Overlay" id='Low_Water'>Low Water Crossing</td></tr>		  		
 		  		<tr><td class="Overlay" id='Grid'>Grid Cells</td></tr>
 			</table>
 			<button id="clear">Clear All Overlays</button>

@@ -23,13 +23,15 @@ require([
   "esri/tasks/support/FeatureSet",
   "esri/widgets/Legend",
   "esri/core/watchUtils",
+  "esri/PopupTemplate",
   "dojo/domReady!"
 ], function(Map, MapView, DefaultUI, Print, VectorTileLayer, FeatureLayer, Expand, Search, 
   LayerList, PrintTemplate, ScaleBar, Home, TemplateOptions, PrintTask,
   PrintParameters, esriRequest, Extent, Basemap, BasemapToggle, QueryTask, Query, FeatureSet, 
-  Legend, watchUtils) {
+  Legend, watchUtils, PopupTemplate) {
 
   $('#loader').hide();
+  $('#loaderOverlay').hide();
 
 	//Vector basemap service
   	var CountyVectorLayer = new VectorTileLayer({	
@@ -70,6 +72,10 @@ require([
   function printMap(){  
     //the load spinner with show while this function is running 
     $('#loader').show();
+    $('#loaderOverlay').show();
+    document.getElementById("extent").disabled = true;
+    document.getElementById("print").disabled = true;  
+    
 
     //get extent of the map on the view
     var extentOfPrint = view.extent;  
@@ -110,12 +116,12 @@ require([
         //This saves the array of county names into a string
         //this will be used in the custom text section below  
         if(CountName.length > 4){
-          cName = "Multiple Counties";
+          cName = "Counties: Multiple";
         }
         else if (CountName.length == 1){
-          cName = CountName + " County";
+          cName = "County: " + CountName;
         }else{
-          cName = CountName.join(', ') + " Counties";
+          cName = "Counties: " + CountName.join(', ');
         } 
 
         //after the countyQuery finishes then the district query is called
@@ -156,12 +162,12 @@ require([
         //This saves the array of district names into a string
         //this will be used in the custom text section below  
         if(DistName.length > 4){
-          dName = "Multiple Districts";
+          dName = "Districts: Multiple";
         }
         else if (DistName.length == 1){
-          dName = DistName + " District";
+          dName = "District: " + DistName;
         }else{
-          dName = DistName.join(', ') + " Districts";
+          dName = "Districts: " + DistName.join(', ');
         }     
 
         //after the districtQuery finishes then the print task is called
@@ -206,7 +212,10 @@ require([
       function printResult(result){
           console.log(result.url);
           window.open(result.url, "_blank"); 
-          $('#loader').hide();     
+          $('#loader').hide(); 
+          $('#loaderOverlay').hide();
+          document.getElementById("extent").disabled = false;    
+          document.getElementById("print").disabled = false;  
       }
       function printError(result){
           console.log(result);
@@ -234,17 +243,34 @@ require([
   //get exten function is execute through extent button
   document.getElementById("extent").addEventListener("click", homeExtent); 
 
+  var evacTemplate = {
+    title: "Evacuation Route",
+    content:[{
+        type: "fields",
+        fieldInfos:[{
+        fieldName: "RTE_RB_NM",
+        label: "Route Roadbed Name",
+        visible: true
+      }, {
+        fieldName: "ROUTE_TYPE",
+        label: "Type",
+        visible: true
+      }]   
+    }]
+  };
 
   //adds evacuation routes to map
   const evacRoute = new FeatureLayer({
         url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Evacuation_Routes/FeatureServer/0",
         legendEnabled: true,
         visible: false,
+        popupEnabled: true,
+        outFields: ["*"],
+        popupTemplate: evacTemplate,
         title: "Evacuation Routes"
   });
 
   map.add(evacRoute);  // adds the layer to the map
-
 
   function evacRouteDisplay(){
     var object = document.getElementById("Evacuation_Route");
@@ -260,10 +286,29 @@ require([
 
   document.getElementById("Evacuation_Route").addEventListener("click", evacRouteDisplay);
 
+    var funcTemplate = {
+    title: "Functional Classification",
+    content:[{
+        type: "fields",
+        fieldInfos:[{
+        fieldName: "RTE_NM",
+        label: "Route Roadbed Name",
+        visible: true
+      }, {
+        fieldName: "FC_DESC",
+        label: "Functional Classification",
+        visible: true
+      }]   
+    }]
+  };
+
   const functionClass = new FeatureLayer({
     url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Functional_Classification/FeatureServer/0",
     legendEnabled: true,
     visible: false,
+    popupEnabled: true,
+    outFields: ["*"],
+    popupTemplate: funcTemplate,
     title: "Functional Classification"
   });
   
@@ -283,33 +328,80 @@ require([
 
   document.getElementById("FC_System").addEventListener("click", functionalSysDisplay);
 
-  const construction = new FeatureLayer({
-    url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/ArcGIS/rest/services/DriveTexas_Lines/FeatureServer/0",
-    legendEnabled: true,
-    visible: false,
-    title: "Construction"
-  });
-  
-  map.add(construction);
-
-  function constructionDisplay(){
-    var object = document.getElementById("Construction");
-    if(construction.visible == false){
-      construction.visible = true;
-      object.style.color="red";
-    }else{
-      construction.visible = false;
-      object.style.color="black";      
+  var lowRender = {
+  type: "unique-value",  
+  field: "LWX_TYPE",
+  defaultLabel: "All other values",
+  defaultSymbol: { type: "simple-marker",  outline: {
+        color: [0, 0, 0, 0]}, size: 7, color: [230, 152, 0, 1] }, 
+  uniqueValueInfos: [{    
+    value: "BRIDGE CLASS",
+    symbol: {
+      type: "simple-marker",  
+      color: "blue",
+      outline: {
+        color: [0, 0, 0, 0]},
+        size: 7
     }
+  }, {   
+    value: "PEDESTRIAN CROSSING",
+    symbol: {
+      type: "simple-marker", 
+      color: "green",
+      outline: {
+        color: [0, 0, 0, 0]},
+        size: 7
+    }
+  }, {   
+    value: "UNVENTED FORD",
+    symbol: {
+      type: "simple-marker",  
+      color: "red",
+      outline: {
+        color: [0, 0, 0, 0]},
+        size: 7
+    }
+  }, {   
+    value: "VENTED FORD",
+    symbol: {
+      type: "simple-marker",  
+      color: [169, 0, 230, 1],
+      outline: {
+        color: [0, 0, 0, 0]},
+        size: 7
+    }
+  }]
+};
 
- };
+    var lowTemplate = {
+    title: "Low Water Crossing",
+    content:[{
+        type: "fields",
+        fieldInfos:[{
+        fieldName: "ROAD",
+        label: "Route Name",
+        visible: true
+      }, {
+        fieldName: "LWX_TYPE",
+        label: "Type",
+        visible: true
+      }, {
+        fieldName: "FLOWSOURCE",
+        label: "Flow Source",
+        visible: true
+      }]   
+    }]
+  };
 
-  document.getElementById("Construction").addEventListener("click", constructionDisplay);
 
   const lowWater = new FeatureLayer({
     url: "https://webservices.tnris.org/arcgis/rest/services/Low_Water_Crossings/Low_Water_Crossings/MapServer/0",
     legendEnabled: true,
     visible: false,
+    opupEnabled: true,
+    outFields: ["*"],
+    popupTemplate: lowTemplate,
+    renderer: lowRender,
     title: "Low Water Crossing"
   });
   
@@ -329,20 +421,60 @@ require([
 
   document.getElementById("Low_Water").addEventListener("click", lowWaterDisplay);
 
+  //renderer/symbol for grid
+  var gridRenderer = {
+    type: "simple",
+    symbol:{
+    type: "simple-fill",
+    color: [0,0,0,0.0], //white and transparant fill
+    //color: "white",
+    outline: {
+      width: 0.5,
+      color: "black"
+      }
+    }
+  };
+
+  const grid = new FeatureLayer({
+      url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/POD_GRID72224/FeatureServer",
+      title: "Grid", 
+      visible: false,
+      legendEnabled: false,
+      renderer: gridRenderer
+  });
+
+  map.add(grid);  // adds the layer to the map
+
+
+  function gridDisplay(){
+    var object = document.getElementById("Grid");
+    if(grid.visible == false){
+      grid.visible = true;
+      object.style.color="red";
+    }else{
+      grid.visible = false;
+      object.style.color="black";
+    }
+
+ };
+
+  document.getElementById("Grid").addEventListener("click", gridDisplay);
+
   function clearAll(){
     var evac = document.getElementById("Evacuation_Route");
-    var fc = document.getElementById("FC_System");
-    var con = document.getElementById("Construction");
+    var fc = document.getElementById("FC_System");    
     var low = document.getElementById("Low_Water");
+    var g = document.getElementById("Grid");
 
     evacRoute.visible = false;
     evac.style.color="black";
     functionClass.visible = false;
-    fc.style.color="black";
-    construction.visible = false;
-    con.style.color="black";
+    fc.style.color="black"; 
     lowWater.visible = false;
     low.style.color="black";
+    grid.visible = false;
+    g.style.color="black";
+
 
     //legend.container.style.display = 'none';
   };
@@ -355,11 +487,11 @@ require([
     layerInfos: [{
       layer: evacRoute,      
       },{
-      layer: functionClass 
+      layer: functionClass  
       },{
-      layer: construction  
+      layer: lowWater   
       },{
-      layer: lowWater         
+      layer: grid       
     }]
   });   
 
@@ -419,32 +551,8 @@ require([
       // Add the search widget to the top left corner of the view
   //view.ui.add(searchWidget, {position: "top-right"});
 
-	//renderer/symbol for grid
-	var gridRenderer = {
-		type: "simple",
-		symbol:{
-		type: "simple-fill",
-		color: [0,0,0,0.0], //white and transparant fill
-		//color: "white",
-		outline: {
-			width: 0.5,
-			color: "black"
-			}
-		}
-	};
 
-
-  const grid_72 = new FeatureLayer({
-   	 	url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/POD_GRID72224/FeatureServer",
-    	title: "Grid", 
-      visible: false,   	
-
-    	renderer: gridRenderer
-  });
-
-  grid_72.minScale = 600000;
-  
-  map.add(grid_72);  // adds the layer to the map
+ 
 
   var toggle = new BasemapToggle({    
     view: view, 
