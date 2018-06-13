@@ -9,17 +9,17 @@ html, body{
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #f1f1f1;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #888;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
 }
 
 
@@ -30,7 +30,7 @@ html, body{
 	width: 100%;*/
 /*  border: 2px solid;
   border-radius: 5px;
-  border-color: #00008B; */  
+  border-color: #00008B; */
   height: 100%;
   position: absolute;
   left: 255px;
@@ -42,7 +42,7 @@ html, body{
 
 .esri-zoom .esri-widget-button {
   background-color: #143c5c !important;
-  color: white !important;  
+  color: white !important;
 }
 
 .esri-zoom .esri-widget-button:last-child{
@@ -61,8 +61,8 @@ html, body{
 
 #toc{
   height: 100%;
-  border-left: 2px solid white;   
-  border-right: 2px solid white;  
+  border-left: 2px solid white;
+  border-right: 2px solid white;
   width:255px;
   position: absolute;
   left: 2px;
@@ -73,10 +73,10 @@ html, body{
 }
 
 #logo{
-  background-color: #143c5c;    
-  width: 246px;  
-  border-bottom: 2px solid;  
-  border-color: white;  
+  background-color: #143c5c;
+  width: 246px;
+  border-bottom: 2px solid;
+  border-color: white;
   /*border-radius: 5px;*/
 }
 
@@ -92,16 +92,16 @@ html, body{
 
 #search{
   width: 246px;
-  border-bottom: 2px solid white !important;  
+  border-bottom: 2px solid white !important;
 }
 
 #overlays{
   width: 246px;
 }
 
-#tocData{  
+#tocData{
   text-align: center;
-  width: 100%;  
+  width: 100%;
 }
 
 #tocData th{
@@ -110,7 +110,7 @@ html, body{
   cursor: default;
   font-size: 15px;
   /*border-radius: 5px;*/
-  width: 100%;  
+  width: 100%;
 /*  left: 2px;
   top: 2px; */
   bottom: 2px;
@@ -122,8 +122,8 @@ html, body{
   text-align: left;
   font-size: 13px;
   cursor: pointer;
-  border-bottom: 2px solid; 
-  border-color: white;  
+  border-bottom: 2px solid;
+  border-color: white;
  }
 
 #tocData tr:nth-child(odd) {
@@ -133,7 +133,7 @@ html, body{
 
 #legend{
   width: 246px;
-  border-top: 2px solid;  
+  border-top: 2px solid;
   border-color: white;
 }
 
@@ -148,30 +148,49 @@ html, body{
   cursor: default;
   font-size: 15px;
   /*border-radius: 5px;*/
-  width: 100%;  
+  width: 100%;
   left: 2px;
-  top: 2px; 
+  top: 2px;
   bottom: 2px;
   border-bottom: 2px solid;
-  border-color: white; 
+  border-color: white;
 
 }
 
 #Evacuation_Route:hover{
   background-color: #FAFAD2;
-} 
+}
 
 #FC_System:hover{
   background-color: #FAFAD2;
-} 
+}
 
 #Low_Water:hover{
   background-color: #FAFAD2;
-} 
+}
 
 #Grid:hover{
   background-color: #FAFAD2;
-} 
+}
+
+#info{
+position: absolute;
+bottom: 3px;
+left: 22px;
+z-index: 50;
+color: #303030;
+font-weight: bold;
+text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+#info2{
+position: absolute;
+bottom: 3px;
+left: 100px;
+z-index: 50;
+color: #303030;
+font-weight: bold;
+text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
 
 /*Removes headings from feature layers*/
 .esri-legend__layer-caption{
@@ -182,9 +201,9 @@ html, body{
   font-size: 13px;
   color: white;
   width: 100%;
-  cursor: pointer; 
+  cursor: pointer;
   background-color: red;
-  border: 1px dotted black; 
+  border: 1px dotted black;
 }
 
 #clear:hover{
@@ -199,15 +218,15 @@ html, body{
     top: 127px;
     left: 15px;
   	z-index: 50;
-  	padding: 5px 6px 5px 6px; 
+  	padding: 5px 6px 5px 6px;
     border: 1px solid transparent;
-    background-color: #143c5c;    
-    box-shadow: 0.5px 0.5px 8px #888888;    
+    background-color: #143c5c;
+    box-shadow: 0.5px 0.5px 8px #888888;
 }
 
 #print:hover{
-  background-color: #375c82;  
-  border-radius: 0 !important;  
+  background-color: #375c82;
+  border-radius: 0 !important;
 }
 
 #print:hover .esri-icon-printer {
@@ -220,24 +239,24 @@ html, body{
 
 
 #extent{
-    border-radius: 0 !important; 
+    border-radius: 0 !important;
     height: 30px;
     width: 33px;
     position: absolute;
     top: 80px;
     left: 15px;
     z-index: 50;
-    padding: 5px 6px 5px 6px; 
-    border: 1px solid transparent;    
+    padding: 5px 6px 5px 6px;
+    border: 1px solid transparent;
     background-image: url("https://maps.dot.state.tx.us/Images/TexasIcon.png") !important;
-    background-size: 24px 24px;   
+    background-size: 24px 24px;
     background-repeat: no-repeat;
-    background-position: center;       
+    background-position: center;
     background-color: #143c5c;
-    box-shadow: 0.5px 0.5px 8px #888888; 
+    box-shadow: 0.5px 0.5px 8px #888888;
 }
 
-#extent:hover{  
+#extent:hover{
   /*background-color: #C0C0C0;  light grey*/
   background-color: #375c82;
   border-radius: 0 !important;
@@ -245,7 +264,7 @@ html, body{
 
 
 #loaderOverlay{
-  background: #e9e9e9; 
+  background: #e9e9e9;
   height: 100%;
   width: 100%;
   position: absolute;
@@ -258,6 +277,3 @@ html, body{
   left: 55%;
 
 }
-
-
-
