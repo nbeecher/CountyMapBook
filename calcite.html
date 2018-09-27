@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="description" content="ArcGIS JS v4, Calcite Maps and Bootstrap Example">
+ 
+  <title>TxDOT POD</title>
+
+  <!-- Calcite Maps Bootstrap -->
+  <link rel="stylesheet" href="https://esri.github.io/calcite-maps/dist/css/calcite-maps-bootstrap.min-v0.8.css">
+  
+  <!-- Calcite Maps -->
+  <link rel="stylesheet" href="https://esri.github.io/calcite-maps/dist/css/calcite-maps-arcgis-4.x.min-v0.8.css">
+
+  <!-- ArcGIS JS 4 -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
+
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+    .calcite-navbar{
+      background-color: #143c5c !important;
+    }
+/*    .calcite-widgets {
+      background-color: #143c5c !important;
+      color: white !important;
+    }*/
+    .calcite-panels{
+      background-color: #143c5c !important;
+    }
+    .esri-zoom .esri-widget--button:first-child{
+      background-color: #143c5c !important;
+      opacity: 1 !important;
+      color: white !important;
+    }
+    .esri-zoom .esri-widget--button:last-child{
+      background-color: #143c5c !important;
+      opacity: 1 !important;
+      color: white !important;
+    }        
+ 
+    .esri-zoom .esri-widget--button:first-child:hover{
+      background-color: #143c5c !important;
+      opacity: 0.8 !important;
+      color: white !important;
+    }
+    .esri-zoom .esri-widget--button:last-child:hover{
+      background-color: #143c5c !important;
+      opacity: 0.8 !important;
+      color: white !important;
+    }
+
+   
+    .calcite-map .esri-widget--button{
+      background-color: #143c5c !important;
+      opacity: 1 !important;
+      color: white !important;
+    }
+
+    .calcite-map .esri-widget--button:hover{
+      background-color: #143c5c !important;
+      opacity: 0.8 !important;
+      color: white !important;
+    }
+
+    #printWidgetDiv{      
+      padding-top: 7px;
+      padding-right: 5px;
+      border-top:3px solid #143c5c;      
+     
+    }
+
+    #print{
+      background-color: #143c5c !important;
+      border-width: 0px;
+    }
+
+    #printWidgetDiv:hover{
+      border-top:3px solid white;
+    }
+
+
+    .esri-icon-printer{
+      color: white;
+    }
+
+
+
+   /* The switch - the box around the slider */
+    .switch {      
+      position: relative;
+      display: inline-block;
+      width: 25px;
+      height: 12px; 
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+      display:none;
+    }
+
+    /* The slider */
+    .slider {
+      position: absolute;
+      cursor: pointer;      
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;      
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 8px;
+      width: 8px;
+      left: 2.5px;
+      bottom: 2.5px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #f2cb0c;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #f2cb0c;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(12px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 14px;          
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    .layerlist-label{
+      position: absolute;     
+      padding-left: 40px;  
+      width: 400px;
+      font-size: 13px;               
+    }
+
+    /*bootstrap*/
+    .toggle-on{
+      left: unset !important;    
+    }
+
+ /*  .toggle.btn{
+      min-width: 5px !important;
+      min-height: 5px !important;
+    }*/
+
+    /*bootstrap*/
+    .toggle.ios, .toggle-on.ios, .toggle-off.ios { 
+      border-radius: 20px; 
+      
+    }
+
+    .toggle.ios .toggle-handle { 
+      border-radius: 20px;      
+    }
+
+    .btn-primary {      
+      background-color: #58d86c !important;
+      
+    }
+
+    .btn-primary:hover {      
+      background-color: #41a050 !important;      
+    }
+
+    .esri-legend__layer-caption{
+      display: none !important;
+    }
+
+    .evacRouteContainer{
+      width: 100%;
+    }
+
+    .checkboxEvacRoute{
+      display: inline-flex;
+      padding-top: 10px;
+      width: 141px;
+    }
+
+    .evacRouteLegendBtn{
+      display: inline;
+    }
+
+
+    .funcClassContainer{
+      width: 100%;
+    }
+
+    .checkboxFuncClass{
+      display: inline-flex;
+      padding-top: 10px;
+      width: 181px;
+    }
+
+    .funcClassLengendBtn{
+      display: inline;
+    }
+
+    .lowWaterContainer{
+      width: 100%;
+    }
+
+    .checkboxLowWater{
+      display: inline-flex;
+      padding-top: 10px;
+      width: 157px;
+    }
+
+    .lowWaterLengendBtn{
+      display: inline;      
+    }
+
+    #lwBtn.glyphicon.glyphicon-menu-down{
+      background-color: transparent !important;
+      width: 30px !important;
+      height: 20px !important;
+      border-style: none !important;
+    }
+
+    #erBtn.glyphicon.glyphicon-menu-down{
+      background-color: transparent !important;
+      width: 30px !important;
+      height: 20px !important;
+      border-style: none !important;
+    }
+
+    #fcBtn.glyphicon.glyphicon-menu-down{
+      background-color: transparent !important;
+      width: 30px !important;
+      height: 20px !important;
+      border-style: none !important;
+    }
+
+    #lwBtn.glyphicon.glyphicon-menu-down:hover{
+      color: gray;
+    }
+
+    #erBtn.glyphicon.glyphicon-menu-down:hover{
+      color: gray;
+    }
+
+    #fcBtn.glyphicon.glyphicon-menu-down:hover{
+      color: gray;
+    }
+
+  .esri-legend__message::before {
+    content: "Turn on feature to view legend - " !important;
+  }
+
+
+
+   
+
+
+/*    .calcite-map .esri-widget:first-child{
+      background-color: #143c5c !important;
+      opacity: 0.8 !important;
+      color: white !important;
+    }
+    .calcite-map .esri-widget:first-child:hover{
+      background-color: #143c5c !important;
+      opacity: 1 !important;      
+      color: white !important;
+    }
+    .calcite-map .esri-widget:last-child{
+      background-color: #143c5c !important;
+      opacity: 0.8 !important;
+      color: white !important;
+    }
+    .calcite-map .esri-widget:last-child:hover{
+      background-color: #143c5c !important;
+      opacity: 1 !important;      
+      color: white !important;
+    }*/
+
+  </style>
+
+</head>
+
+<body class="calcite-maps calcite-nav-top">
+  <!-- Navbar -->
+
+  <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-light calcite-bg-dark">
+    <!-- Menu -->
+    <div class="dropdown calcite-dropdown calcite-text-dark calcite-bg-light" role="presentation">
+      <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0">
+        <div class="calcite-dropdown-toggle">
+          <span class="sr-only">Toggle dropdown menu</span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </a>
+      <ul class="dropdown-menu" role="menu">
+        <li><a role="menuitem" tabindex="0" data-target="#panelInfo" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
+        <li><a role="menuitem" tabindex="0" href='#' data-target="#panelLayerList" aria-haspopup="true"><span class="glyphicon glyphicon-list-alt"></span> Overlays</a></li>
+        <li><a role="menuitem" tabindex="0" href="#" data-target="#panelLegend" aria-haspopup="true"><span class="glyphicon glyphicon-list"></span> Legend</a></li>
+        <li><a role="menuitem" tabindex="0" href="#" id="calciteToggleNavbar" aria-haspopup="true"><span class="glyphicon glyphicon-fullscreen"></span> Full Map</a></li>
+      </ul>
+    </div>
+    <!-- Title -->
+    <div class="calcite-title calcite-overflow-hidden">
+      <span class="calcite-title-main">TxDOT</span>
+      <span class="calcite-title-divider hidden-xs"></span>
+      <span class="calcite-title-sub hidden-xs">Print On Demand</span>
+    </div>
+
+    <!-- Nav -->
+    <ul class="nav navbar-nav calcite-nav">
+      <li>
+        <div class="calcite-navbar-search calcite-search-expander">
+          <div id="searchWidgetDiv"></div>
+        </div>        
+      </li>
+      <li><div id="space">hi</div></li>
+      <li>
+        <div id="printWidgetDiv">         
+          <button type="button" id="print" class="btn btn-default btn-block" data-toggle="tooltip" title="Print extent">
+            <span class="esri-icon-printer"></span>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!--/.calcite-navbar -->
+
+  <!-- Map  -->
+
+  <div class="calcite-map calcite-map-absolute">
+    <div id="mapViewDiv"></div>
+  </div>
+
+  <!-- /.calcite-map -->
+
+  <!-- Panels -->
+
+  <div class="calcite-panels calcite-panels-right calcite-text-light calcite-bg-dark panel-group">
+
+    <!-- Panel - Basemaps -->
+
+    <div id="panelInfo" class="panel collapse in">
+      <div id="headingInfo" class="panel-heading" role="tab">
+        <div class="panel-title">
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInfo"  aria-expanded="true" aria-controls="collapseInfo"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label">About</span></a> 
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelInfo"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>  
+        </div>
+      </div>
+      <div id="collapseInfo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInfo">
+        <div class="panel-body">
+          <p>This is my map app!</p>
+        </div>
+     </div>
+    </div>
+
+    <!-- Panel - Legend -->
+
+    <div id="panelLegend" class="panel collapse">
+      <div id="headingLegend" class="panel-heading" role="tab">
+        <div class="panel-title">
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseLegend" aria-expanded="false" aria-controls="collapseLegend"><span class="glyphicon glyphicon-list" aria-hidden="true"></span><span class="panel-label">Legend</span></a> 
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLegend"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a> 
+        </div>
+      </div>
+      <div id="collapseLegend" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLegend">
+        <div class="panel-body">            
+          <div id="legendDiv"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel - Layer List -->
+
+    <div id="panelLayerList" class="panel collapse">
+      <div id="headingLayerList" class="panel-heading" role="tab">
+        <div class="panel-title">
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseLayerList" aria-expanded="false" aria-controls="collapseLayerList"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="panel-label">Overlays</span></a> 
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLayerList"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a> 
+        </div>
+      </div>
+      <div id="collapseLayerList" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLayerList">
+        <div class="panel-body">            
+          <div id="layerListDiv">  
+            <section class="evacRouteContainer">
+              <div class="checkboxEvacRoute" id="evacRoute">
+                <label style="cursor: context-menu;">
+                  <input type="checkbox" data-toggle="toggle" data-on=" "  data-off=" " data-style="ios" data-size="mini">
+                  Evacuation Route
+                </label>
+              </div> 
+              <div class="evacRouteLegendBtn">
+                <button class="glyphicon glyphicon-menu-down" type="button" data-toggle="collapse" data-target="#evacRouteLegend" aria-expanded="false" aria-controls="evacRouteLegend" title="Legend" id="erBtn">
+                </button> 
+              </div> 
+            </section> 
+              <div class="collapse" id="evacRouteLegend">
+                <div id="legendEvacRouteDiv"></div>        
+              </div>  
+              <section class="funcClassContainer">
+                <div class="checkboxFuncClass" id="funcClass">
+                  <label style="cursor: context-menu;">
+                    <input type="checkbox" data-toggle="toggle" data-on=" " data-off=" " data-style="ios" data-size="mini">
+                    Functional Classification
+                  </label>
+                </div>
+                <div class="funcClassLengendBtn">
+                  <button class="glyphicon glyphicon-menu-down" type="button" data-toggle="collapse" data-target="#funcClassLegend" aria-expanded="false" aria-controls="funcClassLegend" title="Legend" id="fcBtn">
+                  </button> 
+                </div>
+              </section>   
+              <div class="collapse" id="funcClassLegend">
+                <div id="legendFuncClassDiv"></div>        
+              </div>     
+              <section class="lowWaterContainer">
+                <div class="checkboxLowWater" id="lowWater">
+                  <label style="cursor: context-menu;">
+                    <input type="checkbox" data-toggle="toggle" data-on=" " data-off=" " data-style="ios" data-size="mini">
+                    Low Water Crossing
+                  </label>  
+                </div>  
+                <div class="lowWaterLengendBtn">
+                  <button class="glyphicon glyphicon-menu-down" id="lwBtn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="Legend">   
+                  </button>  
+                </div>                
+              </section>
+              <div class="collapse" id="collapseExample">
+                <div id="legendLowWaterDiv"></div>        
+              </div>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  </div>
+
+  <!-- /.calcite-panels -->
+
+  <script type="text/javascript">
+    var dojoConfig = {
+      packages: [{
+        name: "bootstrap",
+        location: "https://esri.github.io/calcite-maps/dist/vendor/dojo-bootstrap"
+      },
+      {
+        name: "calcite-maps",
+        location: "https://esri.github.io/calcite-maps/dist/js/dojo"
+      }]
+    };
+  </script>
+
+  <!-- ArcGIS JS 4 -->
+  <script src="https://js.arcgis.com/4.8/"></script>
+
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>  
+  
+  <!-- For layer list toggles -->  
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
+  <script>
+    
+    require([
+      "esri/config",
+      // ArcGIS
+      "esri/Map",
+      "esri/WebMap",
+      "esri/views/MapView",
+      // Widgets
+      "esri/widgets/Home",
+      "esri/widgets/Zoom",
+      "esri/widgets/Compass",
+      "esri/widgets/Search",
+      "esri/widgets/Legend",
+      "esri/widgets/BasemapToggle",
+      "esri/widgets/ScaleBar",
+      "esri/widgets/Attribution",
+      "esri/layers/FeatureLayer",
+      "esri/tasks/support/Query",
+      "esri/tasks/QueryTask",
+      "esri/widgets/Print/TemplateOptions",
+      "esri/tasks/PrintTask",
+      "esri/tasks/support/PrintParameters",
+      "esri/tasks/support/PrintTemplate",
+      "esri/widgets/LayerList",      
+      // Bootstrap
+      "bootstrap/Collapse",
+      "bootstrap/Dropdown",
+      // Calcite Maps
+      "calcite-maps/calcitemaps-v0.8",
+      // Calcite Maps ArcGIS Support
+      "calcite-maps/calcitemaps-arcgis-support-v0.8",
+      "esri/layers/VectorTileLayer",
+      "esri/Basemap",
+      "dojo/domReady!"
+    ], function(esriConfig, Map, WebMap, MapView, Home, Zoom, Compass, Search, Legend, BasemapToggle, ScaleBar, Attribution, FeatureLayer, Query, QueryTask, TemplateOptions, PrintTask, PrintParameters, PrintTemplate, LayerList, Collapse, Dropdown, CalciteMaps, CalciteMapArcGISSupport, VectorTileLayer, Basemap) {
+      /******************************************************************
+       *
+       * Create the map, view and widgets
+       * 
+       ******************************************************************/
+      // Map
+      // var map = new WebMap({
+      //   portalItem: {
+      //     id: "9f91f911f58540ceaac0300c55e18fbb"
+      //   }
+      // });
+
+      $(function() {
+        $('#toggle-one').bootstrapToggle();
+      })
+
+      var CountyVectorLayer = new VectorTileLayer({
+        url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer",
+        listMode: "hide"
+      });
+
+      var myBasemap = new Basemap({
+        baseLayers: CountyVectorLayer,
+        thumbnailUrl: "/images/thumbnail.jpg"
+      });
+
+      var map = new Map({
+        //layers: [CountyVectorLayer]
+        basemap: myBasemap
+      });
+
+            // View
+      var mapView = new MapView({
+        container: "mapViewDiv",
+        map: map,
+        center: [-99.341389, 31.132222],
+        zoom: 5,
+        spatialReference: {wkid:102100},
+        constraints: {
+          minZoom: 5,
+          rotationEnabled: false
+        },
+        padding: {
+          top: 50,
+          bottom: 0
+        },
+        ui: {components: []}
+      });
+
+      // Popup and panel sync
+      mapView.when(function(){
+        CalciteMapArcGISSupport.setPopupPanelSync(mapView);
+      });
+
+
+      // Search - add to navbar
+      var searchWidget = new Search({
+        container: "searchWidgetDiv",
+        view: mapView,
+        allPlaceholder: "District or County",
+        sources: [{
+          featureLayer: new FeatureLayer({
+            url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Districts/FeatureServer/0",
+          }),
+            searchFields: ["DIST_NM"],
+            displayField: "DIST_NM",
+            exactMatch: false,
+            autoSelect: true,
+            name: "District",
+            outFields: ["*"],
+            placeholder: "ex. Austin",
+            maxResults: 6,
+            maxSuggestions: 6,
+            enableSuggestions: true,
+            minCharacters: 0,
+            popupOpenOnSelect: false,
+            resultSymbol:{
+              type: "simple-line",
+              color: "yellow",
+              width: "4px",
+            }
+        }, {
+          featureLayer: new FeatureLayer({
+            url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Counties_Detailed/FeatureServer/0",
+          }),
+            searchFields: ["CNTY_NM"],
+            displayField: "CNTY_NM",
+            exactMatch: false,
+            autoSelect: true,
+            name: "County",
+            outFields: ["*"],
+            placeholder: "ex. Travis",
+            maxResults: 6,
+            maxSuggestions: 6,
+            enableSuggestions: true,
+            minCharacters: 0,
+            popupOpenOnSelect: false,
+            resultSymbol:{
+              type: "simple-line",
+              color: "yellow",
+              width: "4px",
+            }
+        }]
+      });
+      CalciteMapArcGISSupport.setSearchExpandEvents(searchWidget);
+
+
+
+      // Map widgets
+      var home = new Home({
+        view: mapView
+      });
+      mapView.ui.add(home, "top-left");
+
+      var zoom = new Zoom({
+        view: mapView
+      });
+      mapView.ui.add(zoom, "top-left");
+ 
+      
+      var basemapToggle = new BasemapToggle({
+        view: mapView,
+        secondBasemap: "satellite"
+      });
+      mapView.ui.add(basemapToggle, "bottom-right");          
+      
+   
+      var attribution = new Attribution({
+        view: mapView
+      });
+      mapView.ui.add(attribution, "manual");
+
+
+
+      //adds evacuation routes to map
+      const evacRoute = new FeatureLayer({
+        url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Evacuation_Routes/FeatureServer/0",
+        legendEnabled: true,
+        visible: false,
+        popupEnabled: true,
+        outFields: ["*"],
+        popupTemplate: evacTemplate,
+        title: "Evacuation Routes"
+      });
+
+      var evacTemplate = {
+        title: "Evacuation Route",
+        content:[{
+            type: "fields",
+            fieldInfos:[{
+            fieldName: "RTE_RB_NM",
+            label: "Route Roadbed Name",
+            visible: true
+          }, {
+            fieldName: "ROUTE_TYPE",
+            label: "Type",
+            visible: true
+          }]
+        }]
+      };
+
+      map.add(evacRoute);
+
+      var legendEvacRoute = new Legend({
+        container: "legendEvacRouteDiv",
+        view: mapView,
+        layerInfos: [{          
+          layer: evacRoute,
+          title: " "         
+        }]
+      });
+
+      function evacRouteDisplay(){   
+        //var legendBtn = document.getElementById("erBtn");        
+        if(evacRoute.visible == false){
+          evacRoute.visible = true;       
+
+          //legendBtn.style.visibility = "visible";           
+        }
+        else
+        {          
+          evacRoute.visible = false;
+          //legendBtn.style.visibility = "hidden"; 
+          
+        }
+      };
+
+      document.getElementById("evacRoute").addEventListener("click", evacRouteDisplay);
+
+
+
+      function evacRouteLegendDisplay(){
+        var legendBtn = document.getElementById("erBtn");
+        legendBtn.classList.toggle("glyphicon-menu-up");  
+      };
+
+      document.getElementById("erBtn").addEventListener("click", evacRouteLegendDisplay);
+
+
+
+
+
+      var funcTemplate = {
+        title: "Functional Classification",
+        content:[{
+            type: "fields",
+            fieldInfos:[{
+            fieldName: "RTE_NM",
+            label: "Route Roadbed Name",
+            visible: true
+          }, {
+            fieldName: "FC_DESC",
+            label: "Functional Classification",
+            visible: true
+          }]
+        }]
+      };
+
+      const functionClass = new FeatureLayer({
+        url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Functional_Classification/FeatureServer/0",
+        legendEnabled: true,
+        visible: false,
+        popupEnabled: true,
+        outFields: ["*"],
+        popupTemplate: funcTemplate,
+        title: "Functional Classification"
+      });
+
+      map.add(functionClass);
+
+      function functionalSysDisplay(){   
+      //var legendBtn = document.getElementById("fcBtn");     
+        if(functionClass.visible == false){
+          functionClass.visible = true;   
+          //legendBtn.style.visibility = "visible";         
+        }else{
+          functionClass.visible = false;
+          //legendBtn.style.visibility = "hidden";            
+        }
+      };
+
+      document.getElementById("funcClass").addEventListener("click", functionalSysDisplay);
+
+      function fcLegendDisplay(){
+        var legendBtn = document.getElementById("fcBtn");
+        legendBtn.classList.toggle("glyphicon-menu-up");  
+      };
+
+      document.getElementById("fcBtn").addEventListener("click", fcLegendDisplay);
+
+
+
+      var lowRender = {
+        type: "unique-value",
+        field: "LWX_TYPE",
+        defaultLabel: "All other values",
+        defaultSymbol: { type: "simple-marker",  outline: {
+              color: [0, 0, 0, 0]}, size: 7, color: [230, 152, 0, 1] },
+        uniqueValueInfos: [{
+          value: "BRIDGE CLASS",
+          symbol: {
+            type: "simple-marker",
+            color: "blue",
+            outline: {
+              color: [0, 0, 0, 0]},
+              size: 7
+          }
+        }, {
+          value: "PEDESTRIAN CROSSING",
+          symbol: {
+            type: "simple-marker",
+            color: "green",
+            outline: {
+              color: [0, 0, 0, 0]},
+              size: 7
+          }
+        }, {
+          value: "UNVENTED FORD",
+          symbol: {
+            type: "simple-marker",
+            color: "red",
+            outline: {
+              color: [0, 0, 0, 0]},
+              size: 7
+          }
+        }, {
+          value: "VENTED FORD",
+          symbol: {
+            type: "simple-marker",
+            color: [169, 0, 230, 1],
+            outline: {
+              color: [0, 0, 0, 0]},
+              size: 7
+          }
+        }]
+      };
+
+          var lowTemplate = {
+          title: "Low Water Crossing",
+          content:[{
+              type: "fields",
+              fieldInfos:[{
+              fieldName: "ROAD",
+              label: "Route Name",
+              visible: true
+            }, {
+              fieldName: "LWX_TYPE",
+              label: "Type",
+              visible: true
+            }, {
+              fieldName: "FLOWSOURCE",
+              label: "Flow Source",
+              visible: true
+            }]
+          }]
+        };
+
+
+        const lowWater = new FeatureLayer({
+          url: "https://webservices.tnris.org/arcgis/rest/services/Low_Water_Crossings/Low_Water_Crossings/MapServer/0",
+          legendEnabled: true,
+          visible: false,
+          opupEnabled: true,
+          outFields: ["*"],
+          popupTemplate: lowTemplate,
+          renderer: lowRender,
+          title: "Low Water Crossing"
+        });
+
+        map.add(lowWater);
+
+      function lowWaterDisplay(){    
+        //var legendBtn = document.getElementById("lwBtn");      
+        if(lowWater.visible == false){
+          lowWater.visible = true;  
+          //legendBtn.style.visibility = "visible";       
+        }else{
+          lowWater.visible = false;  
+          //egendBtn.style.visibility = "hidden";         
+        }
+
+     };
+
+      document.getElementById("lowWater").addEventListener("click", lowWaterDisplay);
+
+      function lwLegendDisplay(){
+        var legendBtn = document.getElementById("lwBtn");
+        legendBtn.classList.toggle("glyphicon-menu-up");  
+      };
+
+      document.getElementById("lwBtn").addEventListener("click", lwLegendDisplay);
+
+
+
+      
+      var legendLowWater = new Legend({
+        container: "legendLowWaterDiv",
+        view: mapView,        
+        layerInfos: [{          
+          layer: lowWater,
+          title: " "
+        }]
+      });
+
+      var legendFuncClass = new Legend({
+        container: "legendFuncClassDiv",
+        view: mapView,
+        layerInfos: [{          
+          layer: functionClass,
+          title: " "          
+        }]
+      });
+
+
+
+      // var legend = new Legend({
+      //   view:mapView,
+      //   container: "legendDiv",
+      //   layerInfos: [{
+      //     layer: evacRoute,
+      //     },{
+      //     layer: functionClass
+      //     },{
+      //     layer: lowWater          
+      //   }]
+      // });
+
+
+
+
+     //global varibales to update district name and county name custom text
+      DistName = [];
+      CountName = [];
+      dName = "";
+      cName = "";
+
+       //print task! with custom button
+      function printMap(){
+        //the load spinner with show while this function is running
+        // $('#loader').show();
+        // $('#loaderOverlay').show();
+        // document.getElementById("extent").disabled = true;
+        // document.getElementById("print").disabled = true;
+
+
+        //get extent of the map on the view
+        var extentOfPrint = mapView.extent;
+
+        //call the query to get the county names in the extent
+        countyQuery();
+
+        //the function for getting the county names in the extent
+        function countyQuery(){
+
+          var queryCountyTextTask = new QueryTask({
+              url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Counties_Detailed/FeatureServer/0"
+          });
+
+          var queryCountyText = new Query({
+            geometry: extentOfPrint,
+            spatialRelationship: "intersects",
+            orderByFields: "CNTY_NM ASC",
+            outFields: ["CNTY_NM"]
+          });
+
+          //execute query THEN get the result and save the information to the global variables
+          queryCountyTextTask.execute(queryCountyText).then(countyResult);
+
+          //result function
+          function countyResult(r){
+
+            //This loop will get all the county names in the extent
+            //and save them in an array (global variable)
+            for (var i=0; i < r.features.length; i++){
+              console.log(r.features[i].attributes.CNTY_NM);
+              var cnty = r.features[i].attributes.CNTY_NM;
+              CountName.push(cnty);
+            }
+
+            console.log(CountName);
+
+            //This saves the array of county names into a string
+            //this will be used in the custom text section below
+            if(CountName.length > 4){
+              cName = "Counties: Multiple";
+            }
+            else if (CountName.length == 1){
+              cName = "County: " + CountName;
+            }else{
+              cName = "Counties: " + CountName.join(', ');
+            }
+
+            //after the countyQuery finishes then the district query is called
+            districtQuery();
+          };
+
+        };
+
+        //the function for getting the district names in the extent
+        function districtQuery(){
+
+          var queryDistrictTextTask = new QueryTask({
+              url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Districts/FeatureServer/0"
+          });
+
+          var queryDistrictText = new Query({
+            geometry: extentOfPrint,
+            spatialRelationship: "intersects",
+            orderByFields: "DIST_NM ASC",
+            outFields: ["DIST_NM"]
+          });
+
+          //execute query THEN get the result and save the information to the global variables
+          queryDistrictTextTask.execute(queryDistrictText).then(result);
+
+          function result(r){
+
+            //This loop will get all the district names in the extent
+            //and save them in an array (global variable)
+            for (var i=0; i < r.features.length; i++){
+              console.log(r.features[i].attributes.DIST_NM);
+              var dist = r.features[i].attributes.DIST_NM;
+              DistName.push(dist);
+            }
+
+            console.log(DistName);
+
+            //This saves the array of district names into a string
+            //this will be used in the custom text section below
+            if(DistName.length > 4){
+              dName = "Districts: Multiple";
+            }
+            else if (DistName.length == 1){
+              dName = "District: " + DistName;
+            }else{
+              dName = "Districts: " + DistName.join(', ');
+            }
+
+            //after the districtQuery finishes then the print task is called
+            pT();
+          };
+
+        };
+
+
+        function pT(){
+
+          var pt = new PrintTemplate({
+            format: "pdf",
+            //legendEnabled: true,
+            layout: "8.5x11_Landscape_Template",
+            layoutOptions: {
+              customTextElements: [
+              {"District Name": dName}, //from the districtQuery above
+              {"County Name": cName}    //from the countyQuery above
+              ]
+            }
+
+          });
+
+          var params = new PrintParameters({
+            view: mapView,
+            template: pt
+          });
+
+          var printTask = new PrintTask({
+            url: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
+            mode: "async"
+          });
+
+          console.log(pt.layoutOptions);
+
+          //execute query THEN get the result or error
+          printTask.execute(params).then(printResult, printError);
+
+         //opens new website window with map export
+         //loaded is stopped and hidden from the view
+          function printResult(result){
+              console.log(result.url);
+              window.open(result.url, "_blank");
+              // $('#loader').hide();
+              // $('#loaderOverlay').hide();
+              // document.getElementById("extent").disabled = false;
+              // document.getElementById("print").disabled = false;
+          }
+          function printError(result){
+              console.log(result);
+          }
+
+        };
+
+        //resets arrays and strings for next print
+        DistName = [];
+        dName = "";
+        CountName = [];
+        cName = "";
+      };
+
+      //print task is exectued by print button
+      document.getElementById("print").addEventListener("click", printMap);
+
+
+
+
+
+    });
+  </script>
+
+</body>
+</html>
