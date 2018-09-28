@@ -18,6 +18,8 @@
 
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
+
+
   <style>
     html,
     body {
@@ -26,9 +28,29 @@
       height: 100%;
       width: 100%;
     }
+
+    /*allows home and zoom buttons to be pushed up*/
+    .esri-ui{
+      top: 0px !important;
+    }
+
     .calcite-navbar{
+      background-color: transparent !important;
+      width: 60px !important;
+    }
+
+    .calcite-navbar.calcite-text-light .calcite-dropdown-toggle span, .calcite-navbar.calcite-text-light .dropdown-toggle .icon-bar {
       background-color: #143c5c !important;
     }
+
+/*    .navbar-fixed-bottom, .navbar-fixed-top {
+      position: fixed;
+      /* right: 0; */
+      /*left: 0;
+      z-index: 1030;      
+    }*/
+
+
 /*    .calcite-widgets {
       background-color: #143c5c !important;
       color: white !important;
@@ -79,12 +101,21 @@
     }
 
     #print{
-      background-color: #143c5c !important;
+      background-color: white !important;
       border-width: 0px;
     }
 
-    #printWidgetDiv:hover{
+    #print:hover{
+      background-color: #f2f2f2 !important;
+    }
+
+/*    #printWidgetDiv:hover{
       border-top:3px solid white;
+    }*/
+
+    #searchWidgetDiv{
+      background-color: white;
+      border-color: black;
     }
 
 
@@ -183,13 +214,13 @@
     }
 
     .btn-primary {      
-      background-color: #58d86c !important;
+      background-color: #ffc14d !important;
       
     }
 
-    .btn-primary:hover {      
+/*    .btn-primary:hover {      
       background-color: #41a050 !important;      
-    }
+    }*/
 
     .esri-legend__layer-caption{
       display: none !important;
@@ -201,8 +232,10 @@
 
     .checkboxEvacRoute{
       display: inline-flex;
-      padding-top: 10px;
+      /*padding-top: 10px;*/
       width: 141px;
+      height: 22px;
+      font-size: 11px;
     }
 
     .evacRouteLegendBtn{
@@ -216,8 +249,10 @@
 
     .checkboxFuncClass{
       display: inline-flex;
-      padding-top: 10px;
+      /*padding-top: 10px;*/
       width: 181px;
+      height: 22px;
+      font-size: 11px;
     }
 
     .funcClassLengendBtn{
@@ -230,8 +265,10 @@
 
     .checkboxLowWater{
       display: inline-flex;
-      padding-top: 10px;
+      /*padding-top: 10px;*/
       width: 157px;
+      height: 22px;
+      font-size: 11px;
     }
 
     .lowWaterLengendBtn{
@@ -271,37 +308,50 @@
       color: gray;
     }
 
+    .esri-legend__message{
+      font-size: 0px !important;
+      padding-left: 20px !important;     
+    }
+
   .esri-legend__message::before {
-    content: "Turn on feature to view legend - " !important;
+    content: "Turn on feature to view legend" !important;
+    font-size: 11px !important;
+    padding-left: 20px !important;
+  }
+
+  #legendEvacRouteDiv{
+    background-color: #143c5c;
+  }
+
+  #legendFuncClassDiv{
+    background-color: #143c5c;
+  }
+
+  #legendLowWaterDiv{
+    background-color: #143c5c;
   }
 
 
+  #mapTitle{
+    font-size: 18px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    color: white;
+    background-color: #143c5c;
+  }
 
+/*  .calcite-dropdown.open .dropdown-menu.calcite-menu-drawer {
    
+    background-color: #143c5c;
+  }
+   */
 
 
-/*    .calcite-map .esri-widget:first-child{
-      background-color: #143c5c !important;
-      opacity: 0.8 !important;
-      color: white !important;
-    }
-    .calcite-map .esri-widget:first-child:hover{
-      background-color: #143c5c !important;
-      opacity: 1 !important;      
-      color: white !important;
-    }
-    .calcite-map .esri-widget:last-child{
-      background-color: #143c5c !important;
-      opacity: 0.8 !important;
-      color: white !important;
-    }
-    .calcite-map .esri-widget:last-child:hover{
-      background-color: #143c5c !important;
-      opacity: 1 !important;      
-      color: white !important;
-    }*/
+
 
   </style>
+  
 
 </head>
 
@@ -320,39 +370,101 @@
           <span></span>
         </div>
       </a>
-      <ul class="dropdown-menu" role="menu">
-        <li><a role="menuitem" tabindex="0" data-target="#panelInfo" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
-        <li><a role="menuitem" tabindex="0" href='#' data-target="#panelLayerList" aria-haspopup="true"><span class="glyphicon glyphicon-list-alt"></span> Overlays</a></li>
-        <li><a role="menuitem" tabindex="0" href="#" data-target="#panelLegend" aria-haspopup="true"><span class="glyphicon glyphicon-list"></span> Legend</a></li>
-        <li><a role="menuitem" tabindex="0" href="#" id="calciteToggleNavbar" aria-haspopup="true"><span class="glyphicon glyphicon-fullscreen"></span> Full Map</a></li>
+      <ul class="dropdown-menu calcite-menu-drawer" role="menu">
+        <li>
+          <div id="mapTitle"> Print on Demand</div>
+        </li>
+        <li>
+          <div id="searchWidgetDiv"></div>
+        </li>        
+        <li><a role="menuitem" tabindex="0" href='#' data-target="#test" data-toggle="collapse" aria-expanded="false" aria-controls="test"><span class="glyphicon glyphicon-list-alt"
+        ></span> Overlays</a></li>
+        <div class="collapse" id="test">
+          <div id="layerListDiv">  
+            <section class="evacRouteContainer">
+              <div class="checkboxEvacRoute" id="evacRoute">
+                <label style="cursor: context-menu;">
+                  <input type="checkbox" data-toggle="toggle" data-on=" "  data-off=" " data-style="ios" data-size="mini">
+                  Evacuation Route
+                </label>
+              </div> 
+              <div class="evacRouteLegendBtn">
+                <button class="glyphicon glyphicon-menu-down" type="button" data-toggle="collapse" data-target="#evacRouteLegend" aria-expanded="false" aria-controls="evacRouteLegend" title="Legend" id="erBtn">
+                </button> 
+              </div> 
+            </section> 
+            
+              <div class="collapse" id="evacRouteLegend">
+                <div id="legendEvacRouteDiv"></div>        
+              </div>  
+
+              <br>
+              <section class="funcClassContainer">
+                <div class="checkboxFuncClass" id="funcClass">
+                  <label style="cursor: context-menu;">
+                    <input type="checkbox" data-toggle="toggle" data-on=" " data-off=" " data-style="ios" data-size="mini">
+                    Functional Classification
+                  </label>
+                </div>
+                <div class="funcClassLengendBtn">
+                  <button class="glyphicon glyphicon-menu-down" type="button" data-toggle="collapse" data-target="#funcClassLegend" aria-expanded="false" aria-controls="funcClassLegend" title="Legend" id="fcBtn">
+                  </button> 
+                </div>
+              </section>   
+              <div class="collapse" id="funcClassLegend">
+                <div id="legendFuncClassDiv"></div>        
+              </div> 
+              <br>    
+              <section class="lowWaterContainer">
+                <div class="checkboxLowWater" id="lowWater">
+                  <label style="cursor: context-menu;">
+                    <input type="checkbox" data-toggle="toggle" data-on=" " data-off=" " data-style="ios" data-size="mini">
+                    Low Water Crossing
+                  </label>  
+                </div>  
+                <div class="lowWaterLengendBtn">
+                  <button class="glyphicon glyphicon-menu-down" id="lwBtn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="Legend">   
+                  </button>  
+                </div>                
+              </section>
+              <div class="collapse" id="collapseExample">
+                <div id="legendLowWaterDiv"></div>        
+              </div>            
+          </div> 
+
+        </div> 
+        <li><a role="menuitem" tabindex="0" href='#' id="print" aria-haspopup="true"><span class="glyphicon glyphicon-print"></span> Print</a></li>  
+
       </ul>
     </div>
     <!-- Title -->
-    <div class="calcite-title calcite-overflow-hidden">
+<!--     <div class="calcite-title calcite-overflow-hidden">
       <span class="calcite-title-main">TxDOT</span>
       <span class="calcite-title-divider hidden-xs"></span>
       <span class="calcite-title-sub hidden-xs">Print On Demand</span>
-    </div>
+    </div> -->
 
     <!-- Nav -->
-    <ul class="nav navbar-nav calcite-nav">
-      <li>
+    <!-- <ul class="nav navbar-nav calcite-nav"> -->
+<!--       <li>
         <div class="calcite-navbar-search calcite-search-expander">
           <div id="searchWidgetDiv"></div>
         </div>        
-      </li>
-      <li><div id="space">hi</div></li>
-      <li>
+      </li> -->
+      <!-- <li><div id="space">hi</div></li> -->
+<!--       <li>
         <div id="printWidgetDiv">         
           <button type="button" id="print" class="btn btn-default btn-block" data-toggle="tooltip" title="Print extent">
             <span class="esri-icon-printer"></span>
           </button>
         </div>
-      </li>
-    </ul>
+      </li> -->
+    <!-- </ul> -->
   </nav>
 
   <!--/.calcite-navbar -->
+
+
 
   <!-- Map  -->
 
@@ -368,7 +480,7 @@
 
     <!-- Panel - Basemaps -->
 
-    <div id="panelInfo" class="panel collapse in">
+<!--     <div id="panelInfo" class="panel collapse in">
       <div id="headingInfo" class="panel-heading" role="tab">
         <div class="panel-title">
           <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInfo"  aria-expanded="true" aria-controls="collapseInfo"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label">About</span></a> 
@@ -380,7 +492,7 @@
           <p>This is my map app!</p>
         </div>
      </div>
-    </div>
+    </div> -->
 
     <!-- Panel - Legend -->
 
@@ -400,16 +512,20 @@
 
     <!-- Panel - Layer List -->
 
-    <div id="panelLayerList" class="panel collapse">
+<!--     <div id="panelLayerList" class="panel collapse">
       <div id="headingLayerList" class="panel-heading" role="tab">
         <div class="panel-title">
           <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseLayerList" aria-expanded="false" aria-controls="collapseLayerList"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="panel-label">Overlays</span></a> 
           <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLayerList"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a> 
         </div>
       </div>
+
+
       <div id="collapseLayerList" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLayerList">
-        <div class="panel-body">            
-          <div id="layerListDiv">  
+        <div class="panel-body">       -->
+
+
+<!--           <div id="layerListDiv">  
             <section class="evacRouteContainer">
               <div class="checkboxEvacRoute" id="evacRoute">
                 <label style="cursor: context-menu;">
@@ -422,9 +538,12 @@
                 </button> 
               </div> 
             </section> 
+            
               <div class="collapse" id="evacRouteLegend">
                 <div id="legendEvacRouteDiv"></div>        
               </div>  
+
+              <br>
               <section class="funcClassContainer">
                 <div class="checkboxFuncClass" id="funcClass">
                   <label style="cursor: context-menu;">
@@ -439,7 +558,8 @@
               </section>   
               <div class="collapse" id="funcClassLegend">
                 <div id="legendFuncClassDiv"></div>        
-              </div>     
+              </div> 
+              <br>    
               <section class="lowWaterContainer">
                 <div class="checkboxLowWater" id="lowWater">
                   <label style="cursor: context-menu;">
@@ -455,11 +575,11 @@
               <div class="collapse" id="collapseExample">
                 <div id="legendLowWaterDiv"></div>        
               </div>            
-          </div>
-        </div>
+          </div> -->
+   <!--      </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
   </div>
@@ -478,6 +598,7 @@
       }]
     };
   </script>
+
 
   <!-- ArcGIS JS 4 -->
   <script src="https://js.arcgis.com/4.8/"></script>
@@ -541,6 +662,7 @@
         $('#toggle-one').bootstrapToggle();
       })
 
+   
       var CountyVectorLayer = new VectorTileLayer({
         url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer",
         listMode: "hide"
@@ -637,12 +759,12 @@
       var home = new Home({
         view: mapView
       });
-      mapView.ui.add(home, "top-left");
+      mapView.ui.add(home, "top-right");
 
       var zoom = new Zoom({
         view: mapView
       });
-      mapView.ui.add(zoom, "top-left");
+      mapView.ui.add(zoom, "top-right");
  
       
       var basemapToggle = new BasemapToggle({
