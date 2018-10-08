@@ -16,7 +16,7 @@
   <!-- ArcGIS JS 4 -->
   <link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
 
-  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">  
 
 
 
@@ -34,30 +34,8 @@
       top: 0px !important;
     }
 
-    .calcite-navbar{
-      background-color: transparent !important;
-      width: 60px !important;
-    }
 
-    .calcite-navbar.calcite-text-light .calcite-dropdown-toggle span, .calcite-navbar.calcite-text-light .dropdown-toggle .icon-bar {
-      background-color: #143c5c !important;
-    }
-
-/*    .navbar-fixed-bottom, .navbar-fixed-top {
-      position: fixed;
-      /* right: 0; */
-      /*left: 0;
-      z-index: 1030;      
-    }*/
-
-
-/*    .calcite-widgets {
-      background-color: #143c5c !important;
-      color: white !important;
-    }*/
-    .calcite-panels{
-      background-color: #143c5c !important;
-    }
+ 
     .esri-zoom .esri-widget--button:first-child{
       background-color: #143c5c !important;
       opacity: 1 !important;
@@ -101,27 +79,18 @@
     }
 
     #print{
-      background-color: white !important;
+      background-color: #143c5c !important;
       border-width: 0px;
     }
 
-    #print:hover{
-      background-color: #f2f2f2 !important;
-    }
 
-/*    #printWidgetDiv:hover{
-      border-top:3px solid white;
-    }*/
 
     #searchWidgetDiv{
       background-color: white;
       border-color: black;
+      width: 100%;
     }
 
-
-    .esri-icon-printer{
-      color: white;
-    }
 
 
 
@@ -198,10 +167,10 @@
       left: unset !important;    
     }
 
- /*  .toggle.btn{
-      min-width: 5px !important;
-      min-height: 5px !important;
-    }*/
+    .toggle.btn-xs {
+      min-width: 25px;
+      min-height: 15px;
+    }
 
     /*bootstrap*/
     .toggle.ios, .toggle-on.ios, .toggle-off.ios { 
@@ -218,9 +187,10 @@
       
     }
 
-/*    .btn-primary:hover {      
-      background-color: #41a050 !important;      
-    }*/
+    .btn{
+      vertical-align: text-top !important;
+    }
+
 
     .esri-legend__layer-caption{
       display: none !important;
@@ -236,6 +206,8 @@
       width: 141px;
       height: 22px;
       font-size: 11px;
+      color: #ddd;
+      padding-left: 10px;
     }
 
     .evacRouteLegendBtn{
@@ -253,6 +225,8 @@
       width: 181px;
       height: 22px;
       font-size: 11px;
+      color: #ddd;
+      padding-left: 10px;
     }
 
     .funcClassLengendBtn{
@@ -269,6 +243,8 @@
       width: 157px;
       height: 22px;
       font-size: 11px;
+      color: #ddd;
+      padding-left: 10px;
     }
 
     .lowWaterLengendBtn{
@@ -280,6 +256,7 @@
       width: 30px !important;
       height: 20px !important;
       border-style: none !important;
+      color: #ddd;
     }
 
     #erBtn.glyphicon.glyphicon-menu-down{
@@ -287,6 +264,7 @@
       width: 30px !important;
       height: 20px !important;
       border-style: none !important;
+      color: #ddd;
     }
 
     #fcBtn.glyphicon.glyphicon-menu-down{
@@ -294,18 +272,23 @@
       width: 30px !important;
       height: 20px !important;
       border-style: none !important;
+      color: #ddd;
     }
 
     #lwBtn.glyphicon.glyphicon-menu-down:hover{
-      color: gray;
+      color: white;
     }
 
     #erBtn.glyphicon.glyphicon-menu-down:hover{
-      color: gray;
+      color: white;
     }
 
     #fcBtn.glyphicon.glyphicon-menu-down:hover{
-      color: gray;
+      color: white;
+    }
+
+    .esri-legend__layer-body{
+      color: #ddd !important;
     }
 
     .esri-legend__message{
@@ -313,22 +296,37 @@
       padding-left: 20px !important;     
     }
 
-  .esri-legend__message::before {
-    content: "Turn on feature to view legend" !important;
-    font-size: 11px !important;
-    padding-left: 20px !important;
+    .esri-legend__message::before {
+      content: "Turn on feature to view legend" !important;
+      font-size: 11px !important;
+      padding-left: 20px !important;
+      color: red !important;
+    }
+
+    #layerListDiv{
+/*      border-style: solid;
+      border-width: 2px;
+      border-color: #143c5c;*/
+      background-color: #091b2a;
+ /*     -moz-box-shadow:    inset 0 0 0px #000000;
+      -webkit-box-shadow: inset 0 0 0px #000000;
+      box-shadow:         inset 0 0 5px #000000;*/
   }
 
   #legendEvacRouteDiv{
-    background-color: #143c5c;
+    padding-right: 2px;
+    padding-left: 2px;
+  
+    background-color: #091b2a;
+ 
   }
 
   #legendFuncClassDiv{
-    background-color: #143c5c;
+    background-color: #091b2a;
   }
 
   #legendLowWaterDiv{
-    background-color: #143c5c;
+    background-color: #091b2a;
   }
 
 
@@ -341,6 +339,233 @@
     background-color: #143c5c;
   }
 
+  /*-------------------------------*/
+/*           Wrappers            */
+/*-------------------------------*/
+
+  #wrapper {
+      padding-left: 0;
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      transition: all 0.5s ease;
+  }
+
+  #wrapper.toggled {
+      padding-left: 220px;
+  }
+
+  #sidebar-wrapper {
+      z-index: 1000;
+      left: 220px;
+      width: 0;
+      height: 100%;
+      margin-left: -220px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: #143c5c;
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      transition: all 0.5s ease;
+  }
+
+  #sidebar-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+      width: 220px;
+  }
+
+  #page-content-wrapper {
+      width: 100%;
+      padding-top: 70px;
+  }
+
+  #wrapper.toggled #page-content-wrapper {
+      position: absolute;
+      margin-right: -220px;
+  }
+
+  /*-------------------------------*/
+  /*     Sidebar nav styles        */
+  /*-------------------------------*/
+
+  .sidebar-nav {
+      position: absolute;
+      top: 0;
+      width: 220px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+  }
+
+  .sidebar-nav li {
+      position: relative; 
+      line-height: 20px;
+      display: inline-block;
+      width: 100%;
+  }
+
+
+  .sidebar-nav li a {
+      display: block;
+      color: #ddd;
+      text-decoration: none;
+      padding: 10px 15px 10px 30px;    
+  }
+
+  .sidebar-nav li a:hover,
+  .sidebar-nav li a:active,
+  .sidebar-nav li a:focus,
+  .sidebar-nav li.open a:hover,
+  .sidebar-nav li.open a:active,
+  .sidebar-nav li.open a:focus{
+      color: #fff;
+      text-decoration: none;
+      background-color: transparent;
+  }
+
+  .sidebar-nav > .sidebar-brand {
+      height: 65px;
+      font-size: 20px;
+      line-height: 44px;
+      background-color: #143c5c;
+  }
+  .sidebar-nav .dropdown-menu {
+      position: relative;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      border-radius: 0;
+      border: none;
+      background-color: #143c5c;
+      box-shadow: none;
+  }
+
+  /*-------------------------------*/
+  /*       Hamburger-Cross         */
+  /*-------------------------------*/
+
+  .hamburger {
+    position: fixed;
+    top: 20px;  
+    z-index: 999;
+    display: block;
+    width: 25px;
+    height: 25px;
+    margin-left: 15px;
+    background: transparent;
+    border: none;
+  }
+  .hamburger:hover,
+  .hamburger:focus,
+  .hamburger:active {
+    outline: none;
+  }
+  .hamburger.is-closed:before {
+    content: '';
+    display: block;
+    width: 100px;
+    font-size: 14px;
+    color: #fff;
+    line-height: 32px;
+    text-align: center;
+    opacity: 0;
+    -webkit-transform: translate3d(0,0,0);
+    -webkit-transition: all .35s ease-in-out;
+  }
+  .hamburger.is-closed:hover:before {
+    opacity: 1;
+    display: block;
+    -webkit-transform: translate3d(-100px,0,0);
+    -webkit-transition: all .35s ease-in-out;
+  }
+
+  .hamburger.is-closed .hamb-top,
+  .hamburger.is-closed .hamb-middle,
+  .hamburger.is-closed .hamb-bottom,
+  .hamburger.is-open .hamb-top,
+  .hamburger.is-open .hamb-middle,
+  .hamburger.is-open .hamb-bottom {
+    position: absolute;
+    left: 0;
+    height: 4px;
+    width: 100%;
+  }
+  .hamburger.is-closed .hamb-top,
+  .hamburger.is-closed .hamb-middle,
+  .hamburger.is-closed .hamb-bottom {
+    background-color: #143c5c;
+  }
+  .hamburger.is-closed .hamb-top { 
+    top: 3px; 
+    -webkit-transition: all .35s ease-in-out;
+  }
+  .hamburger.is-closed .hamb-middle {
+    top: 50%;
+    margin-top: -2px;
+  }
+  .hamburger.is-closed .hamb-bottom {
+    bottom: 3px;  
+    -webkit-transition: all .35s ease-in-out;
+  }
+
+  .hamburger.is-closed:hover .hamb-top {
+    top: 0;
+    -webkit-transition: all .35s ease-in-out;
+  }
+  .hamburger.is-closed:hover .hamb-bottom {
+    bottom: 0;
+    -webkit-transition: all .35s ease-in-out;
+  }
+  .hamburger.is-open .hamb-top,
+  .hamburger.is-open .hamb-middle,
+  .hamburger.is-open .hamb-bottom {
+    background-color: #143c5c;
+  }
+  .hamburger.is-open .hamb-top,
+  .hamburger.is-open .hamb-bottom {
+    top: 50%;
+    margin-top: -2px;  
+  }
+  .hamburger.is-open .hamb-top { 
+    -webkit-transform: rotate(45deg);
+    -webkit-transition: -webkit-transform .2s cubic-bezier(.73,1,.28,.08);
+  }
+  .hamburger.is-open .hamb-middle { display: none; }
+  .hamburger.is-open .hamb-bottom {
+    -webkit-transform: rotate(-45deg);
+    -webkit-transition: -webkit-transform .2s cubic-bezier(.73,1,.28,.08);
+  }
+  .hamburger.is-open:before {
+    content: '';
+    display: block;
+    width: 100px;
+    font-size: 14px;
+    color: #fff;
+    line-height: 32px;
+    text-align: center;
+    opacity: 0;
+    -webkit-transform: translate3d(0,0,0);
+    -webkit-transition: all .35s ease-in-out;
+  }
+  .hamburger.is-open:hover:before {
+    opacity: 1;
+    display: block;
+    -webkit-transform: translate3d(-100px,0,0);
+    -webkit-transition: all .35s ease-in-out;
+  }
+
+
+  .esri-icon-down{
+      right: 15px;
+      position: absolute;
+  }
+
+
+
 /*  .calcite-dropdown.open .dropdown-menu.calcite-menu-drawer {
    
     background-color: #143c5c;
@@ -351,6 +576,8 @@
 
 
   </style>
+
+
   
 
 </head>
@@ -358,109 +585,133 @@
 <body class="calcite-maps calcite-nav-top">
   <!-- Navbar -->
 
-  <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-light calcite-bg-dark">
-    <!-- Menu -->
-    <div class="dropdown calcite-dropdown calcite-text-dark calcite-bg-light" role="presentation">
-      <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0">
-        <div class="calcite-dropdown-toggle">
-          <span class="sr-only">Toggle dropdown menu</span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </a>
-      <ul class="dropdown-menu calcite-menu-drawer" role="menu">
-        <li>
-          <div id="mapTitle"> Print on Demand</div>
-        </li>
-        <li>
-          <div id="searchWidgetDiv"></div>
-        </li>        
-        <li><a role="menuitem" tabindex="0" href='#' data-target="#test" data-toggle="collapse" aria-expanded="false" aria-controls="test"><span class="glyphicon glyphicon-list-alt"
-        ></span> Overlays</a></li>
-        <div class="collapse" id="test">
-          <div id="layerListDiv">  
-            <section class="evacRouteContainer">
-              <div class="checkboxEvacRoute" id="evacRoute">
-                <label style="cursor: context-menu;">
-                  <input type="checkbox" data-toggle="toggle" data-on=" "  data-off=" " data-style="ios" data-size="mini">
-                  Evacuation Route
-                </label>
-              </div> 
-              <div class="evacRouteLegendBtn">
-                <button class="glyphicon glyphicon-menu-down" type="button" data-toggle="collapse" data-target="#evacRouteLegend" aria-expanded="false" aria-controls="evacRouteLegend" title="Legend" id="erBtn">
-                </button> 
-              </div> 
-            </section> 
-            
-              <div class="collapse" id="evacRouteLegend">
-                <div id="legendEvacRouteDiv"></div>        
-              </div>  
 
-              <br>
-              <section class="funcClassContainer">
-                <div class="checkboxFuncClass" id="funcClass">
-                  <label style="cursor: context-menu;">
-                    <input type="checkbox" data-toggle="toggle" data-on=" " data-off=" " data-style="ios" data-size="mini">
-                    Functional Classification
-                  </label>
+     <div id="wrapper">
+        <div class="overlay"></div>
+    
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                       Print on Demand
+                    </a>
+                </li>
+                <li>
+                    <div id="searchWidgetDiv"></div>
+                </li>
+                <li>
+                    <a role="menuitem" tabindex="0" href='#' data-target="#test" data-toggle="collapse" aria-expanded="false" aria-controls="test"><span class="esri-icon esri-icon-layers"></span> Overlays</span><span class="esri-icon esri-icon-down"></span></a>
+                </li>
+                <div class="collapse" id="test">
+                  <div id="layerListDiv">  
+                    <section class="evacRouteContainer">
+                      <div class="checkboxEvacRoute" id="evacRoute">
+                        <label style="cursor: context-menu;">
+                          <input type="checkbox" data-toggle="toggle" data-on=" "  data-off=" " data-style="ios" data-size="mini">
+                          Evacuation Route
+                        </label>
+                      </div> 
+                      <div class="evacRouteLegendBtn">
+                        <button class="glyphicon glyphicon-menu-down" type="button" data-toggle="collapse" data-target="#evacRouteLegend" aria-expanded="false" aria-controls="evacRouteLegend" title="Legend" id="erBtn">
+                        </button> 
+                      </div> 
+                    </section> 
+                    
+                      <div class="collapse" id="evacRouteLegend">
+                        <div id="legendEvacRouteDiv"></div>        
+                      </div>  
+
+                      <br>
+                      <section class="funcClassContainer">
+                        <div class="checkboxFuncClass" id="funcClass">
+                          <label style="cursor: context-menu;">
+                            <input type="checkbox" data-toggle="toggle" data-on=" " data-off=" " data-style="ios" data-size="mini">
+                            Functional Classification
+                          </label>
+                        </div>
+                        <div class="funcClassLengendBtn">
+                          <button class="glyphicon glyphicon-menu-down" type="button" data-toggle="collapse" data-target="#funcClassLegend" aria-expanded="false" aria-controls="funcClassLegend" title="Legend" id="fcBtn">
+                          </button> 
+                        </div>
+                      </section>   
+                      <div class="collapse" id="funcClassLegend">
+                        <div id="legendFuncClassDiv"></div>        
+                      </div> 
+                      <br>    
+                      <section class="lowWaterContainer">
+                        <div class="checkboxLowWater" id="lowWater">
+                          <label style="cursor: context-menu;">
+                            <input type="checkbox" data-toggle="toggle" data-on=" " data-off=" " data-style="ios" data-size="mini">
+                            Low Water Crossing
+                          </label>  
+                        </div>  
+                        <div class="lowWaterLengendBtn">
+                          <button class="glyphicon glyphicon-menu-down" id="lwBtn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="Legend">   
+                          </button>  
+                        </div>                
+                      </section>
+                      <div class="collapse" id="collapseExample">
+                        <div id="legendLowWaterDiv"></div>        
+                      </div>            
+                  </div> 
+
+                </div> 
+                <li>
+                    <a role="menuitem" tabindex="0" href='#' id="print" aria-haspopup="true"><span class="esri-icon esri-icon-printer"></span> Print</a>
+                </li>
+<!--                 <li>
+                    <a href="#">Team</a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Works <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header">Dropdown heading</li>
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/maridlcrmn">Follow me</a>
+                </li> -->
+                <li>
+                    <a role="menuitem" tabindex="0" href='#' data-target="#links" data-toggle="collapse" aria-expanded="false" aria-controls="links"><span class="esri-icon esri-icon-link-external"></span> TxDOT Links</span><span class="esri-icon esri-icon-down"></span></a>
+                </li>
+                <div class="collapse" id="links">                  
+                  <div id="projectTrackerDiv" style="background-color: #091b2a; padding-left: 30px;">
+                    <a href="http://apps.dot.state.tx.us/apps-cq/project_tracker/" target="_blank" class="btn btn-default" role="button"> 
+                    <img alt="Project Tracker - Texas Department of Transportation" src="https://www.txdot.gov/content/dam/txdot/asset_collection/logos/project-tracker-logo.svg" title="Project Tracker - Texas Department of Transportation" width="60" height="25"></a>  
+                  </div>
+                  <div id="driveTexasDiv" style="background-color: #091b2a; padding-left: 30px;">                
+                    <a href="https://drivetexas.org/" target="_blank" class="btn btn-default" role="button"> 
+                    <img alt="Project Tracker - Texas Department of Transportation" src="/images/driveTexas.png" title="Project Tracker - Texas Department of Transportation" width="40" height="25"></a>
+                  </div>
                 </div>
-                <div class="funcClassLengendBtn">
-                  <button class="glyphicon glyphicon-menu-down" type="button" data-toggle="collapse" data-target="#funcClassLegend" aria-expanded="false" aria-controls="funcClassLegend" title="Legend" id="fcBtn">
-                  </button> 
-                </div>
-              </section>   
-              <div class="collapse" id="funcClassLegend">
-                <div id="legendFuncClassDiv"></div>        
-              </div> 
-              <br>    
-              <section class="lowWaterContainer">
-                <div class="checkboxLowWater" id="lowWater">
-                  <label style="cursor: context-menu;">
-                    <input type="checkbox" data-toggle="toggle" data-on=" " data-off=" " data-style="ios" data-size="mini">
-                    Low Water Crossing
-                  </label>  
-                </div>  
-                <div class="lowWaterLengendBtn">
-                  <button class="glyphicon glyphicon-menu-down" id="lwBtn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="Legend">   
-                  </button>  
-                </div>                
-              </section>
-              <div class="collapse" id="collapseExample">
-                <div id="legendLowWaterDiv"></div>        
-              </div>            
-          </div> 
+            </ul>
 
-        </div> 
-        <li><a role="menuitem" tabindex="0" href='#' id="print" aria-haspopup="true"><span class="glyphicon glyphicon-print"></span> Print</a></li>  
+        </nav>
+        <!-- /#sidebar-wrapper -->
 
-      </ul>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+          <span class="hamb-middle"></span>
+        <span class="hamb-bottom"></span>
+            </button>
+        </div>  
+
     </div>
-    <!-- Title -->
-<!--     <div class="calcite-title calcite-overflow-hidden">
-      <span class="calcite-title-main">TxDOT</span>
-      <span class="calcite-title-divider hidden-xs"></span>
-      <span class="calcite-title-sub hidden-xs">Print On Demand</span>
-    </div> -->
-
-    <!-- Nav -->
-    <!-- <ul class="nav navbar-nav calcite-nav"> -->
-<!--       <li>
-        <div class="calcite-navbar-search calcite-search-expander">
-          <div id="searchWidgetDiv"></div>
-        </div>        
-      </li> -->
-      <!-- <li><div id="space">hi</div></li> -->
-<!--       <li>
-        <div id="printWidgetDiv">         
-          <button type="button" id="print" class="btn btn-default btn-block" data-toggle="tooltip" title="Print extent">
-            <span class="esri-icon-printer"></span>
-          </button>
-        </div>
-      </li> -->
-    <!-- </ul> -->
-  </nav>
+    <!-- /#wrapper -->
 
   <!--/.calcite-navbar -->
 
@@ -478,108 +729,6 @@
 
   <div class="calcite-panels calcite-panels-right calcite-text-light calcite-bg-dark panel-group">
 
-    <!-- Panel - Basemaps -->
-
-<!--     <div id="panelInfo" class="panel collapse in">
-      <div id="headingInfo" class="panel-heading" role="tab">
-        <div class="panel-title">
-          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInfo"  aria-expanded="true" aria-controls="collapseInfo"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label">About</span></a> 
-          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelInfo"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>  
-        </div>
-      </div>
-      <div id="collapseInfo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInfo">
-        <div class="panel-body">
-          <p>This is my map app!</p>
-        </div>
-     </div>
-    </div> -->
-
-    <!-- Panel - Legend -->
-
-    <div id="panelLegend" class="panel collapse">
-      <div id="headingLegend" class="panel-heading" role="tab">
-        <div class="panel-title">
-          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseLegend" aria-expanded="false" aria-controls="collapseLegend"><span class="glyphicon glyphicon-list" aria-hidden="true"></span><span class="panel-label">Legend</span></a> 
-          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLegend"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a> 
-        </div>
-      </div>
-      <div id="collapseLegend" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLegend">
-        <div class="panel-body">            
-          <div id="legendDiv"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Panel - Layer List -->
-
-<!--     <div id="panelLayerList" class="panel collapse">
-      <div id="headingLayerList" class="panel-heading" role="tab">
-        <div class="panel-title">
-          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseLayerList" aria-expanded="false" aria-controls="collapseLayerList"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="panel-label">Overlays</span></a> 
-          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLayerList"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a> 
-        </div>
-      </div>
-
-
-      <div id="collapseLayerList" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLayerList">
-        <div class="panel-body">       -->
-
-
-<!--           <div id="layerListDiv">  
-            <section class="evacRouteContainer">
-              <div class="checkboxEvacRoute" id="evacRoute">
-                <label style="cursor: context-menu;">
-                  <input type="checkbox" data-toggle="toggle" data-on=" "  data-off=" " data-style="ios" data-size="mini">
-                  Evacuation Route
-                </label>
-              </div> 
-              <div class="evacRouteLegendBtn">
-                <button class="glyphicon glyphicon-menu-down" type="button" data-toggle="collapse" data-target="#evacRouteLegend" aria-expanded="false" aria-controls="evacRouteLegend" title="Legend" id="erBtn">
-                </button> 
-              </div> 
-            </section> 
-            
-              <div class="collapse" id="evacRouteLegend">
-                <div id="legendEvacRouteDiv"></div>        
-              </div>  
-
-              <br>
-              <section class="funcClassContainer">
-                <div class="checkboxFuncClass" id="funcClass">
-                  <label style="cursor: context-menu;">
-                    <input type="checkbox" data-toggle="toggle" data-on=" " data-off=" " data-style="ios" data-size="mini">
-                    Functional Classification
-                  </label>
-                </div>
-                <div class="funcClassLengendBtn">
-                  <button class="glyphicon glyphicon-menu-down" type="button" data-toggle="collapse" data-target="#funcClassLegend" aria-expanded="false" aria-controls="funcClassLegend" title="Legend" id="fcBtn">
-                  </button> 
-                </div>
-              </section>   
-              <div class="collapse" id="funcClassLegend">
-                <div id="legendFuncClassDiv"></div>        
-              </div> 
-              <br>    
-              <section class="lowWaterContainer">
-                <div class="checkboxLowWater" id="lowWater">
-                  <label style="cursor: context-menu;">
-                    <input type="checkbox" data-toggle="toggle" data-on=" " data-off=" " data-style="ios" data-size="mini">
-                    Low Water Crossing
-                  </label>  
-                </div>  
-                <div class="lowWaterLengendBtn">
-                  <button class="glyphicon glyphicon-menu-down" id="lwBtn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" title="Legend">   
-                  </button>  
-                </div>                
-              </section>
-              <div class="collapse" id="collapseExample">
-                <div id="legendLowWaterDiv"></div>        
-              </div>            
-          </div> -->
-   <!--      </div>
-      </div>
-    </div>
-  </div> -->
 
 
   </div>
@@ -661,6 +810,35 @@
       $(function() {
         $('#toggle-one').bootstrapToggle();
       })
+
+      $(document).ready(function () {
+        var trigger = $('.hamburger'),
+        overlay = $('.overlay'),
+        isClosed = false;
+
+    trigger.click(function () {
+      hamburger_cross();      
+    });
+
+    function hamburger_cross() {
+
+      if (isClosed == true) {          
+        overlay.hide();
+        trigger.removeClass('is-open');
+        trigger.addClass('is-closed');
+        isClosed = false;
+      } else {   
+        overlay.show();
+        trigger.removeClass('is-closed');
+        trigger.addClass('is-open');
+        isClosed = true;
+      }
+  }
+  
+      $('[data-toggle="offcanvas"]').click(function () {
+            $('#wrapper').toggleClass('toggled');
+      });  
+    });
 
    
       var CountyVectorLayer = new VectorTileLayer({
@@ -781,69 +959,7 @@
 
 
 
-      //adds evacuation routes to map
-      const evacRoute = new FeatureLayer({
-        url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Evacuation_Routes/FeatureServer/0",
-        legendEnabled: true,
-        visible: false,
-        popupEnabled: true,
-        outFields: ["*"],
-        popupTemplate: evacTemplate,
-        title: "Evacuation Routes"
-      });
 
-      var evacTemplate = {
-        title: "Evacuation Route",
-        content:[{
-            type: "fields",
-            fieldInfos:[{
-            fieldName: "RTE_RB_NM",
-            label: "Route Roadbed Name",
-            visible: true
-          }, {
-            fieldName: "ROUTE_TYPE",
-            label: "Type",
-            visible: true
-          }]
-        }]
-      };
-
-      map.add(evacRoute);
-
-      var legendEvacRoute = new Legend({
-        container: "legendEvacRouteDiv",
-        view: mapView,
-        layerInfos: [{          
-          layer: evacRoute,
-          title: " "         
-        }]
-      });
-
-      function evacRouteDisplay(){   
-        //var legendBtn = document.getElementById("erBtn");        
-        if(evacRoute.visible == false){
-          evacRoute.visible = true;       
-
-          //legendBtn.style.visibility = "visible";           
-        }
-        else
-        {          
-          evacRoute.visible = false;
-          //legendBtn.style.visibility = "hidden"; 
-          
-        }
-      };
-
-      document.getElementById("evacRoute").addEventListener("click", evacRouteDisplay);
-
-
-
-      function evacRouteLegendDisplay(){
-        var legendBtn = document.getElementById("erBtn");
-        legendBtn.classList.toggle("glyphicon-menu-up");  
-      };
-
-      document.getElementById("erBtn").addEventListener("click", evacRouteLegendDisplay);
 
 
 
@@ -907,6 +1023,7 @@
               color: [0, 0, 0, 0]}, size: 7, color: [230, 152, 0, 1] },
         uniqueValueInfos: [{
           value: "BRIDGE CLASS",
+          label: "Bridge Class",
           symbol: {
             type: "simple-marker",
             color: "blue",
@@ -916,6 +1033,7 @@
           }
         }, {
           value: "PEDESTRIAN CROSSING",
+          label: "Pedestrian Crossing",
           symbol: {
             type: "simple-marker",
             color: "green",
@@ -925,6 +1043,7 @@
           }
         }, {
           value: "UNVENTED FORD",
+          label: "Unvented Ford",
           symbol: {
             type: "simple-marker",
             color: "red",
@@ -934,6 +1053,7 @@
           }
         }, {
           value: "VENTED FORD",
+          label: "Vented Ford",
           symbol: {
             type: "simple-marker",
             color: [169, 0, 230, 1],
@@ -944,7 +1064,7 @@
         }]
       };
 
-          var lowTemplate = {
+      var lowTemplate = {
           title: "Low Water Crossing",
           content:[{
               type: "fields",
@@ -999,8 +1119,79 @@
 
       document.getElementById("lwBtn").addEventListener("click", lwLegendDisplay);
 
+      var evacTemplate = {
+          title: "Evacuation Route",
+          content:[{
+              type: "fields",
+              fieldInfos:[{
+              fieldName: "RTE_RB_NM",
+              label: "Route Roadbed Name",
+              visible: true
+            }, {
+              fieldName: "ROUTE_TYPE",
+              label: "Type",
+              visible: true
+            }]
+          }]
+        };
+
+      //adds evacuation routes to map
+      const evacRoute = new FeatureLayer({
+        url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Evacuation_Routes/FeatureServer/0",
+        legendEnabled: true,
+        visible: false,
+        popupEnabled: true,
+        outFields: ["*"],
+        popupTemplate: evacTemplate,
+        title: "Evacuation Route"
+      });
+
+      map.add(evacRoute);  
+
+      function evacRouteDisplay(){   
+        //var legendBtn = document.getElementById("erBtn");        
+        if(evacRoute.visible == false){
+          evacRoute.visible = true;       
+
+          //legendBtn.style.visibility = "visible";           
+        }
+        else
+        {          
+          evacRoute.visible = false;
+          //legendBtn.style.visibility = "hidden"; 
+          
+        }
+      };
+
+      document.getElementById("evacRoute").addEventListener("click", evacRouteDisplay);
 
 
+
+      function evacRouteLegendDisplay(){
+        var legendBtn = document.getElementById("erBtn");
+        legendBtn.classList.toggle("glyphicon-menu-up");  
+      };
+
+      document.getElementById("erBtn").addEventListener("click", evacRouteLegendDisplay);
+
+
+      var legendEvacRoute = new Legend({
+          container: "legendEvacRouteDiv",
+          view: mapView,
+          layerInfos: [{          
+            layer: evacRoute,
+            title: " "         
+          }]
+        });
+
+      var legendFuncClass = new Legend({
+        container: "legendFuncClassDiv",
+        view: mapView,
+        layerInfos: [{          
+          layer: functionClass,
+          title: " "          
+        }]
+      });
       
       var legendLowWater = new Legend({
         container: "legendLowWaterDiv",
@@ -1011,14 +1202,6 @@
         }]
       });
 
-      var legendFuncClass = new Legend({
-        container: "legendFuncClassDiv",
-        view: mapView,
-        layerInfos: [{          
-          layer: functionClass,
-          title: " "          
-        }]
-      });
 
 
 
@@ -1157,8 +1340,9 @@
           var pt = new PrintTemplate({
             format: "pdf",
             //legendEnabled: true,
-            layout: "8.5x11_Landscape_Template",
-            layoutOptions: {
+            layout: "PoD_Template",            
+            layoutOptions: {  
+              legendLayer: [],
               customTextElements: [
               {"District Name": dName}, //from the districtQuery above
               {"County Name": cName}    //from the countyQuery above
@@ -1173,8 +1357,7 @@
           });
 
           var printTask = new PrintTask({
-            url: "http://txapp39/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
-            mode: "async"
+            url: "https://10.146.128.199:6443/arcgis/rest/services/ExportWebMap/GPServer/Export%20Web%20Map"
           });
 
           console.log(pt.layoutOptions);
@@ -1214,6 +1397,7 @@
 
     });
   </script>
+
 
 </body>
 </html>

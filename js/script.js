@@ -25,18 +25,21 @@ require([
   "esri/geometry/support/webMercatorUtils",
   "esri/core/watchUtils",
   "esri/PopupTemplate",
+  "esri/config",
   "dojo/dom",
   "dojo/domReady!"
 ], function(Map, MapView, DefaultUI, Print, VectorTileLayer, FeatureLayer, Expand, Search,
   LayerList, PrintTemplate, ScaleBar, Home, TemplateOptions, PrintTask,
   PrintParameters, esriRequest, Extent, Basemap, BasemapToggle, QueryTask, Query, FeatureSet,
-  Legend, webMercatorUtils, watchUtils, PopupTemplate, dom) {
+  Legend, webMercatorUtils, watchUtils, PopupTemplate, esriConfig, dom) {
 
   $('#loader').hide();
   $('#loaderOverlay').hide();
 
+  //esriConfig.defaults.io.corsEnabledServers.push("http://txapp39/");
+
 	//Vector basemap service
-  	var CountyVectorLayer = new VectorTileLayer({
+  var CountyVectorLayer = new VectorTileLayer({
   	url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer",
     listMode: "hide"
 	});
