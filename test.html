@@ -70,7 +70,7 @@
       opacity: 0.8 !important;
       color: white !important;
     }
-
+/*
     #printWidgetDiv{      
       padding-top: 7px;
       padding-right: 5px;
@@ -81,7 +81,7 @@
     #print{
       background-color: #143c5c !important;
       border-width: 0px;
-    }
+    }*/
 
 
 
@@ -564,15 +564,120 @@
       position: absolute;
   }
 
-
-
-/*  .calcite-dropdown.open .dropdown-menu.calcite-menu-drawer {
-   
-    background-color: #143c5c;
+  #projectTrackerDiv{
+    padding-top: 10px;
   }
-   */
+
+  #driveTexasDiv{
+    padding-top: 10px;
+  }
+
+  #spmDiv{
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 
 
+  #driveTexasDiv a{    
+    color: #ddd;
+    text-decoration: none;    
+  }
+  
+  #projectTrackerDiv a{    
+    color: #ddd;
+    text-decoration: none;    
+  }
+
+  #spmDiv a{    
+    color: #ddd;
+    text-decoration: none;    
+  }
+
+  #driveTexasDiv a:hover{
+    color: white;
+    text-decoration: none;    
+  }
+  
+  #projectTrackerDiv a:hover{
+    color: white;
+    text-decoration: none; 
+    filter: opacity(0.8) drop-shadow(0 0 0 white);    
+  }
+
+  #spmDiv a:hover{
+    color: white;
+    text-decoration: none;   
+    /*-webkit-filter: opacity(0.8) drop-shadow(0 0 0 white);*/
+    filter: opacity(0.8) drop-shadow(0 0 0 white); 
+  }
+
+  .glyphicon.glyphicon-road{
+    font-size: 1.25em !important;
+    top: 4px !important;
+    width: 20px !important;
+  }
+
+  #spmDiv img{
+    /*-webkit-filter: opacity(.8) drop-shadow(0 0 0 gray);*/
+    filter: opacity(.8) drop-shadow(0 0 0 gray);
+  }
+
+  #projectTrackerDiv img{
+    filter: opacity(.8) drop-shadow(0 0 0 gray);
+  }
+
+  dt, kbd kbd, label {
+    font-weight: 1 !important;
+    font-size: 12px !important;
+  }
+
+  #printChoiceDiv{
+    background-color: #091b2a;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .print{
+    background-color: #091b2a;
+    color: #ddd;    
+  }
+
+  #printChoiceDiv a{
+    color: #ddd !important;
+    text-decoration: none !important;
+    padding-left: 40px;
+
+  }
+
+    #printChoiceDiv a:hover{
+    color: white !important;
+    text-decoration: none !important;
+    
+  }
+
+  #printCountyDiv{
+    background-color: #091b2a;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .printCounty{
+    background-color: #091b2a;
+    color: #ddd;    
+  }
+
+  #printCountyDiv a{
+    color: #ddd !important;
+    text-decoration: none !important;
+    padding-left: 40px;
+
+  }
+
+    #printCountyDiv a:hover{
+    color: white !important;
+    text-decoration: none !important;
+    
+  }
 
 
   </style>
@@ -658,8 +763,21 @@
 
                 </div> 
                 <li>
-                    <a role="menuitem" tabindex="0" href='#' id="print" aria-haspopup="true"><span class="esri-icon esri-icon-printer"></span> Print</a>
+                    <a role="menuitem" tabindex="0" href='#' data-target="#printChoice" data-toggle="collapse" aria-expanded="false" aria-controls="printChoice"><span class="esri-icon esri-icon-printer"></span> Print Choice</span><span class="esri-icon esri-icon-down"></span></a>
                 </li>
+                <div class="collapse" id="printChoice">
+                  <div id="printChoiceDiv"> 
+                    <a role="menuitem" tabindex="0" href='#' id="print" aria-haspopup="true"><span class="esri-icon esri-icon-browser"></span> Print Screen</a>    
+                  </div>
+                </div>
+                <div class="collapse" id="printChoice">
+                  <div id="printCountyDiv"> 
+                    <a role="menuitem" tabindex="0" href='#' id="printMulti" aria-haspopup="true"><span class="esri-icon esri-icon-collection"></span> Print County</a>    
+                  </div>
+                </div>
+
+
+                     
 <!--                 <li>
                     <a href="#">Team</a>
                 </li>
@@ -687,13 +805,16 @@
                     <a role="menuitem" tabindex="0" href='#' data-target="#links" data-toggle="collapse" aria-expanded="false" aria-controls="links"><span class="esri-icon esri-icon-link-external"></span> TxDOT Links</span><span class="esri-icon esri-icon-down"></span></a>
                 </li>
                 <div class="collapse" id="links">                  
-                  <div id="projectTrackerDiv" style="background-color: #091b2a; padding-left: 30px;">
-                    <a href="http://apps.dot.state.tx.us/apps-cq/project_tracker/" target="_blank" class="btn btn-default" role="button"> 
-                    <img alt="Project Tracker - Texas Department of Transportation" src="https://www.txdot.gov/content/dam/txdot/asset_collection/logos/project-tracker-logo.svg" title="Project Tracker - Texas Department of Transportation" width="60" height="25"></a>  
-                  </div>
-                  <div id="driveTexasDiv" style="background-color: #091b2a; padding-left: 30px;">                
-                    <a href="https://drivetexas.org/" target="_blank" class="btn btn-default" role="button"> 
-                    <img alt="Project Tracker - Texas Department of Transportation" src="/images/driveTexas.png" title="Project Tracker - Texas Department of Transportation" width="40" height="25"></a>
+                  <div id="projectTrackerDiv" style="background-color: #091b2a; padding-left: 20px;">
+                    <a href="http://apps.dot.state.tx.us/apps-cq/project_tracker/" target="_blank"> 
+                    <img id="projectTrack" src="http://maps.dot.state.tx.us/Images/ODP/Top_Nav/ProjectTracker.png" title="Project Tracker - Texas Department of Transportation" width="20" height="20">  Project Tracker</a>  
+                  </div>      
+                  <div id="driveTexasDiv" style="background-color: #091b2a; padding-left: 20px;">
+                    <a role="menuitem" tabindex="0" href='https://drivetexas.org/' aria-haspopup="true"><span class="glyphicon glyphicon-road"></span>  Drive Texas</a>
+                  </div>                                
+                    <div id="spmDiv" style="background-color: #091b2a; padding-left: 20px;">
+                      <a href="https://www.txdot.gov/apps/statewide_mapping/StatewidePlanningMap.html" target="_blank"> 
+                      <img src="http://maps.dot.state.tx.us/Images/ODP/Top_Nav/StatewidePlanningMap.png" title="Statewide Planning Map - Texas Department of Transportation" width="20" height="20">  Statewide Planning Map</a>  
                   </div>
                 </div>
             </ul>
@@ -992,11 +1113,12 @@
       });
 
       map.add(functionClass);
+      
 
       function functionalSysDisplay(){   
       //var legendBtn = document.getElementById("fcBtn");     
         if(functionClass.visible == false){
-          functionClass.visible = true;   
+          functionClass.visible = true;  
           //legendBtn.style.visibility = "visible";         
         }else{
           functionClass.visible = false;
@@ -1018,9 +1140,7 @@
       var lowRender = {
         type: "unique-value",
         field: "LWX_TYPE",
-        defaultLabel: "All other values",
-        defaultSymbol: { type: "simple-marker",  outline: {
-              color: [0, 0, 0, 0]}, size: 7, color: [230, 152, 0, 1] },
+
         uniqueValueInfos: [{
           value: "BRIDGE CLASS",
           label: "Bridge Class",
@@ -1060,9 +1180,22 @@
             outline: {
               color: [0, 0, 0, 0]},
               size: 7
-          }
+            }        
+
+        },{
+          
+          value: "NA",
+          label: "All other values",
+          symbol: {
+            type: "simple-marker",
+            color: "black",
+            outline: {
+              color: [0, 0, 0, 0]},
+              size: 7
+            }  
         }]
       };
+
 
       var lowTemplate = {
           title: "Low Water Crossing",
@@ -1096,6 +1229,7 @@
           title: "Low Water Crossing"
         });
 
+        
         map.add(lowWater);
 
       function lowWaterDisplay(){    
@@ -1205,19 +1339,6 @@
 
 
 
-      // var legend = new Legend({
-      //   view:mapView,
-      //   container: "legendDiv",
-      //   layerInfos: [{
-      //     layer: evacRoute,
-      //     },{
-      //     layer: functionClass
-      //     },{
-      //     layer: lowWater          
-      //   }]
-      // });
-
-
 
 
      //global varibales to update district name and county name custom text
@@ -1225,6 +1346,7 @@
       CountName = [];
       dName = "";
       cName = "";
+      legendTitle = "Notes";
 
        //print task! with custom button
       function printMap(){
@@ -1328,6 +1450,12 @@
               dName = "Districts: " + DistName.join(', ');
             }
 
+
+            //are any layers turned on?
+            if(functionClass.visible == true || lowWater.visible == true || evacRoute.visible == true){
+              legendTitle = "Selected Overlays";
+            }
+
             //after the districtQuery finishes then the print task is called
             pT();
           };
@@ -1345,7 +1473,8 @@
               legendLayer: [],
               customTextElements: [
               {"District Name": dName}, //from the districtQuery above
-              {"County Name": cName}    //from the countyQuery above
+              {"County Name": cName},  //from the countyQuery above
+              {"LegendTitle": legendTitle}    
               ]
             }
 
