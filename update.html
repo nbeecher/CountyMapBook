@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>TxDOT POD</title>
+
+   <!-- ArcGIS JS 4 -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  
+
+<style>
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  #mapViewDiv {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;  
+}
+
+
+  /*allows home and zoom buttons to be pushed up*/
+  .esri-ui{
+    top: 0px !important;
+  }
+
+.navbar-global {
+  background-color: indigo;
+}
+
+.navbar-global .navbar-brand {
+  color: white;
+}
+
+.navbar-global .navbar-user > li > a
+{
+  color: white;
+}
+
+.navbar-primary {
+  background-color: #333333;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+  /*top: 51px;*/
+  height: 100%;
+  width: 250px;
+  z-index: 8;
+  overflow: hidden;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-primary.collapsed {
+  width: 60px;
+}
+
+.navbar-primary.collapsed .glyphicon {
+  font-size: 20px;
+}
+
+.navbar-primary.collapsed .nav-label {
+  display: none;  
+}
+
+.navbar-primary.collapsed .links-label {
+  display: none;  
+}
+
+.navbar-primary.collapsed #search{
+  display: none;  
+}
+
+.navbar-primary.collapsed #searchIcon{
+  display: inline-block;
+}
+
+.navbar-primary.collapsed .print-label {
+  display: none;  
+}
+
+#searchIcon{
+  display: none;
+}
+
+.btn-expand-collapse {
+    position: absolute;
+    display: block;
+    left: 19px;
+    /*bottom:0;*/
+    width: 8%;
+    padding: 8px 0;
+    /*border-top:solid 1px #666;*/
+    color: #ccc;
+    font-size: 20px;
+    /*text-align: center;*/
+}
+
+.btn-expand-collapse:hover,
+.btn-expand-collapse:focus {
+    /*background-color: #222;*/
+    color: white;
+    text-decoration: none;
+}
+
+
+.navbar-primary-menu,
+.navbar-primary-menu li {
+  margin:0; padding:0;
+  list-style: none; 
+  overflow: hidden;
+  white-space: nowrap; 
+}
+
+.navbar-primary-menu li a {
+  display: block;
+  padding: 10px 18px;
+  text-align: left;
+  border-bottom:solid 1px #444;
+  color: #ccc;
+  font-size: 16px;  
+  text-decoration: none;
+}
+
+.navbar-primary-menu li a:hover {
+  background-color: #000;
+  text-decoration: none;
+  color: white;
+
+}
+
+.navbar-primary-menu li a .glyphicon,
+.navbar-primary-menu li a .esri-icon  {
+  margin-right: 6px;
+  font-size: 20px;
+}
+
+.navbar-primary-menu li a:hover .esri-icon-down {
+  color: white;
+}
+
+.esri-icon-search {
+  margin-right: 6px;
+  font-size: 20px;
+  display: block;
+  padding: 10px 18px;
+  text-align: left;
+  border-bottom:solid 1px #444;
+  color: #ccc; 
+  text-decoration: none;
+}
+
+#search :hover{   
+  text-decoration: none;  
+}
+
+#search { 
+  display: inline-block;
+  text-decoration: none; 
+  width: 100%; 
+  height: 41px;
+  padding-top: 4px;
+  border-bottom:solid 1px #444;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.esri-search{
+  width: 100% !important;  
+  display: inline-block !important;
+}
+
+.esri-icon-search{
+  display: inline-block !important;
+  margin-right: 0px !important;
+}
+
+
+.navbar-primary-menu li a:hover .glyphicon {
+  color: orchid;
+}
+
+.main-content {
+  margin-top: 60px;
+  margin-left: 200px;
+  padding: 20px;
+}
+
+.collapsed + .main-content {
+  margin-left: 60px;  
+
+}
+
+  #headerTitle{
+    color: white;
+    padding-left: 57px;
+    font-size: 20px;
+    padding-top: 7px;
+    padding-bottom: 10px;
+    background-color: #143c5c;  
+    overflow: hidden;
+
+  }
+
+  .glyphicon:hover{
+    cursor: pointer !important;
+  }
+
+  #header{
+    padding-top: 10px;
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #143c5c;  
+  }
+
+  .nav-label{
+    padding-left: 15px;
+
+  }
+
+  #projectTrackerDiv{
+    height: 32px;
+    background-color: #444;
+    color: #ccc;
+    line-height:32px
+  }
+
+  #driveTexasDiv{
+    height: 32px;
+    background-color: #444;
+    color: #ddd;
+    text-decoration: none; 
+    line-height:32px  
+  }
+
+  #spmDiv{
+    height: 32px;
+    background-color: #444;
+    color: #ddd;
+    text-decoration: none;  
+    line-height:32px 
+  }
+
+  #projectTrackerDiv:hover{    
+    background-color: #000;
+    cursor: pointer;
+    color:white;
+  }
+
+  #driveTexasDiv:hover{    
+    background-color: #000;
+    cursor: pointer;
+    color:white;
+  }
+
+  #spmDiv:hover{
+    cursor: pointer;
+    background-color: #000;
+    color:white;  
+    
+  }
+
+  #spmDiv:hover img{
+    filter: opacity(.8) drop-shadow(0 0 0 white);
+  }
+
+  #projectTrackerDiv:hover img{
+    filter: opacity(.8) drop-shadow(0 0 0 white);
+  }
+
+
+  .glyphicon.glyphicon-road{
+    font-size: 1.25em !important;
+    top: 4px !important;
+    width: 20px !important;
+  }
+
+  #spmDiv img{
+    /*-webkit-filter: opacity(.8) drop-shadow(0 0 0 gray);*/
+    filter: opacity(.8) drop-shadow(0 0 0 gray);
+  }
+
+  #projectTrackerDiv img{
+    filter: opacity(.8) drop-shadow(0 0 0 gray);
+  }
+
+  .links-label{
+    padding-left: 23px;
+
+  }
+
+  .links.dropdowns{
+    font-size: 10px;
+  }
+
+  .esri-icon.esri-icon-down{
+    position: absolute;
+    color: #ccc;
+    right: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  .navbar-primary.collapsed #overlaysDown{
+    display: none;
+  }
+
+  .navbar-primary.collapsed #printDown{
+    display: none;
+  }
+
+  .navbar-primary.collapsed #linksDown{
+    display: none;
+  }
+
+  #printSingleDiv{
+    height: 32px;
+    background-color: #444;
+    color: #ddd;
+    text-decoration: none; 
+    line-height:32px  
+  }
+
+  #printCountyDiv{
+    height: 32px;
+    background-color: #444;
+    color: #ddd;
+    text-decoration: none;  
+    line-height:32px 
+  }
+
+  #printSingleDiv:hover{    
+    background-color: #000;
+    cursor: pointer;
+    color:white;
+    text-decoration: none;
+  }
+
+  #printCountyDiv:hover{
+    cursor: pointer;
+    background-color: #000;
+    color:white;  
+    
+  }
+
+  .print-label{
+      padding-left: 17px;
+      color: #ccc;
+  }
+
+  #printCountyDiv a:hover{
+    text-decoration: none;   
+  }
+
+  #printSingleDiv a:hover{
+    text-decoration: none;    
+  }
+
+  .esri-icon.esri-icon-browser{
+    font-size: 20px;
+    margin-right: 6px;
+  }
+
+  .esri-icon.esri-icon-collection{
+    font-size: 20px;
+    margin-right: 6px;
+  }
+
+  #printSingleDiv a,
+  #printCountyDiv a{
+    color: #ccc;
+  }
+
+
+  #printSingleDiv:hover .print-label,
+  #printCountyDiv:hover .print-label,
+  #printSingleDiv:hover a,
+  #printCountyDiv:hover a{
+    color: white;
+  }
+
+
+  </style>
+
+</head>
+
+<body>
+
+
+  <nav class="navbar-primary">
+    <div id="header">
+      <div class="btn-expand-collapse" id="banner"><span class="glyphicon glyphicon-menu-left" id="slidebtn"></span></div>       
+      <div class= "nav-label" id="headerTitle">Print on Demand</div>
+     </div> 
+    <div id="searchIcon">
+      <a href="#"><span class="esri-icon esri-icon-search"></span></a>
+    </div>
+    <div id="search">      
+      <span class="search-label" id="searchWidgetDiv"></span>
+    </div>
+     
+    <ul class="navbar-primary-menu">
+      <li>
+        <a href='#'><span class="esri-icon esri-icon-layers"></span><span class="nav-label">Overlays</span><span id="overlaysDown" class="esri-icon esri-icon-down"></span></a>
+      </li> 
+      <li>
+        <a href='#'><span class="esri-icon esri-icon-basemap"></span><span class="nav-label">Basemaps</span><span id="overlaysDown" class="esri-icon esri-icon-down"></span></a>
+      </li>
+      <li> 
+        <a role="menuitem" tabindex="0" href='#' data-target="#printChoice" data-toggle="collapse" aria-expanded="false" aria-controls="printChoice"><span class="esri-icon esri-icon-printer"></span><span class="nav-label">Print</span><span id="printDown" class="esri-icon esri-icon-down"></span></a>
+      </li> 
+        <div class="collapse" id="printChoice">
+          <div id="printSingleDiv" class="nav-label"> 
+            <a role="menuitem" tabindex="0" href='#' id="print" aria-haspopup="true"><span class="esri-icon esri-icon-browser"></span><span class="print-label">Print Screen</span></a>    
+          </div>      
+       
+          <div id="printCountyDiv" class="nav-label"> 
+            <a role="menuitem" tabindex="0" href='#' id="printMulti" aria-haspopup="true"><span class="esri-icon esri-icon-collection"></span><span class="print-label">Print County</span></a>    
+          </div>
+        </div>
+      <li> 
+        <a href="#" data-target="#links" data-toggle="collapse" aria-expanded="false" aria-controls="links"><span class="esri-icon esri-icon-link-external"></span><span class="nav-label">TxDOT Links</span><span id="linksDown" class="esri-icon esri-icon-down"></span></a>       
+      </li>      
+      <div class="collapse" id="links">                     
+        <div id="projectTrackerDiv" class="nav-label" onclick="window.open('http://apps.dot.state.tx.us/apps-cq/project_tracker/');">          
+          <img id="projectTrack" src="http://maps.dot.state.tx.us/Images/ODP/Top_Nav/ProjectTracker.png" title="Project Tracker - Texas Department of Transportation" width="20" height="20"><span class="links-label" id="trackerLabel">Project Tracker</span>
+        </div>      
+        <div id="driveTexasDiv" class="nav-label" onclick="window.open('https://drivetexas.org/');">
+          <span class="glyphicon glyphicon-road"></span><span class="links-label">Drive Texas</span>
+        </div>                                
+          <div id="spmDiv" class="nav-label" onclick="window.open('https://www.txdot.gov/apps/statewide_mapping/StatewidePlanningMap.html');">            
+            <img src="http://maps.dot.state.tx.us/Images/ODP/Top_Nav/StatewidePlanningMap.png" title="Statewide Planning Map - Texas Department of Transportation" width="20" height="20"><span class="links-label">Statewide Planning Map</span>  
+        </div>
+      </div>
+    </ul>   
+  </nav>
+  <div id="mapViewDiv"></div>
+
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
+   
+
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+      <!-- ArcGIS JS 4 -->
+  <script src="https://js.arcgis.com/4.8/"></script>
+
+
+    <script>
+   require([
+      "esri/config",
+      // ArcGIS
+      "esri/Map",
+      "esri/WebMap",
+      "esri/views/MapView",
+      // Widgets
+      "esri/widgets/Home",
+      "esri/widgets/Zoom",
+      "esri/widgets/Compass",
+      "esri/widgets/Search",
+      "esri/widgets/Legend",
+      "esri/widgets/BasemapToggle",
+      "esri/widgets/ScaleBar",
+      "esri/widgets/Attribution",
+      "esri/layers/FeatureLayer",
+      "esri/tasks/support/Query",
+      "esri/tasks/QueryTask",
+      "esri/widgets/Print/TemplateOptions",
+      "esri/tasks/PrintTask",
+      "esri/tasks/support/PrintParameters",
+      "esri/tasks/support/PrintTemplate",
+      "esri/widgets/LayerList",    
+  
+      "esri/layers/VectorTileLayer",
+      "esri/Basemap",
+      "dojo/domReady!"
+    ], function(esriConfig, Map, WebMap, MapView, Home, Zoom, Compass, Search, Legend, BasemapToggle, ScaleBar, Attribution, FeatureLayer, Query, QueryTask, TemplateOptions, PrintTask, PrintParameters, PrintTemplate, LayerList, VectorTileLayer, Basemap) {
+      /******************************************************************
+       *
+       * Create the map, view and widgets
+       * 
+       ******************************************************************/
+      // Map
+      // var map = new WebMap({
+      //   portalItem: {
+      //     id: "9f91f911f58540ceaac0300c55e18fbb"
+      //   }
+      // });
+     $('.btn-expand-collapse').click(function(e) {
+        $('.navbar-primary').toggleClass('collapsed');        
+        
+      });
+      
+  
+
+      function menuSlide(){
+        var slidebtn = document.getElementById("slidebtn");        
+        slidebtn.classList.toggle("glyphicon-menu-right");
+
+      };
+
+    
+      document.getElementById("banner").addEventListener("click", menuSlide);
+
+ 
+   
+   
+      var CountyVectorLayer = new VectorTileLayer({
+        url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer",
+        listMode: "hide"
+      });
+
+      var myBasemap = new Basemap({
+        baseLayers: CountyVectorLayer,
+        thumbnailUrl: "/images/thumbnail.jpg"
+      });
+
+      var map = new Map({
+        //layers: [CountyVectorLayer]
+        basemap: myBasemap
+      });
+
+            // View
+      var mapView = new MapView({
+        container: "mapViewDiv",  // Reference to the DOM node that will contain the view
+        map: map,               // References the map object created in step 3
+        center: [-100.341389, 31.132222],
+        zoom: 5,
+        spatialReference: {wkid:102100},
+        constraints: {
+          minZoom: 5,
+          rotationEnabled: false
+      }
+    });
+
+
+
+      // Search - add to navbar
+      var searchWidget = new Search({
+        container: "searchWidgetDiv",
+        view: mapView,
+        allPlaceholder: "District or County",
+        sources: [{
+          featureLayer: new FeatureLayer({
+            url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Districts/FeatureServer/0",
+          }),
+            searchFields: ["DIST_NM"],
+            displayField: "DIST_NM",
+            exactMatch: false,
+            autoSelect: true,
+            name: "District",
+            outFields: ["*"],
+            placeholder: "ex. Austin",
+            maxResults: 6,
+            maxSuggestions: 6,
+            enableSuggestions: true,
+            minCharacters: 0,
+            popupOpenOnSelect: false,
+            resultSymbol:{
+              type: "simple-line",
+              color: "yellow",
+              width: "4px",
+            }
+        }, {
+          featureLayer: new FeatureLayer({
+            url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Counties_Detailed/FeatureServer/0",
+          }),
+            searchFields: ["CNTY_NM"],
+            displayField: "CNTY_NM",
+            exactMatch: false,
+            autoSelect: true,
+            name: "County",
+            outFields: ["*"],
+            placeholder: "ex. Travis",
+            maxResults: 6,
+            maxSuggestions: 6,
+            enableSuggestions: true,
+            minCharacters: 0,
+            popupOpenOnSelect: false,
+            resultSymbol:{
+              type: "simple-line",
+              color: "yellow",
+              width: "4px",
+            }
+        }]
+      });
+     
+
+
+
+      // Map widgets
+      var home = new Home({
+        view: mapView
+      });
+      mapView.ui.add(home, "top-right");
+
+      var zoom = new Zoom({
+        view: mapView
+      });
+      mapView.ui.add(zoom, "top-right");
+ 
+      
+      var basemapToggle = new BasemapToggle({
+        view: mapView,
+        secondBasemap: "satellite"
+      });
+      mapView.ui.add(basemapToggle, "bottom-right");          
+      
+   
+      var attribution = new Attribution({
+        view: mapView
+      });
+      mapView.ui.add(attribution, "manual");
+
+
+
+
+
+
+
+
+
+      var funcTemplate = {
+        title: "Functional Classification",
+        content:[{
+            type: "fields",
+            fieldInfos:[{
+            fieldName: "RTE_NM",
+            label: "Route Roadbed Name",
+            visible: true
+          }, {
+            fieldName: "FC_DESC",
+            label: "Functional Classification",
+            visible: true
+          }]
+        }]
+      };
+
+      const functionClass = new FeatureLayer({
+        url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Functional_Classification/FeatureServer/0",
+        legendEnabled: true,
+        visible: false,
+        popupEnabled: true,
+        outFields: ["*"],
+        popupTemplate: funcTemplate,
+        title: "Functional Classification"
+      });
+
+      map.add(functionClass);
+      
+
+      function functionalSysDisplay(){   
+      //var legendBtn = document.getElementById("fcBtn");     
+        if(functionClass.visible == false){
+          functionClass.visible = true;  
+          //legendBtn.style.visibility = "visible";         
+        }else{
+          functionClass.visible = false;
+          //legendBtn.style.visibility = "hidden";            
+        }
+      };
+
+      //document.getElementById("funcClass").addEventListener("click", functionalSysDisplay);
+
+      function fcLegendDisplay(){
+        var legendBtn = document.getElementById("fcBtn");
+        legendBtn.classList.toggle("glyphicon-menu-up");  
+      };
+
+      //document.getElementById("fcBtn").addEventListener("click", fcLegendDisplay);
+
+
+
+      var lowRender = {
+        type: "unique-value",
+        field: "LWX_TYPE",
+
+        uniqueValueInfos: [{
+          value: "BRIDGE CLASS",
+          label: "Bridge Class",
+          symbol: {
+            type: "simple-marker",
+            color: "blue",
+            outline: {
+              color: [0, 0, 0, 0]},
+              size: 7
+          }
+        }, {
+          value: "PEDESTRIAN CROSSING",
+          label: "Pedestrian Crossing",
+          symbol: {
+            type: "simple-marker",
+            color: "green",
+            outline: {
+              color: [0, 0, 0, 0]},
+              size: 7
+          }
+        }, {
+          value: "UNVENTED FORD",
+          label: "Unvented Ford",
+          symbol: {
+            type: "simple-marker",
+            color: "red",
+            outline: {
+              color: [0, 0, 0, 0]},
+              size: 7
+          }
+        }, {
+          value: "VENTED FORD",
+          label: "Vented Ford",
+          symbol: {
+            type: "simple-marker",
+            color: [169, 0, 230, 1],
+            outline: {
+              color: [0, 0, 0, 0]},
+              size: 7
+            }        
+
+        },{
+          
+          value: "NA",
+          label: "All other values",
+          symbol: {
+            type: "simple-marker",
+            color: "black",
+            outline: {
+              color: [0, 0, 0, 0]},
+              size: 7
+            }  
+        }]
+      };
+
+
+      var lowTemplate = {
+          title: "Low Water Crossing",
+          content:[{
+              type: "fields",
+              fieldInfos:[{
+              fieldName: "ROAD",
+              label: "Route Name",
+              visible: true
+            }, {
+              fieldName: "LWX_TYPE",
+              label: "Type",
+              visible: true
+            }, {
+              fieldName: "FLOWSOURCE",
+              label: "Flow Source",
+              visible: true
+            }]
+          }]
+        };
+
+
+        const lowWater = new FeatureLayer({
+          url: "https://webservices.tnris.org/arcgis/rest/services/Low_Water_Crossings/Low_Water_Crossings/MapServer/0",
+          legendEnabled: true,
+          visible: false,
+          opupEnabled: true,
+          outFields: ["*"],
+          popupTemplate: lowTemplate,
+          renderer: lowRender,
+          title: "Low Water Crossing"
+        });
+
+        
+        map.add(lowWater);
+
+      function lowWaterDisplay(){    
+        //var legendBtn = document.getElementById("lwBtn");      
+        if(lowWater.visible == false){
+          lowWater.visible = true;  
+          //legendBtn.style.visibility = "visible";       
+        }else{
+          lowWater.visible = false;  
+          //egendBtn.style.visibility = "hidden";         
+        }
+
+     };
+
+      //document.getElementById("lowWater").addEventListener("click", lowWaterDisplay);
+
+      function lwLegendDisplay(){
+        var legendBtn = document.getElementById("lwBtn");
+        legendBtn.classList.toggle("glyphicon-menu-up");  
+      };
+
+      //document.getElementById("lwBtn").addEventListener("click", lwLegendDisplay);
+
+      var evacTemplate = {
+          title: "Evacuation Route",
+          content:[{
+              type: "fields",
+              fieldInfos:[{
+              fieldName: "RTE_RB_NM",
+              label: "Route Roadbed Name",
+              visible: true
+            }, {
+              fieldName: "ROUTE_TYPE",
+              label: "Type",
+              visible: true
+            }]
+          }]
+        };
+
+      //adds evacuation routes to map
+      const evacRoute = new FeatureLayer({
+        url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Evacuation_Routes/FeatureServer/0",
+        legendEnabled: true,
+        visible: false,
+        popupEnabled: true,
+        outFields: ["*"],
+        popupTemplate: evacTemplate,
+        title: "Evacuation Route"
+      });
+
+      map.add(evacRoute);  
+
+      function evacRouteDisplay(){   
+        //var legendBtn = document.getElementById("erBtn");        
+        if(evacRoute.visible == false){
+          evacRoute.visible = true;       
+
+          //legendBtn.style.visibility = "visible";           
+        }
+        else
+        {          
+          evacRoute.visible = false;
+          //legendBtn.style.visibility = "hidden"; 
+          
+        }
+      };
+
+      //document.getElementById("evacRoute").addEventListener("click", evacRouteDisplay);
+
+
+
+      function evacRouteLegendDisplay(){
+        var legendBtn = document.getElementById("erBtn");
+        legendBtn.classList.toggle("glyphicon-menu-up");  
+      };
+
+      //document.getElementById("erBtn").addEventListener("click", evacRouteLegendDisplay);
+
+
+      var legendEvacRoute = new Legend({
+          container: "legendEvacRouteDiv",
+          view: mapView,
+          layerInfos: [{          
+            layer: evacRoute,
+            title: " "         
+          }]
+        });
+
+      var legendFuncClass = new Legend({
+        container: "legendFuncClassDiv",
+        view: mapView,
+        layerInfos: [{          
+          layer: functionClass,
+          title: " "          
+        }]
+      });
+      
+      var legendLowWater = new Legend({
+        container: "legendLowWaterDiv",
+        view: mapView,        
+        layerInfos: [{          
+          layer: lowWater,
+          title: " "
+        }]
+      });
+
+
+
+
+
+
+     //global varibales to update district name and county name custom text
+      DistName = [];
+      CountName = [];
+      dName = "";
+      cName = "";
+      legendTitle = "Notes";
+
+       //print task! with custom button
+      function printMap(){
+        //the load spinner with show while this function is running
+        // $('#loader').show();
+        // $('#loaderOverlay').show();
+        // document.getElementById("extent").disabled = true;
+        // document.getElementById("print").disabled = true;
+
+
+        //get extent of the map on the view
+        var extentOfPrint = mapView.extent;
+
+        //call the query to get the county names in the extent
+        countyQuery();
+
+        //the function for getting the county names in the extent
+        function countyQuery(){
+
+          var queryCountyTextTask = new QueryTask({
+              url: "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Counties_Detailed/FeatureServer/0"
+          });
+
+          var queryCountyText = new Query({
+            geometry: extentOfPrint,
+            spatialRelationship: "intersects",
+            orderByFields: "CNTY_NM ASC",
+            outFields: ["CNTY_NM"]
+          });
+
+          //execute query THEN get the result and save the information to the global variables
+          queryCountyTextTask.execute(queryCountyText).then(countyResult);
+
+          //result function
+          function countyResult(r){
+
+            //This loop will get all the county names in the extent
+            //and save them in an array (global variable)
+            for (var i=0; i < r.features.length; i++){
+              console.log(r.features[i].attributes.CNTY_NM);
+              var cnty = r.features[i].attributes.CNTY_NM;
+              CountName.push(cnty);
+            }
+
+            console.log(CountName);
+
+            //This saves the array of county names into a string
+            //this will be used in the custom text section below
+            if(CountName.length > 4){
+              cName = "Counties: Multiple";
+            }
+            else if (CountName.length == 1){
+              cName = "County: " + CountName;
+            }else{
+              cName = "Counties: " + CountName.join(', ');
+            }
+
+            //after the countyQuery finishes then the district query is called
+            districtQuery();
+          };
+
+        };
+
+        //the function for getting the district names in the extent
+        function districtQuery(){
+
+          var queryDistrictTextTask = new QueryTask({
+              url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Districts/FeatureServer/0"
+          });
+
+          var queryDistrictText = new Query({
+            geometry: extentOfPrint,
+            spatialRelationship: "intersects",
+            orderByFields: "DIST_NM ASC",
+            outFields: ["DIST_NM"]
+          });
+
+          //execute query THEN get the result and save the information to the global variables
+          queryDistrictTextTask.execute(queryDistrictText).then(result);
+
+          function result(r){
+
+            //This loop will get all the district names in the extent
+            //and save them in an array (global variable)
+            for (var i=0; i < r.features.length; i++){
+              console.log(r.features[i].attributes.DIST_NM);
+              var dist = r.features[i].attributes.DIST_NM;
+              DistName.push(dist);
+            }
+
+            console.log(DistName);
+
+            //This saves the array of district names into a string
+            //this will be used in the custom text section below
+            if(DistName.length > 4){
+              dName = "Districts: Multiple";
+            }
+            else if (DistName.length == 1){
+              dName = "District: " + DistName;
+            }else{
+              dName = "Districts: " + DistName.join(', ');
+            }
+
+
+            //are any layers turned on?
+            if(functionClass.visible == true || lowWater.visible == true || evacRoute.visible == true){
+              legendTitle = "Selected Overlays";
+            }
+
+            //after the districtQuery finishes then the print task is called
+            pT();
+          };
+
+        };
+
+
+        function pT(){
+
+          var pt = new PrintTemplate({
+            format: "pdf",
+            //legendEnabled: true,
+            layout: "PoD_Template",            
+            layoutOptions: {  
+              legendLayer: [],
+              customTextElements: [
+              {"District Name": dName}, //from the districtQuery above
+              {"County Name": cName},  //from the countyQuery above
+              {"LegendTitle": legendTitle}    
+              ]
+            }
+
+          });
+
+          var params = new PrintParameters({
+            view: mapView,
+            template: pt
+          });
+
+          var printTask = new PrintTask({
+            url: "https://10.146.128.199:6443/arcgis/rest/services/ExportWebMap/GPServer/Export%20Web%20Map"
+          });
+
+          console.log(pt.layoutOptions);
+
+          //execute query THEN get the result or error
+          printTask.execute(params).then(printResult, printError);
+
+         //opens new website window with map export
+         //loaded is stopped and hidden from the view
+          function printResult(result){
+              console.log(result.url);
+              window.open(result.url, "_blank");
+              // $('#loader').hide();
+              // $('#loaderOverlay').hide();
+              // document.getElementById("extent").disabled = false;
+              // document.getElementById("print").disabled = false;
+          }
+          function printError(result){
+              console.log(result);
+          }
+
+        };
+
+        //resets arrays and strings for next print
+        DistName = [];
+        dName = "";
+        CountName = [];
+        cName = "";
+      };
+
+      //print task is exectued by print button
+      document.getElementById("printSingleDiv").addEventListener("click", printMap);
+
+
+
+    });
+
+
+
+    </script>
+</body>
+
+</html>
