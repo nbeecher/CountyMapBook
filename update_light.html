@@ -31,6 +31,7 @@
     font-family: 'Poppins', sans-serif !important;
   }
 
+
   #mapViewDiv {
     margin: 0;
     padding: 0;
@@ -86,6 +87,10 @@
 
 .navbar-primary.collapsed .nav-label {
   display: none;  
+}
+
+.navbar-primary.collapsed .sub-label{
+  display: none;
 }
 
 .navbar-primary.collapsed .links-label {
@@ -245,6 +250,10 @@
 
   .nav-label{
     padding-left: 15px;
+  }
+
+  .sub-label{
+    padding-left: 58px;
 
   }
 
@@ -702,6 +711,26 @@
   cursor: pointer;
 }
 
+.navbar-primary-menu li a:focus {
+  outline: none;
+}
+
+#txdotDiv,#esriLightGray,#googleDiv,
+#streetsDiv, #osm{
+  height: 32px;
+  line-height: 32px;
+  color: #000000;
+  border-left: 5px solid rgb(225, 225, 225);
+}
+
+
+#txdotDiv:hover,#esriLightGray:hover,#googleDiv:hover,
+#streetsDiv:hover, #osm:hover{  
+  cursor: pointer;
+  color: red;  
+}
+
+
 
 
   </style>
@@ -787,9 +816,12 @@
       <li>
         <a role="menuitem" tabindex="0" href='#' data-target="#basemapDiv" data-toggle="collapse" aria-expanded="false" aria-controls="basemapDiv"><span class="esri-icon esri-icon-basemap"></span><span class="nav-label">Basemaps</span><span id="overlaysDown" class="esri-icon esri-icon-down"></span></a>
       </li>
-      <div class="collapse" id="basemapDiv">
-        <div id="txdotDiv" class="nav-label">TxDOT Basemap</div>
-        
+      <div class="collapse" id="basemapDiv">       
+        <div id="txdotDiv" class="sub-label">TxDOT Basemap</div>
+        <div id="esriLightGray" class="sub-label">Esri Light Gray</div>
+        <div id="googleDiv" class="sub-label">Texas Imagery Service</div>
+        <div id="streetsDiv" class="sub-label">Esri Streets</div>
+        <div id="osm" class="sub-label">Open Street Map</div>             
       </div>
       <li> 
         <a role="menuitem" tabindex="0" href='#' data-target="#printChoice" data-toggle="collapse" aria-expanded="false" aria-controls="printChoice"><span class="esri-icon esri-icon-printer"></span><span class="nav-label">Print</span><span id="printDown" class="esri-icon esri-icon-down"></span></a>
@@ -852,6 +884,7 @@
       "esri/Map",
       "esri/WebMap",
       "esri/views/MapView",
+      "esri/layers/WMTSLayer",
       // Widgets
       "esri/widgets/Home",
       "esri/widgets/Zoom",
@@ -869,11 +902,12 @@
       "esri/tasks/support/PrintParameters",
       "esri/tasks/support/PrintTemplate",
       "esri/widgets/LayerList",    
+      "esri/layers/OpenStreetMapLayer",
   
       "esri/layers/VectorTileLayer",
       "esri/Basemap",
       "dojo/domReady!"
-    ], function(esriConfig, Map, WebMap, MapView, Home, Zoom, Compass, Search, Legend, BasemapToggle, ScaleBar, Attribution, FeatureLayer, Query, QueryTask, TemplateOptions, PrintTask, PrintParameters, PrintTemplate, LayerList, VectorTileLayer, Basemap) {
+    ], function(esriConfig, Map, WebMap, MapView, WMTSLayer, Home, Zoom, Compass, Search, Legend, BasemapToggle, ScaleBar, Attribution, FeatureLayer, Query, QueryTask, TemplateOptions, PrintTask, PrintParameters, PrintTemplate, LayerList, OpenStreetMapLayer, VectorTileLayer, Basemap) {
       /******************************************************************
        *
        * Create the map, view and widgets
@@ -930,12 +964,12 @@
    
       var CountyVectorLayer = new VectorTileLayer({
         url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer",
-        listMode: "hide"
+        id: "txdot"        
       });
 
       var myBasemap = new Basemap({
-        baseLayers: CountyVectorLayer,
-        thumbnailUrl: "/images/thumbnail.jpg"
+        baseLayers: CountyVectorLayer
+        //id: "txdot"
       });
 
       var map = new Map({
@@ -1035,12 +1069,164 @@
       });
       mapView.ui.add(attribution, "manual");
 
+      // var test = map.basemap;
+      // console.log(test.baseLayers.items.title);
 
+      //function to get current basemap
+      // function getCurrentBasemap()
+      // {
+      //   var title = map.get("basemap.baseLayers.items.0.id");
+      //   console.log(title);
+      //   console.log(CountyVectorLayer.id);   
+      //   console.log(CountyVectorLayer);        
+      // }
 
+      // getCurrentBasemap();
 
+      var id = "txdotDiv";
+      document.getElementById(id).style.borderLeft = "5px solid red";
+      //
+      //~~~BASEMAPS~~~~~
+      //
+      //Esri Light Gray Basemap
+      function esriLightGray(){
+        var title = map.get("basemap.baseLayers.items.0.id");
+        //console.log(title);   
+        document.getElementById(id).style.borderLeft = "5px solid rgb(225, 225, 225)";   
 
+        var esriLightGray = new VectorTileLayer({
+          url: "https://www.arcgis.com/sharing/rest/content/items/5dd75c1a544b46c3af01ba5736bfdfa0/resources/styles/root.json?f=pjson",
+          id: "gray"
+        });
 
+        if(title == "gray")
+        {
+          console.log("already the basemap");
+        }
+        else
+        {
+          map.basemap.baseLayers = esriLightGray;
+        }
 
+        id = "esriLightGray";
+
+        document.getElementById(id).style.borderLeft = "5px solid red";
+      
+        //console.log(title);
+    
+      
+      };
+      document.getElementById("esriLightGray").addEventListener("click", esriLightGray);
+
+      //TxDOT Basemap
+      function txdotBase(){       
+        var title = map.get("basemap.baseLayers.items.0.id");
+        //console.log(title);
+        document.getElementById(id).style.borderLeft = "5px solid rgb(225, 225, 225)";
+
+        var CountyVectorLayer = new VectorTileLayer({
+          url: "https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_County_Mapbook_Basemap/VectorTileServer",
+          //url: "https://www.arcgis.com/sharing/rest/content/items/5dd75c1a544b46c3af01ba5736bfdfa0/resources/styles/root.json?f=pjson",
+          id: "txdot"
+        });
+
+        //map.add(CountyVectorLayer);
+
+        if(title == "txdot")
+        {
+          console.log("already the basemap");
+        }
+        else
+        {
+          map.basemap.baseLayers = CountyVectorLayer;
+        }
+
+        id = "txdotDiv";
+
+        document.getElementById(id).style.borderLeft = "5px solid red";
+        
+      };
+      document.getElementById("txdotDiv").addEventListener("click", txdotBase);
+
+      //Texas google imagery
+      function googleBase(){
+        var title = map.get("basemap.baseLayers.items.0.id");
+        //console.log(title);
+        document.getElementById(id).style.borderLeft = "5px solid rgb(225, 225, 225)";
+      // Name server with CORS enabled for Google Imagery     
+        esriConfig.request.corsEnabledServers.push ("https://txgi.tnris.org");
+
+      // Add Google Imagery WMTS layer
+          google = new WMTSLayer({
+            url: "https://txgi.tnris.org/login/path/pegasus-horizon-castro-comrade/wmts", 
+            serviceMode: "KVP",
+            id: "googles"
+          });
+
+        if(title == "googles")
+        {
+          console.log("already the basemap");
+        }
+        else
+        {
+          map.basemap.baseLayers = google;
+        }
+
+        id = "googleDiv";
+
+        document.getElementById(id).style.borderLeft = "5px solid red";
+
+      };
+      document.getElementById("googleDiv").addEventListener("click", googleBase);
+
+      //Esri Streets
+      function esriStreets(){
+        var title = map.get("basemap.baseLayers.items.0.id");
+        //console.log(title);
+        document.getElementById(id).style.borderLeft = "5px solid rgb(225, 225, 225)";
+        var streets = new VectorTileLayer({
+          url: "https://www.arcgis.com/sharing/rest/content/items/a60a37a27cc140ddad15f919cd5a69f2/resources/styles/root.json?f=pjson",
+          id:"street"
+        });
+
+        if(title == "street")
+        {
+          console.log("already the basemap");
+        }
+        else
+        {
+          map.basemap.baseLayers = streets;
+        }
+      
+        id = "streetsDiv";
+
+        document.getElementById(id).style.borderLeft = "5px solid red";
+      };
+      document.getElementById("streetsDiv").addEventListener("click", esriStreets);
+
+     //OSM
+      function osm(){
+        var title = map.get("basemap.baseLayers.items.0.id");
+        //console.log(title);
+        document.getElementById(id).style.borderLeft = "5px solid rgb(225, 225, 225)";
+        osmLayer = new OpenStreetMapLayer({
+          id: "osm"
+        });
+
+        if(title == "osm")
+        {
+          console.log("already the basemap");
+        }
+        else
+        {
+          map.basemap.baseLayers = osmLayer;
+        }
+
+       id = "osm";
+
+        document.getElementById(id).style.borderLeft = "5px solid red";
+      };
+      document.getElementById("osm").addEventListener("click", osm);
 
 
       var funcTemplate = {
@@ -1070,7 +1256,6 @@
       });
 
       map.add(functionClass);
-      
 
       function functionalSysDisplay(){   
       //var legendBtn = document.getElementById("fcBtn");     
