@@ -163,7 +163,7 @@
 
 
 .navbar-primary-menu li a .glyphicon,
-.navbar-primary-menu li a .esri-icon  {
+.navbar-primary-menu li a .esri-icon {
   margin-right: 6px;
   font-size: 20px;
 }
@@ -209,9 +209,9 @@
 }
 
 
-.navbar-primary-menu li a:hover .glyphicon {
+/*.navbar-primary-menu li a:hover .glyphicon {
   color: orchid;
-}
+}*/
 
 .main-content {
   margin-top: 60px;
@@ -261,7 +261,8 @@
     height: 32px;
     background-color: rgb(225, 225, 225);
     color: #000000;
-    line-height:32px
+    line-height:32px;
+    font-size: 13px;
   }
 
   #driveTexasDiv{
@@ -269,7 +270,8 @@
     background-color: rgb(225, 225, 225);
     color: black;
     text-decoration: none; 
-    line-height:32px  
+    line-height:32px;
+    font-size: 13px;  
   }
 
   #spmDiv{
@@ -277,7 +279,8 @@
     background-color: rgb(225, 225, 225);
     color: black;
     text-decoration: none;  
-    line-height:32px 
+    line-height:32px;
+    font-size: 13px; 
   }
 
   #projectTrackerDiv:hover{    
@@ -318,7 +321,7 @@
   }
 
   .links-label{
-    padding-left: 23px;
+    padding-left: 48px;
 
   }
 
@@ -326,7 +329,8 @@
     font-size: 10px;
   }
 
-  .esri-icon.esri-icon-down{
+  .esri-icon.esri-icon-down
+  {
     position: absolute;
     color: #000000;
     right: 4px;
@@ -335,17 +339,67 @@
     display: inline-block;
   }
 
-  .navbar-primary.collapsed #overlaysDown{
-    display: none;
+   #overlaysDown.glyphicon.glyphicon-menu-down
+  {
+    /*position: absolute;*/
+    color: #000000;
+    left: 95px;
+    /*top: 115px;*/
+    /*right: 4px;*/
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    font-size: 15px;
   }
 
-  .navbar-primary.collapsed #printDown{
-    display: none;
+  #basemapDown.glyphicon.glyphicon-menu-down
+  {
+  /*  position: absolute;*/
+    color: #000000;
+    left: 80px;
+/*    top: 161px;
+    right: 4px;*/
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    font-size: 15px;
   }
 
+  #printDown.glyphicon.glyphicon-menu-down
+  {
+   /* position: absolute;*/
+    color: #000000;
+    left: 130px;
+ /*   top: 206px;
+    right: 4px;*/
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    font-size: 15px;
+  }
+
+  #linksDown.glyphicon.glyphicon-menu-down
+  {
+    /*position: absolute;*/
+    color: #000000;
+    left: 75px;
+/*    top: 295px;
+    right: 4px;*/
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    font-size: 15px;
+  }
+
+
+
+  .navbar-primary.collapsed #overlaysDown,
+  .navbar-primary.collapsed #basemapDown,
+  .navbar-primary.collapsed #printDown,
   .navbar-primary.collapsed #linksDown{
     display: none;
   }
+
 
   #printSingleDiv{
     height: 32px;
@@ -353,6 +407,7 @@
     color: #ddd;
     text-decoration: none; 
     line-height:32px; 
+    font-size: 13px;
   }
 
   #printCountyDiv{
@@ -360,7 +415,8 @@
     background-color: rgb(225, 225, 225);
     color: #ddd;
     text-decoration: none;  
-    line-height:32px 
+    line-height:32px;
+    font-size: 13px; 
   }
 
   #printSingleDiv:hover{    
@@ -378,7 +434,7 @@
   }
 
   .print-label{
-      padding-left: 17px;
+      padding-left: 48px;
       color: #000000;
   }
 
@@ -459,7 +515,7 @@
       /*padding-top: 10px;*/
       width: 141px;
       height: 22px;
-     /* font-size: 11px;*/
+      font-size: 13px;
       color: black;
       padding-left: 8px;
     }
@@ -481,7 +537,7 @@
       /*padding-top: 10px;*/
       width: 181px;
       height: 22px;
-     /* font-size: 11px;*/
+      font-size: 13px;
       color: black;
       padding-left: 8px;
     }
@@ -503,7 +559,7 @@
       /*padding-top: 10px;*/
       width: 157px;
       height: 22px;
-   /*   font-size: 11px;*/
+      font-size: 13px;
       color: black;
       padding-left: 8px;
     }
@@ -522,25 +578,31 @@
     #lwBtn.glyphicon.glyphicon-menu-down{
       background-color: transparent !important;
       width: 30px !important;
-      height: 20px !important;
+      /*height: 20px !important;*/
       border-style: none !important;
       color: black;
+      font-size: 15px;
+      padding-left: 12px;
     }
 
     #erBtn.glyphicon.glyphicon-menu-down{
       background-color: transparent !important;
       width: 30px !important;
-      height: 20px !important;
+      /*height: 20px !important;*/
       border-style: none !important;
       color: black;
+      font-size: 15px;
+      padding-left: 12px;
     }
 
     #fcBtn.glyphicon.glyphicon-menu-down{
       background-color: transparent !important;
       width: 30px !important;
-      height: 20px !important;
+      /*height: 20px !important;*/
       border-style: none !important;
       color: black;
+      font-size: 15px;
+      padding-left: 12px;
     }
 
     #lwBtn.glyphicon.glyphicon-menu-down:hover{
@@ -647,7 +709,7 @@
  #lowLabel,
  #funLabel,
  #evacLabel{
-  padding-left: 4px;
+  padding-left: 19px;
  }
 
  .navbar-primary::-webkit-scrollbar {
@@ -721,6 +783,7 @@
   line-height: 32px;
   color: #000000;
   border-left: 5px solid rgb(225, 225, 225);
+  font-size: 13px;
 }
 
 
@@ -754,7 +817,7 @@
      
     <ul class="navbar-primary-menu">
       <li>
-        <a role="menuitem" tabindex="0" href='#' data-target="#test" data-toggle="collapse" aria-expanded="false" aria-controls="test"><span class="esri-icon esri-icon-layers"></span><span class="nav-label">Overlays</span><span id="overlaysDown" class="esri-icon esri-icon-down"></span></a>
+        <a role="menuitem" tabindex="0" href='#' data-target="#test" data-toggle="collapse" aria-expanded="false" aria-controls="test"><span class="esri-icon esri-icon-layers"></span><span class="nav-label">Overlays</span><span id="overlaysDown" class="glyphicon glyphicon-menu-down"></span></a>
       </li> 
       <div class="collapse" id="test">
         <div id="layerListDiv" class="nav-label">  
@@ -814,7 +877,7 @@
 
       </div> 
       <li>
-        <a role="menuitem" tabindex="0" href='#' data-target="#basemapDiv" data-toggle="collapse" aria-expanded="false" aria-controls="basemapDiv"><span class="esri-icon esri-icon-basemap"></span><span class="nav-label">Basemaps</span><span id="overlaysDown" class="esri-icon esri-icon-down"></span></a>
+        <a role="menuitem" tabindex="0" href='#' data-target="#basemapDiv" data-toggle="collapse" aria-expanded="false" aria-controls="basemapDiv"><span class="esri-icon esri-icon-basemap"></span><span class="nav-label">Basemaps</span><span id="basemapDown" class="glyphicon glyphicon-menu-down"></span></a>
       </li>
       <div class="collapse" id="basemapDiv">       
         <div id="txdotDiv" class="sub-label">TxDOT Basemap</div>
@@ -824,19 +887,22 @@
         <div id="osm" class="sub-label">Open Street Map</div>             
       </div>
       <li> 
-        <a role="menuitem" tabindex="0" href='#' data-target="#printChoice" data-toggle="collapse" aria-expanded="false" aria-controls="printChoice"><span class="esri-icon esri-icon-printer"></span><span class="nav-label">Print</span><span id="printDown" class="esri-icon esri-icon-down"></span></a>
+        <a role="menuitem" tabindex="0" href='#' data-target="#printChoice" data-toggle="collapse" aria-expanded="false" aria-controls="printChoice"><span class="esri-icon esri-icon-printer"></span><span class="nav-label">Print</span><span id="printDown" class="glyphicon glyphicon-menu-down"></span></a>
       </li> 
         <div class="collapse" id="printChoice">
           <div id="printSingleDiv" class="nav-label"> 
-            <a role="menuitem" tabindex="0" href='#' id="print" aria-haspopup="true"><span class="esri-icon esri-icon-browser"></span><span class="print-label">Print Screen</span></a>    
-          </div>      
+            <a role="menuitem" tabindex="0" href='#' id="print" aria-haspopup="true"><span class="print-label">Print Screen</span></a>    
+          </div>   
        
           <div id="printCountyDiv" class="nav-label"> 
-            <a role="menuitem" tabindex="0" href='#' id="printMulti" aria-haspopup="true"><span class="esri-icon esri-icon-collection"></span><span class="print-label">Print County</span></a>    
+            <a role="menuitem" tabindex="0" href='#' data-target="#counties" data-toggle="collapse" id="printMulti" aria-haspopup="true"><span class="print-label">Print County</span></a>    
+          </div>
+          <div class="collapse" id="counties">
+            <span>HELLLLLLLLO</span>
           </div>
         </div>
       <li>
-        <a id="about"><span class="esri-icon esri-icon-question"></span><span class="nav-label">About</span><span id="overlaysDown" class="esri-icon esri-icon-down"></span></a>
+        <a id="about"><span class="esri-icon esri-icon-question"></span><span class="nav-label">About</span></a>
       </li>
       <div id="myModal" class="modal">        
         <div class="modal-content">
@@ -845,17 +911,17 @@
         </div>
       </div>
       <li> 
-        <a href="#" data-target="#links" data-toggle="collapse" aria-expanded="false" aria-controls="links"><span class="esri-icon esri-icon-link-external"></span><span class="nav-label">TxDOT Links</span><span id="linksDown" class="esri-icon esri-icon-down"></span></a>       
+        <a href="#" data-target="#links" data-toggle="collapse" aria-expanded="false" aria-controls="links"><span class="esri-icon esri-icon-link-external"></span><span class="nav-label">TxDOT Links</span><span id="linksDown" class="glyphicon glyphicon-menu-down"></span></a>       
       </li>      
       <div class="collapse" id="links">                     
         <div id="projectTrackerDiv" class="nav-label" onclick="window.open('http://apps.dot.state.tx.us/apps-cq/project_tracker/');">          
-          <img id="projectTrack" src="http://maps.dot.state.tx.us/Images/ODP/Top_Nav/ProjectTracker.png" title="Project Tracker - Texas Department of Transportation" width="20" height="20"><span class="links-label" id="trackerLabel">Project Tracker</span>
+          <span class="links-label" id="trackerLabel">Project Tracker</span>
         </div>      
         <div id="driveTexasDiv" class="nav-label" onclick="window.open('https://drivetexas.org/');">
-          <span class="glyphicon glyphicon-road"></span><span class="links-label">Drive Texas</span>
+          <span class="links-label">Drive Texas</span>
         </div>                                
           <div id="spmDiv" class="nav-label" onclick="window.open('https://www.txdot.gov/apps/statewide_mapping/StatewidePlanningMap.html');">            
-            <img src="http://maps.dot.state.tx.us/Images/ODP/Top_Nav/StatewidePlanningMap.png" title="Statewide Planning Map - Texas Department of Transportation" width="20" height="20"><span class="links-label">Statewide Planning Map</span>  
+            <span class="links-label">Statewide Planning Map</span>  
         </div>
       </div>
     </ul>   
