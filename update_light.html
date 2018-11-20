@@ -208,11 +208,6 @@
   margin-right: 0px !important;
 }
 
-
-/*.navbar-primary-menu li a:hover .glyphicon {
-  color: orchid;
-}*/
-
 .main-content {
   margin-top: 60px;
   margin-left: 200px;
@@ -257,7 +252,9 @@
 
   }
 
-  #projectTrackerDiv{
+  #projectTrackerDiv,
+  #driveTexasDiv,
+  #spmDiv{
     height: 32px;
     background-color: rgb(225, 225, 225);
     color: #000000;
@@ -265,64 +262,15 @@
     font-size: 13px;
   }
 
-  #driveTexasDiv{
-    height: 32px;
-    background-color: rgb(225, 225, 225);
-    color: black;
-    text-decoration: none; 
-    line-height:32px;
-    font-size: 13px;  
-  }
-
-  #spmDiv{
-    height: 32px;
-    background-color: rgb(225, 225, 225);
-    color: black;
-    text-decoration: none;  
-    line-height:32px;
-    font-size: 13px; 
-  }
-
-  #projectTrackerDiv:hover{    
-    background-color: white;
+  #projectTrackerDiv:hover,
+  #driveTexasDiv:hover,
+  #spmDiv:hover{      
     cursor: pointer;
-    color:#000000;
-  }
-
-  #driveTexasDiv:hover{    
-    background-color: white;
-    cursor: pointer;
-    color:#000000;
-  }
-
-  #spmDiv:hover{
-    cursor: pointer;
-    background-color: white;
-    color:#000000;  
-    
-  }
-
-
-
-
-  .glyphicon.glyphicon-road{
-    font-size: 1.25em !important;
-    top: 4px !important;
-    width: 20px !important;
-  }
-
-  #spmDiv img{
-    /*-webkit-filter: opacity(.8) drop-shadow(0 0 0 gray);*/
-    filter:invert(100%);
-  }
-
-  #projectTrackerDiv img{
-    filter:invert(100%);
+    color:red;
   }
 
   .links-label{
     padding-left: 48px;
-
   }
 
   .links.dropdowns{
@@ -339,59 +287,49 @@
     display: inline-block;
   }
 
-   #overlaysDown.glyphicon.glyphicon-menu-down
-  {
-    /*position: absolute;*/
+   #overlaysDown.glyphicon.glyphicon-menu-down,
+   #overlaysDown.glyphicon.glyphicon-menu-up
+  {    
     color: #000000;
     left: 95px;
-    /*top: 115px;*/
-    /*right: 4px;*/
     overflow: hidden;
     white-space: nowrap;
     display: inline-block;
     font-size: 15px;
   }
 
-  #basemapDown.glyphicon.glyphicon-menu-down
-  {
-  /*  position: absolute;*/
+  #basemapDown.glyphicon.glyphicon-menu-down,
+  #basemapDown.glyphicon.glyphicon-menu-up
+  {  
     color: #000000;
     left: 80px;
-/*    top: 161px;
-    right: 4px;*/
     overflow: hidden;
     white-space: nowrap;
     display: inline-block;
     font-size: 15px;
   }
 
-  #printDown.glyphicon.glyphicon-menu-down
-  {
-   /* position: absolute;*/
+  #printDown.glyphicon.glyphicon-menu-down,
+  #printDown.glyphicon.glyphicon-menu-up
+  {   
     color: #000000;
     left: 130px;
- /*   top: 206px;
-    right: 4px;*/
     overflow: hidden;
     white-space: nowrap;
     display: inline-block;
     font-size: 15px;
-  }
+  } 
 
-  #linksDown.glyphicon.glyphicon-menu-down
-  {
-    /*position: absolute;*/
+  #linksDown.glyphicon.glyphicon-menu-down,
+  #linksDown.glyphicon.glyphicon-menu-up
+  {    
     color: #000000;
     left: 75px;
-/*    top: 295px;
-    right: 4px;*/
     overflow: hidden;
     white-space: nowrap;
     display: inline-block;
     font-size: 15px;
   }
-
-
 
   .navbar-primary.collapsed #overlaysDown,
   .navbar-primary.collapsed #basemapDown,
@@ -400,74 +338,61 @@
     display: none;
   }
 
-
   #printSingleDiv{
     height: 32px;
-    background-color: rgb(225, 225, 225);
-    color: #ddd;
+    background-color: rgb(225, 225, 225);    
     text-decoration: none; 
     line-height:32px; 
     font-size: 13px;
+    padding-left: 63px;
+    color: #000000;
   }
 
-  #printCountyDiv{
+   #printCountyDiv{
     height: 32px;
-    background-color: rgb(225, 225, 225);
-    color: #ddd;
-    text-decoration: none;  
-    line-height:32px;
-    font-size: 13px; 
+    background-color: rgb(225, 225, 225);    
+    text-decoration: none;      
+    font-size: 13px;     
   }
 
   #printSingleDiv:hover{    
-    background-color: white;
+    /*background-color: white;*/
     cursor: pointer;
-    color:#000000;
+    color: red !important;
     text-decoration: none;
   }
 
   #printCountyDiv:hover{
     cursor: pointer;
-    background-color: white;
-    color:#000000;  
-    
+    /*background-color: white;*/
+    color:#000000;    
   }
 
-  .print-label{
-      padding-left: 48px;
-      color: #000000;
-  }
+/*  .print-label{
+      padding-left: 48px;     
+  }*/
 
   #printCountyDiv a:hover{
-    text-decoration: none;   
+    text-decoration: none;  
   }
 
   #printSingleDiv a:hover{
-    text-decoration: none;    
+    text-decoration: none;  
+    color: red;  
   }
 
   .esri-icon.esri-icon-browser{
     font-size: 20px;
-    margin-right: 6px;
-   
+    margin-right: 6px;   
   }
 
   .esri-icon.esri-icon-collection{
     font-size: 20px;
-    margin-right: 6px;
-    
+    margin-right: 6px;    
   }
 
   #printSingleDiv a,
   #printCountyDiv a{
-    color: #000000;
-  }
-
-
-  #printSingleDiv:hover .print-label,
-  #printCountyDiv:hover .print-label,
-  #printSingleDiv:hover a,
-  #printCountyDiv:hover a{
     color: #000000;
   }
 
@@ -476,15 +401,13 @@
   }
 
   .esri-legend__layer-body{
-    color: black !important;  
-       
+    color: black !important;         
   }
 
   .esri-legend__service {   
     padding-left: 12px !important;
-    padding: 0px !important;
-  
-}
+    padding: 0px !important;  
+  }
 
   .esri-legend{
     white-space: normal;
@@ -511,22 +434,13 @@
     }
 
     .checkboxEvacRoute{
-      display: inline-flex;
-      /*padding-top: 10px;*/
+      display: inline-flex;     
       width: 141px;
       height: 22px;
       font-size: 13px;
       color: black;
       padding-left: 8px;
     }
-
-    .evacRouteLegendBtn{
-      display: inline;
-      position: absolute;
-      color: #000000;
-      right: 4px;
-    }
-
 
     .funcClassContainer{
       width: 100%;      
@@ -542,11 +456,13 @@
       padding-left: 8px;
     }
 
-    .funcClassLengendBtn{
+    .funcClassLengendBtn,
+    .lowWaterLengendBtn,
+    .evacRouteLegendBtn{
       display: inline;
       position: absolute;
       color: #000000;
-      right: 4px;
+      right: 2px;
     }
 
     .lowWaterContainer{
@@ -555,8 +471,7 @@
     }
 
     .checkboxLowWater{
-      display: inline-flex;
-      /*padding-top: 10px;*/
+      display: inline-flex;      
       width: 157px;
       height: 22px;
       font-size: 13px;
@@ -564,27 +479,12 @@
       padding-left: 8px;
     }
 
-    .lowWaterLengendBtn{
-      display: inline;  
-      position: absolute;
-      color: #000000;
-      right: 4px;    
-    }
-
     #layerListDiv{
       background-color: rgb(225, 225, 225);
     }
 
-    #lwBtn.glyphicon.glyphicon-menu-down{
-      background-color: transparent !important;
-      width: 30px !important;
-      /*height: 20px !important;*/
-      border-style: none !important;
-      color: black;
-      font-size: 15px;
-      padding-left: 12px;
-    }
-
+    #lwBtn.glyphicon.glyphicon-menu-down,
+    #fcBtn.glyphicon.glyphicon-menu-down,
     #erBtn.glyphicon.glyphicon-menu-down{
       background-color: transparent !important;
       width: 30px !important;
@@ -595,7 +495,10 @@
       padding-left: 12px;
     }
 
-    #fcBtn.glyphicon.glyphicon-menu-down{
+
+     #lwBtn.glyphicon.glyphicon-menu-up,
+     #erBtn.glyphicon.glyphicon-menu-up,
+     #fcBtn.glyphicon.glyphicon-menu-up{
       background-color: transparent !important;
       width: 30px !important;
       /*height: 20px !important;*/
@@ -605,23 +508,35 @@
       padding-left: 12px;
     }
 
-    #lwBtn.glyphicon.glyphicon-menu-down:hover{
-      color: white;
-    }
 
-    #erBtn.glyphicon.glyphicon-menu-down:hover{
-      color: white;
-    }
-
+    #lwBtn.glyphicon.glyphicon-menu-down:hover,
+    #erBtn.glyphicon.glyphicon-menu-down:hover,
     #fcBtn.glyphicon.glyphicon-menu-down:hover{
-      color: white;
+      color: grey;
+    }
+
+    #lwBtn.glyphicon.glyphicon-menu-up:hover,
+    #erBtn.glyphicon.glyphicon-menu-up:hover,
+    #fcBtn.glyphicon.glyphicon-menu-up:hover{
+      color: grey;
+    }
+
+    #lwBtn.glyphicon.glyphicon-menu-down:focus,
+    #erBtn.glyphicon.glyphicon-menu-down:focus,
+    #fcBtn.glyphicon.glyphicon-menu-down:focus{
+      outline: none;
+    }
+
+    #lwBtn.glyphicon.glyphicon-menu-up:focus,
+    #erBtn.glyphicon.glyphicon-menu-up:focus,
+    #fcBtn.glyphicon.glyphicon-menu-up:focus{
+      outline: none;
     }
 
   #legendEvacRouteDiv{
     padding-right: 2px;
     padding-left: 2px;    
-    background-color: rgb(225, 225, 225);
- 
+    background-color: rgb(225, 225, 225); 
   }
 
   #legendFuncClassDiv{
@@ -672,126 +587,194 @@
     font-size: 20px;
   }
 
-.middle,
-.funMiddle, .evacMiddle {
-  text-align: center;
-  margin: 0 auto;
-  /*padding: 2rem;*/
-}
+  .middle,
+  .funMiddle, .evacMiddle {
+    text-align: center;
+    margin: 0 auto;
+    /*padding: 2rem;*/
+  }
 
 
-.active,
-.activeFun,
-.activeEvac {
-  color: green;
-} 
+  .active,
+  .activeFun,
+  .activeEvac {
+    color: green;
+  } 
 
 
-#offFun,
-#offLow,
-#offEvac{
-  color: red;
-}
+  #offFun,
+  #offLow,
+  #offEvac{
+    color: grey;
+  }
 
-/*.active:hover,
-.activeFun:hover,
-.activeEvac:hover {
-  color: blue;
-} 
-
-
-#offFun:hover,
-#offLow:hover,
-#offEvac:hover{
-  color: yellow;
-}*/
  
- #lowLabel,
- #funLabel,
- #evacLabel{
-  padding-left: 19px;
- }
+   #lowLabel,
+   #funLabel,
+   #evacLabel{
+    padding-left: 19px;
+   }
 
- .navbar-primary::-webkit-scrollbar {
-    width: 0.4em;
-}
- 
-.navbar-primary::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
- 
-.navbar-primary::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-}
+   .navbar-primary::-webkit-scrollbar {
+      width: 0.4em;
+  }
+   
+  .navbar-primary::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  }
+   
+  .navbar-primary::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
 
-#basemapDiv{
-  width: 100%;  
-  background-color: rgb(225, 225, 225);
-}
+  #basemapDiv{
+    width: 100%;  
+    background-color: rgb(225, 225, 225);
+  }
 
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
+  /* The Modal (background) */
+  .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
 
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
+  /* Modal Content */
+  .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+  }
 
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
+  /* The Close Button */
+  .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+  }
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
+  .close:hover,
+  .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+  #about:hover{
     cursor: pointer;
-}
+  }
 
-#about:hover{
-  cursor: pointer;
-}
+  .navbar-primary-menu li a:focus {
+    outline: none;
+  }
 
-.navbar-primary-menu li a:focus {
-  outline: none;
-}
-
-#txdotDiv,#esriLightGray,#googleDiv,
-#streetsDiv, #osm{
-  height: 32px;
-  line-height: 32px;
-  color: #000000;
-  border-left: 5px solid rgb(225, 225, 225);
-  font-size: 13px;
-}
+  #txdotDiv,#esriLightGray,#googleDiv,
+  #streetsDiv, #osm{
+    height: 32px;
+    line-height: 32px;
+    color: #000000;
+    border-left: 5px solid rgb(225, 225, 225);
+    font-size: 13px;
+  }
 
 
-#txdotDiv:hover,#esriLightGray:hover,#googleDiv:hover,
-#streetsDiv:hover, #osm:hover{  
-  cursor: pointer;
-  color: red;  
+  #txdotDiv:hover,#esriLightGray:hover,#googleDiv:hover,
+  #streetsDiv:hover, #osm:hover{  
+    cursor: pointer;
+    color: red;  
+  }
+
+  #county
+  {
+    width: 155px; 
+    font-size: 12px;
+  }
+
+  #counties
+  {
+    padding-left: 46px;
+  }
+
+  #countyButton
+  {
+    position: relative;
+    background-color: #143c5c;
+    color: white;
+    border: none;   
+    height: 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    right: -2px;
+  }
+
+  #countyButton:hover
+  {
+    /*color: gray; */
+    border-radius: 8px;
+  }
+
+  #singleButton
+  {
+    position: relative;
+    background-color: #143c5c;
+    color: white;  
+    border: none;   
+    height: 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    right: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  #singleButton:hover
+  {    
+    border-radius: 8px;
+  }
+
+  .esri-attribution__powered-by {
+    display: none;
+  }
+
+  #extent{
+    border-radius: 0 !important;
+    height: 30px;
+    width: 33px;
+    position: absolute;
+    top: 85px;
+    right: 15px;
+    z-index: 50;
+    padding: 5px 6px 5px 6px;
+    border: 1px solid transparent;
+    background-image: url("../Images/TexasIcon3.png") !important;
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+    box-shadow: 0.5px 0.5px 2px #888888;
 }
+
+#extent:hover{
+  /*background-color: #C0C0C0;  light grey*/
+  background-color: #f0f0f0;
+  /*border-radius: 0 !important;*/
+}
+
+
 
 
 
@@ -801,7 +784,7 @@
 </head>
 
 <body>
-
+<button type="button" id="extent" class="btn btn-default btn-block" data-toggle="tooltip" title="Default map view"></button>
 
   <nav class="navbar-primary">
     <div id="header">
@@ -817,7 +800,7 @@
      
     <ul class="navbar-primary-menu">
       <li>
-        <a role="menuitem" tabindex="0" href='#' data-target="#test" data-toggle="collapse" aria-expanded="false" aria-controls="test"><span class="esri-icon esri-icon-layers"></span><span class="nav-label">Overlays</span><span id="overlaysDown" class="glyphicon glyphicon-menu-down"></span></a>
+        <a role="menuitem" tabindex="0" href='#' data-target="#test" data-toggle="collapse" aria-expanded="false" aria-controls="test" id="overlays"><span class="esri-icon esri-icon-layers"></span><span class="nav-label">Overlays</span><span id="overlaysDown" class="glyphicon glyphicon-menu-down"></span></a>
       </li> 
       <div class="collapse" id="test">
         <div id="layerListDiv" class="nav-label">  
@@ -877,7 +860,7 @@
 
       </div> 
       <li>
-        <a role="menuitem" tabindex="0" href='#' data-target="#basemapDiv" data-toggle="collapse" aria-expanded="false" aria-controls="basemapDiv"><span class="esri-icon esri-icon-basemap"></span><span class="nav-label">Basemaps</span><span id="basemapDown" class="glyphicon glyphicon-menu-down"></span></a>
+        <a role="menuitem" tabindex="0" href='#' data-target="#basemapDiv" data-toggle="collapse" aria-expanded="false" aria-controls="basemapDiv" id="basemaps"><span class="esri-icon esri-icon-basemap"></span><span class="nav-label">Basemaps</span><span id="basemapDown" class="glyphicon glyphicon-menu-down"></span></a>
       </li>
       <div class="collapse" id="basemapDiv">       
         <div id="txdotDiv" class="sub-label">TxDOT Basemap</div>
@@ -887,20 +870,34 @@
         <div id="osm" class="sub-label">Open Street Map</div>             
       </div>
       <li> 
-        <a role="menuitem" tabindex="0" href='#' data-target="#printChoice" data-toggle="collapse" aria-expanded="false" aria-controls="printChoice"><span class="esri-icon esri-icon-printer"></span><span class="nav-label">Print</span><span id="printDown" class="glyphicon glyphicon-menu-down"></span></a>
+        <a role="menuitem" tabindex="0" href='#' data-target="#printChoice" data-toggle="collapse" aria-expanded="false" aria-controls="printChoice" id="print"><span class="esri-icon esri-icon-printer"></span><span class="nav-label">Print</span><span id="printDown" class="glyphicon glyphicon-menu-down"></span></a>
       </li> 
         <div class="collapse" id="printChoice">
-          <div id="printSingleDiv" class="nav-label"> 
-            <a role="menuitem" tabindex="0" href='#' id="print" aria-haspopup="true"><span class="print-label">Print Screen</span></a>    
+          <div id="printSingleDiv" class="nav-label">Print Current Extent Map 
+          <!-- <a href="#"><button type="button" id="singleButton" class="far fa-map"></button></a> -->
+          
+            <!-- <a role="menuitem" tabindex="0" href='#' id="print" aria-haspopup="true"><span class="print-label">Print Map</span></a>  -->   
           </div>   
        
           <div id="printCountyDiv" class="nav-label"> 
-            <a role="menuitem" tabindex="0" href='#' data-target="#counties" data-toggle="collapse" id="printMulti" aria-haspopup="true"><span class="print-label">Print County</span></a>    
-          </div>
-          <div class="collapse" id="counties">
-            <span>HELLLLLLLLO</span>
+    <!--         <a role="menuitem" tabindex="0" href='#' data-target="#counties" data-toggle="collapse" id="printMulti" aria-haspopup="true"><span class="print-label">Print Entire County</span><span id="countyDown" class="glyphicon glyphicon-menu-down"></span></a>   -->  
+            <div class="nav-label" id="counties">
+              <!-- <label for="county">County:</label> -->
+              <input type="text" id="county" list="countyList" placeholder="Print County Mapbook">
+              <datalist id="countyList">
+              </datalist>
+              <a href="#" data-toggle="tooltip" title="Download County">
+              <button type="button" id="countyButton" class="fas fa-download"></button></a>
+            </div>
           </div>
         </div>
+          <!-- <div class="collapse" id="counties">            <
+            <input type="text" id="county" list="countyList" placeholder="Print Entire County">
+            <datalist id="countyList">
+            </datalist>
+            <button type="button" id="countyButton">Download</button>
+          </div>
+        </div> -->
       <li>
         <a id="about"><span class="esri-icon esri-icon-question"></span><span class="nav-label">About</span></a>
       </li>
@@ -911,7 +908,7 @@
         </div>
       </div>
       <li> 
-        <a href="#" data-target="#links" data-toggle="collapse" aria-expanded="false" aria-controls="links"><span class="esri-icon esri-icon-link-external"></span><span class="nav-label">TxDOT Links</span><span id="linksDown" class="glyphicon glyphicon-menu-down"></span></a>       
+        <a href="#" data-target="#links" data-toggle="collapse" aria-expanded="false" aria-controls="links" id="link"><span class="esri-icon esri-icon-link"></span><span class="nav-label">TxDOT Links</span><span id="linksDown" class="glyphicon glyphicon-menu-down"></span></a>       
       </li>      
       <div class="collapse" id="links">                     
         <div id="projectTrackerDiv" class="nav-label" onclick="window.open('http://apps.dot.state.tx.us/apps-cq/project_tracker/');">          
@@ -929,6 +926,8 @@
   <div id="mapViewDiv"></div>
 
 
+
+
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
    
@@ -938,14 +937,74 @@
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
+<!--     <script>
+      var dojoConfig = {
+        has: {"esri-featurelayer-webgl": 1}
+      };
+    </script> -->
+
       <!-- ArcGIS JS 4 -->
-  <script src="https://js.arcgis.com/4.8/"></script>
+  
+
+     <!-- Enable WebGL Rendering-->
+    <script>
+        var dojoConfig = {
+            has: {"esri-featurelayer-webgl": 1}
+        };
+
+      </script>
+
+      <script src="https://js.arcgis.com/4.8/"></script>
+
+    <script type="text/javascript">
+
+        var textByLine;
+
+        function readTextFile(file)
+        {
+            var rawFile = new XMLHttpRequest();
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        //fileDisplayArea.innerText = allText 
+                        textByLine = allText.split(/,/);
+                        //console.log(allText);                  
+                    }
+                }
+            }
+            rawFile.send(null);
 
 
+        }
+
+        readTextFile("./Counties.txt");
+
+        //var options = '';
+        var options;
+
+        for(var i = 0; i < textByLine.length; i++){
+          //options += '<option value="'+textByLine[i]+'"/>';
+           options += '<option value="'+ textByLine[i] +'"></option>';       
+          //console.log(textByLine[i]);
+          //<option value="Travis">Travis</option>
+        };
+
+        document.getElementById('countyList').innerHTML = options;
+  </script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <script>
    require([
       "esri/config",
+      "esri/core/watchUtils",
       // ArcGIS
       "esri/Map",
       "esri/WebMap",
@@ -973,7 +1032,7 @@
       "esri/layers/VectorTileLayer",
       "esri/Basemap",
       "dojo/domReady!"
-    ], function(esriConfig, Map, WebMap, MapView, WMTSLayer, Home, Zoom, Compass, Search, Legend, BasemapToggle, ScaleBar, Attribution, FeatureLayer, Query, QueryTask, TemplateOptions, PrintTask, PrintParameters, PrintTemplate, LayerList, OpenStreetMapLayer, VectorTileLayer, Basemap) {
+    ], function(esriConfig, watchUtils, Map, WebMap, MapView, WMTSLayer, Home, Zoom, Compass, Search, Legend, BasemapToggle, ScaleBar, Attribution, FeatureLayer, Query, QueryTask, TemplateOptions, PrintTask, PrintParameters, PrintTemplate, LayerList, OpenStreetMapLayer, VectorTileLayer, Basemap) {
       /******************************************************************
        *
        * Create the map, view and widgets
@@ -985,6 +1044,8 @@
       //     id: "9f91f911f58540ceaac0300c55e18fbb"
       //   }
       // });
+      var beginScale;
+
      $('.btn-expand-collapse').click(function(e) {
         $('.navbar-primary').toggleClass('collapsed'); 
         
@@ -1015,8 +1076,109 @@
               modal.style.display = "none";
           }
       }
-      
+
+
+
+
+      function overlaysButton(){
+        var btn = document.getElementById("overlaysDown");
+        if(btn.classList.contains("glyphicon-menu-down"))
+        {
+          btn.classList.remove("glyphicon-menu-down");
+          btn.classList.add("glyphicon-menu-up");
+        }
+        else
+        {
+          btn.classList.remove("glyphicon-menu-up");
+          btn.classList.add("glyphicon-menu-down")
+        }       
+
+      };
+
+      document.getElementById("overlays").addEventListener("click", overlaysButton);
+
+      function basemapsButton(){
+        var btn = document.getElementById("basemapDown");
+        if(btn.classList.contains("glyphicon-menu-down"))
+        {
+          btn.classList.remove("glyphicon-menu-down");
+          btn.classList.add("glyphicon-menu-up");
+        }
+        else
+        {
+          btn.classList.remove("glyphicon-menu-up");
+          btn.classList.add("glyphicon-menu-down")
+        }       
+
+      };
+
+      document.getElementById("basemaps").addEventListener("click", basemapsButton);
+
+      function printButton(){
+        var btn = document.getElementById("printDown");
+        if(btn.classList.contains("glyphicon-menu-down"))
+        {
+          btn.classList.remove("glyphicon-menu-down");
+          btn.classList.add("glyphicon-menu-up");
+        }
+        else
+        {
+          btn.classList.remove("glyphicon-menu-up");
+          btn.classList.add("glyphicon-menu-down")
+        }       
+
+      };
+
+      document.getElementById("print").addEventListener("click", printButton);
+
+
+      function linksButton(){
+        var btn = document.getElementById("linksDown");
+        if(btn.classList.contains("glyphicon-menu-down"))
+        {
+          btn.classList.remove("glyphicon-menu-down");
+          btn.classList.add("glyphicon-menu-up");
+        }
+        else
+        {
+          btn.classList.remove("glyphicon-menu-up");
+          btn.classList.add("glyphicon-menu-down")
+        }       
+
+      };
+
+      document.getElementById("link").addEventListener("click", linksButton);
+
+      //////////////////////////////////////////////////////////////////////////////////////
+      // Get the value from the drop down data list
+      // On button click grab value and download zip
+
+      var val;
   
+      $(document).on("input", "#county", function(){
+        val = this.value;
+        
+        if($('#countyList').find('option').filter(function(){
+              return this.value.toUpperCase() === val.toUpperCase();        
+          }).length) {
+              //send ajax request
+              //console.log(this.value);
+              val = this.value;
+              val = val.toUpperCase();
+              //console.log(val);
+          }
+          
+      });
+
+      function printCounty()
+      {
+        //console.log(val);
+        window.location = 'https://www.dot.state.tx.us/apps-cg/grid_search/_includes/countymapbook/Zipfiles/'+ val + '.zip'
+      };
+      
+      document.getElementById("countyButton").addEventListener("click", printCounty);
+      
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
 
       function menuSlide(){
         var slidebtn = document.getElementById("slidebtn");        
@@ -1056,6 +1218,16 @@
       }
     });
 
+      //sets view back to orginal extent (whole state of TX)
+      function homeExtent(){
+        mapView.center = [-99.341389, 31.132222];
+        mapView.zoom = 5;
+        mapView.spatialReference = {wkid:102100};
+      };
+
+      //get exten function is execute through extent button
+      document.getElementById("extent").addEventListener("click", homeExtent);
+
 
 
       // Search - add to navbar
@@ -1063,6 +1235,7 @@
         container: "searchWidgetDiv",
         view: mapView,
         allPlaceholder: "District or County",
+        includeDefaultSources: false,
         sources: [{
           featureLayer: new FeatureLayer({
             url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Districts/FeatureServer/0",
@@ -1112,10 +1285,10 @@
 
 
       // Map widgets
-      var home = new Home({
-        view: mapView
-      });
-      mapView.ui.add(home, "top-right");
+      // var home = new Home({
+      //   view: mapView
+      // });
+      // mapView.ui.add(home, "top-right");
 
       var zoom = new Zoom({
         view: mapView
@@ -1313,6 +1486,7 @@
 
       const functionClass = new FeatureLayer({
         url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Functional_Classification/FeatureServer/0",
+        definitionExpression: "RTE_PRFX = 'IH' AND RDBD_TYPE = 'KG'",
         legendEnabled: true,
         visible: false,
         popupEnabled: true,
@@ -1352,6 +1526,8 @@
       };
 
       document.getElementById("fcBtn").addEventListener("click", fcLegendDisplay);
+
+
 
       // function funcIcon(){
       //   var icon = document.getElementById("funcClick");        
@@ -1600,8 +1776,42 @@
         }]
       });
 
+      // USE WATCHUTILS TO LISTEN FOR ZOOM-END
+    // https://community.esri.com/thread/220324-how-to-simulate-listening-for-zoom-end-in-the-4x-framework
+    watchUtils.when(mapView, "interacting", function() {
+      beginScale = mapView.get('zoom');
+    });
+
+    watchUtils.when(mapView, "stationary", function() {
+      const currentScale = mapView.get('zoom');
+      if (currentScale !== beginScale) {
+        console.log("zoom done",mapView.zoom);
+        scaleDependentQueries();
+      }
+    });
 
 
+    // NOTE THAT WEBGL MUST BE ENABLED TO AVOID THIS ERROR:
+    // https://community.esri.com/thread/217436-feature-layer-definition-expression-error
+    function scaleDependentQueries() {  
+        if (functionClass.visible) {
+            if (mapView.zoom<9) {
+               functionClass.definitionExpression = "RTE_PRFX ='IH' AND RDBD_TYPE = 'KG'";
+            }
+            if (mapView.zoom>8&&mapView.zoom<11) {
+               functionClass.definitionExpression = "(RTE_PRFX IN ('IH', 'US') OR F_SYSTEM IN (1,2,3)) AND RDBD_TYPE = 'KG'";
+
+            }
+
+            if (mapView.zoom>10&&mapView.zoom<13) {
+               functionClass.definitionExpression = "RDBD_TYPE = 'KG'";
+            }
+
+            if (mapView.zoom>=13) {
+               functionClass.definitionExpression = "";
+            }
+        }
+    }
 
 
 
