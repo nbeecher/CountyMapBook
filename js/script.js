@@ -47,21 +47,21 @@
 
       // Get the <span> element that closes the modal
       var span = document.getElementsByClassName("close")[0];
-
+      
       // When the user clicks the button, open the modal 
       btn.onclick = function() {
-          modal.style.display = "block";
+          modal.style.display = "block";       
       }
 
       // When the user clicks on <span> (x), close the modal
       span.onclick = function() {
-          modal.style.display = "none";
+          modal.style.display = "none";          
       }
 
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
           if (event.target == modal) {
-              modal.style.display = "none";
+              modal.style.display = "none";              
           }
       }
 
@@ -785,6 +785,9 @@
         // $('#loaderOverlay').show();
         // document.getElementById("extent").disabled = true;
         // document.getElementById("print").disabled = true;
+        var div= document.createElement("div");
+        div.className += "overlay";
+        document.body.appendChild(div);
 
 
         //get extent of the map on the view
@@ -929,6 +932,7 @@
           function printResult(result){
               console.log(result.url);
               window.open(result.url, "_blank");
+              document.body.removeChild(div);
               // $('#loader').hide();
               // $('#loaderOverlay').hide();
               // document.getElementById("extent").disabled = false;
@@ -936,6 +940,7 @@
           }
           function printError(result){
               console.log(result);
+              document.body.removeChild(div);
           }
 
         };
@@ -944,7 +949,7 @@
         DistName = [];
         dName = "";
         CountName = [];
-        cName = "";
+        cName = "";        
       };
 
       //print task is exectued by print button

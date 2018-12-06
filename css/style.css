@@ -232,7 +232,8 @@
 
   #projectTrackerDiv,
   #driveTexasDiv,
-  #spmDiv{
+  #spmDiv,
+  #gridSearchDiv{
     height: 32px;
     background-color: rgb(225, 225, 225);
     color: #000000;
@@ -242,7 +243,8 @@
 
   #projectTrackerDiv:hover,
   #driveTexasDiv:hover,
-  #spmDiv:hover{      
+  #spmDiv:hover,
+  #gridSearchDiv:hover{      
     cursor: pointer;
     color:red;
   }
@@ -529,6 +531,10 @@
     font-weight: normal !important;
   }
 
+ .fa-2x {
+    font-size: 1.5em !important;
+}
+
   .fa-toggle-off{
     color: gray;
     cursor: pointer;
@@ -635,6 +641,11 @@
       width: 80%;
   }
 
+  .modal-content p{
+    /*word-break: break-all;*/
+    white-space: normal;
+  }
+
   /* The Close Button */
   .close {
       color: #aaaaaa;
@@ -735,7 +746,7 @@
     position: absolute;
     top: 85px;
     right: 15px;
-    z-index: 50;
+    z-index: 7;
     padding: 5px 6px 5px 6px;
     border: 1px solid transparent;
     background-image: url("../Images/TexasIcon3.png") !important;
@@ -750,4 +761,16 @@
   /*background-color: #C0C0C0;  light grey*/
   background-color: #f0f0f0;
   /*border-radius: 0 !important;*/
+}
+
+.overlay {
+    background-color:#b3b3b3;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    top: 0px;
+    left: 0px;
+    opacity: 0.6; /* in FireFox */ 
+    filter: alpha(opacity=50); /* in IE */
 }
